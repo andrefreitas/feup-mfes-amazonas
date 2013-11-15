@@ -1,0 +1,25 @@
+class Piece
+	types
+		private Position :: x : nat
+												y : nat;					
+	values
+
+	instance variables
+		private position : Position;
+	operations
+		public Piece : nat * nat ==> Piece
+			Piece(x,y) == (position := mk_Position(x,y));
+		public setX : nat ==> ()
+			setX(x) == (position.x := x);
+		public setY : nat ==> ()
+			setY(y) == (position.y := y);
+		public getX : () ==> nat
+			getX() == (return position.x);
+		public getY : () ==> nat
+			getY() == (return position.y);
+		
+	functions
+	-- TODO Define functiones here
+	traces
+	-- TODO Define Combinatorial Test Traces here
+end Piece
