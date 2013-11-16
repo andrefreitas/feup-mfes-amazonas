@@ -1,0 +1,43 @@
+class Board
+	types
+	-- TODO Define types here
+	values
+	-- TODO Define values here
+	instance variables
+		private amazons : seq of Amazon;
+		private arrows : seq of Arrow := [];
+		inv len amazons = 8;
+	operations
+		public Board: () ==> Board
+			Board() == (
+				dcl w1: Amazon := new Amazon(0, 3, <White>);
+				dcl w2: Amazon := new Amazon(3, 0, <White>);
+				dcl w3: Amazon := new Amazon(9, 3, <White>);
+				dcl w4: Amazon := new Amazon(6, 0, <White>);
+				dcl b1: Amazon := new Amazon(0, 6, <Black>);
+				dcl b2: Amazon := new Amazon(3, 9, <Black>);
+				dcl b3: Amazon := new Amazon(6, 9, <Black>);
+				dcl b4: Amazon := new Amazon(9, 6, <Black>);
+				amazons := [w1, w2, w3, w4, b1, b2, b3, b4];
+			);
+			
+		public getAmazons: () ==> seq of Amazon
+			getAmazons() == ( return amazons );
+			
+		public getAmazonIndexAt : nat * nat ==> nat
+			getAmazonIndexAt(x, y) == (
+				for i = 0 to len amazons by 1 do (
+					if amazons(i).getX() = x and amazons(i).getY() = y
+					then return i;
+				);
+				return -1;
+			);
+			
+	
+			
+
+	functions
+	-- TODO Define functiones here
+	traces
+	-- TODO Define Combinatorial Test Traces here
+end Board

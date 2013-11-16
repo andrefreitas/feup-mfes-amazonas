@@ -1,0 +1,15 @@
+class Arrow is subclass of Piece
+types
+-- TODO Define types here
+values
+-- TODO Define values here
+instance variables
+-- TODO Define instance variables here
+operations
+	public Arrow : nat * nat ==> Arrow
+		Arrow(x,y) == (Piece(x,y));
+functions
+-- TODO Define functiones here
+traces
+-- TODO Define Combinatorial Test Traces here
+end Arrow

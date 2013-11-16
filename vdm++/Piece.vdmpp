@@ -1,7 +1,8 @@
 class Piece
 	types
 		private Position :: x : nat
-												y : nat;					
+												y : nat
+		inv p == p.x >= 0 and p.x < 10 and p.y >= 0 and p.y <= 10;			
 	values
 
 	instance variables

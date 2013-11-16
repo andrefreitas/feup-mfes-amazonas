@@ -1,0 +1,16 @@
+class Amazon is subclass of Piece
+	types
+		public Color = <Black> | <White>;
+	values
+	-- TODO Define values here
+	instance variables
+		private color: Color;
+	operations
+		public Amazon: nat * nat * Color ==> Amazon
+				Amazon(x, y, c) == (color := c; Piece(x,y); );
+	-- TODO Define operations here
+	functions
+	-- TODO Define functiones here
+	traces
+	-- TODO Define Combinatorial Test Traces here
+end Amazon
