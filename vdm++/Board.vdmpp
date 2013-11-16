@@ -33,11 +33,13 @@ class Board
 				return -1;
 			);
 			
-	
+		-- move : moves a amazon on the board
+		public move : nat * nat * nat * nat ==> ()
+			move(x, y, new_x, new_y) == (
+				-- TODO: Implementar
+			);
 			
 
 	functions
-	-- TODO Define functiones here
 	traces
-	-- TODO Define Combinatorial Test Traces here
 end Board
