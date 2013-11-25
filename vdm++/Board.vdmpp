@@ -3,9 +3,9 @@ class Board
 	values
 	-- TODO Define values here
 	instance variables
-		private positions : map Piece`Position to Piece := {|->};
-		private arrows : seq of Arrow:= [];
-		inv len {a | a in set (rng positions) & sameclass(a, Amazon)} = 8;
+		private positions : map Piece`Position to Piece;
+		private arrows : seq of Arrow := []; 
+		inv card {a | a in set (rng positions) & isofclass(Amazon, a)} = 8;
 	operations
 		public Board: () ==> Board
 			Board() == (
@@ -17,19 +17,16 @@ class Board
 				dcl b2: Amazon := new Amazon(3, 9, <Black>);
 				dcl b3: Amazon := new Amazon(6, 9, <Black>);
 				dcl b4: Amazon := new Amazon(9, 6, <Black>);
-				positions := {mk_Piece`Position(0,3) :-> w1,
-											mk_Piece`Position(3,0) :-> w2,
-											mk_Piece`Position(9,3) :-> w3,
-											mk_Piece`Position(6,0) :-> w4,
-											mk_Piece`Position(0,6) :-> b1,
-											mk_Piece`Position(3,9) :-> b2,
-											mk_Piece`Position(6,9) :-> b3,
-											mk_Piece`Position(9,6) :-> b4
+				positions := {mk_Piece`Position(0,3) |-> w1,
+											mk_Piece`Position(3,0) |-> w2,
+											mk_Piece`Position(9,3) |-> w3,
+											mk_Piece`Position(6,0) |-> w4,
+											mk_Piece`Position(0,6) |-> b1,
+											mk_Piece`Position(3,9) |-> b2,
+											mk_Piece`Position(6,9) |-> b3,
+											mk_Piece`Position(9,6) |-> b4
 											};
 			);
-			
-		public getAmazons: () ==> seq of Amazon
-			getAmazons() == ( return amazons );
 			
 		-- move : moves a amazon on the board
 		public move : nat * nat * nat * nat ==> ()
@@ -42,7 +39,7 @@ class Board
 			)
 			pre mk_Piece`Position(x, y) in set dom positions
 				and mk_Piece`Position(new_x, new_y) not in set dom positions
-				and sameclass(positions(mk_Piece`Position(x,y)), Amazon)
+				and isofclass(Amazon ,positions(mk_Piece`Position(x,y)))
 				and moveIsValid(x, y, new_x, new_y) 
 				and pathIsFree(x,y, new_x, new_y);
 					
@@ -51,7 +48,7 @@ class Board
 			pathIsFree(x, y, new_x, new_y) == (	
 				dcl deltaX:nat := new_x - x;
 				dcl deltaY:nat := new_y - y;
-				dcl pathPieces: set of nat ;
+				dcl pathPieces: set of Piece`Position ;
 				if(deltaX = 0 and deltaY > 0) then (
 					pathPieces := {a | a in set (dom positions) & a.y in set ({y,...,new_y} \ {y,new_y})};
 				) else if(deltaY = 0 and deltaX > 0) then (
