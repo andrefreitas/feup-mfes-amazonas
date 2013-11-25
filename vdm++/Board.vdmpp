@@ -59,6 +59,9 @@ class Board
 				) else if(deltaX = deltaY and deltaX > 0) then (
 					pathPieces := {a | a in set (dom positions) & a.x in set ({x,...,new_x} \ {x,new_x}) and 
 														 a.y in set ({y,...,new_y} \ {y,new_y}) and abs(a.x - x) = abs(a.y - y) };
+				)
+				else (
+					return false;
 				);
 				return card pathPieces = 0;
 			) 
