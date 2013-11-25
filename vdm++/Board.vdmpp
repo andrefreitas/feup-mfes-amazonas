@@ -3,8 +3,8 @@ class Board
 	values
 	-- TODO Define values here
 	instance variables
-		private positions : map Piece`Position to Piece;
-		private arrows : seq of Arrow := [];
+		private positions : map Piece`Position to Piece := {|->};
+		private arrows : seq of Arrow:= [];
 		inv len {a | a in set (rng positions) & sameclass(a, Amazon)} = 8;
 	operations
 		public Board: () ==> Board
@@ -31,22 +31,47 @@ class Board
 		public getAmazons: () ==> seq of Amazon
 			getAmazons() == ( return amazons );
 			
-		public getAmazonIndexAt : nat * nat ==> nat
-			getAmazonIndexAt(x, y) == (
-				for i = 0 to len amazons by 1 do (
-					if amazons(i).getX() = x and amazons(i).getY() = y
-					then return i;
-				);
-				return -1;
-			);
-			
 		-- move : moves a amazon on the board
 		public move : nat * nat * nat * nat ==> ()
-			move(x, y, new_x, new_y) == (
-				
-			);
+			move(x, y, new_x, new_y) == (	
+				dcl amazon:Amazon := positions(mk_Piece`Position(x,y));
+				amazon.setX(new_x);
+				amazon.setY(new_y);
+				positions := {mk_Piece`Position(x, y)} <-: positions;
+				positions := positions ++ {mk_Piece`Position(new_x, new_y) |-> amazon}
+			)
+			pre mk_Piece`Position(x, y) in set dom positions
+				and mk_Piece`Position(new_x, new_y) not in set dom positions
+				and sameclass(positions(mk_Piece`Position(x,y)), Amazon)
+				and moveIsValid(x, y, new_x, new_y) 
+				and pathIsFree(x,y, new_x, new_y);
+					
+		-- patIsFree : check if the path is fre
+		public pathIsFree : nat * nat * nat * nat ==> bool
+			pathIsFree(x, y, new_x, new_y) == (	
+				dcl deltaX:nat := new_x - x;
+				dcl deltaY:nat := new_y - y;
+				dcl pathPieces: set of nat ;
+				if(deltaX = 0 and deltaY > 0) then (
+					pathPieces := {a | a in set (dom positions) & a.y in set ({y,...,new_y} \ {y,new_y})};
+				) else if(deltaY = 0 and deltaX > 0) then (
+					pathPieces := {a | a in set (dom positions) & a.x in set ({x,...,new_x} \ {x,new_x})};
+				) else if(deltaX = deltaY and deltaX > 0) then (
+					pathPieces := {a | a in set (dom positions) & a.x in set ({x,...,new_x} \ {x,new_x}) and 
+														 a.y in set ({y,...,new_y} \ {y,new_y}) and abs(a.x - x) = abs(a.y - y) };
+				);
+				return card pathPieces = 0;
+			) 
 			
-
 	functions
+		public moveIsValid : nat * nat * nat * nat -> bool
+			moveIsValid(x, y, new_x, new_y) == (
+				let deltaX, deltaY:nat in
+				(
+					deltaX = abs(new_x - x) and
+					deltaY = abs(new_y - y) and
+					(deltaX = 0 and deltaY > 0) or (deltaX > 0 and deltaY = 0) or (deltaX = deltaY and deltaX > 0)	
+				)
+			);
 	traces
 end Board
