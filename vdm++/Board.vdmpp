@@ -5,7 +5,7 @@ class Board
 	instance variables
 		private positions : map Piece`Position to Piece;
 		private arrows : seq of Arrow := []; 
-		inv card {a | a in set (rng positions) & isofclass(Amazon, a)} = 8;
+		--inv card {a | a in set (rng positions) & isofclass(Amazon, a)} = 8;
 	operations
 		public Board: () ==> Board
 			Board() == (
@@ -32,13 +32,14 @@ class Board
 			getPositions() == (return positions); 
 			
 		-- move : moves a amazon on the board
-		public move : nat * nat * nat * nat ==> ()
+		public move : nat * nat * nat * nat ==> bool
 			move(x, y, new_x, new_y) == (	
 				dcl amazon:Amazon := positions(mk_Piece`Position(x,y));
 				amazon.setX(new_x);
 				amazon.setY(new_y);
 				positions := {mk_Piece`Position(x, y)} <-: positions;
-				positions := positions ++ {mk_Piece`Position(new_x, new_y) |-> amazon}
+				positions := positions ++ {mk_Piece`Position(new_x, new_y) |-> amazon};
+				return true;
 			)
 			pre mk_Piece`Position(x, y) in set dom positions
 				and mk_Piece`Position(new_x, new_y) not in set dom positions
