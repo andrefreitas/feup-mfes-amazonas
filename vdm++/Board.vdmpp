@@ -28,6 +28,9 @@ class Board
 											};
 			);
 			
+		public getPositions: () ==> map Piece`Position to Piece
+			getPositions() == (return positions); 
+			
 		-- move : moves a amazon on the board
 		public move : nat * nat * nat * nat ==> ()
 			move(x, y, new_x, new_y) == (	
@@ -40,7 +43,7 @@ class Board
 			pre mk_Piece`Position(x, y) in set dom positions
 				and mk_Piece`Position(new_x, new_y) not in set dom positions
 				and isofclass(Amazon ,positions(mk_Piece`Position(x,y)))
-				and moveIsValid(x, y, new_x, new_y) 
+				and moveIsValid(abs(x-new_x), abs(y-new_y)) 
 				and pathIsFree(x,y, new_x, new_y);
 					
 		-- patIsFree : check if the path is fre
@@ -61,14 +64,9 @@ class Board
 			) 
 			
 	functions
-		public moveIsValid : nat * nat * nat * nat -> bool
-			moveIsValid(x, y, new_x, new_y) == (
-				let deltaX, deltaY:nat in
-				(
-					deltaX = abs(new_x - x) and
-					deltaY = abs(new_y - y) and
-					(deltaX = 0 and deltaY > 0) or (deltaX > 0 and deltaY = 0) or (deltaX = deltaY and deltaX > 0)	
-				)
+		public moveIsValid : nat * nat -> bool
+			moveIsValid(deltaX, deltaY) == (
+					(deltaX = 0 and deltaY > 0) or (deltaX > 0 and deltaY = 0) or (deltaX = deltaY and deltaX > 0)
 			);
 	traces
 end Board

@@ -8,6 +8,9 @@ class Amazon is subclass of Piece
 	operations
 		public Amazon: nat * nat * Color ==> Amazon
 				Amazon(x, y, c) == (color := c; Piece(x,y); );
+				
+		public getColor : () ==> Color
+			getColor() == (return color);
 	-- TODO Define operations here
 	functions
 	-- TODO Define functiones here

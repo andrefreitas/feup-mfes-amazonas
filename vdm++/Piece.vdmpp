@@ -22,5 +22,6 @@ class Piece
 	functions
 	-- TODO Define functiones here
 	traces
+		
 	-- TODO Define Combinatorial Test Traces here
 end Piece
