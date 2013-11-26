@@ -30,6 +30,70 @@ class Board
 			
 		public getPositions: () ==> map Piece`Position to Piece
 			getPositions() == (return positions); 
+		
+		-- game over : says whenever game is over 	
+		public gameOver: () ==> bool
+			gameOver() == (
+				-- gets all amazon pieces
+				dcl amazons : set of Amazon;
+				dcl white_amazons : set of Amazon := {};
+				dcl black_amazons : set of Amazon := {};
+				amazons := {a | a in set (rng positions) & isofclass(Amazon, a)};
+				
+				for all a in set amazons do
+					if (a.getColor() = <White>) then
+						white_amazons := white_amazons union {a}
+					else black_amazons := black_amazons union {a};
+				
+				if (canMove(white_amazons) = false or canMove(black_amazons) = false) then
+					return true
+				else return false;
+			);
+			
+		-- can Move : in a set of amazons checks if a player can move or not
+		public canMove : set of Amazon ==> bool
+			canMove(amazons) == (
+				for all a in set amazons do 
+					-- check right
+					if (pathIsFree(a.getX(), a.getY(), a.getX()+1, a.getY()) and a.getX()+1 < 10) then
+						return true
+					-- check up
+					else if (pathIsFree(a.getX(), a.getY(), a.getX(), a.getY()+1) and a.getY()+1 < 10) then
+						return true
+					-- check up and right (diagonal)
+					else if (pathIsFree(a.getX(), a.getY(), a.getX()+1, a.getY()+1) and a.getX()+1 < 10 and a.getY()+1 < 10) then
+						return true
+					-- check left
+					else if (pathIsFree(a.getX(), a.getY(), a.getX()-1, a.getY()) and a.getX()-1 > 0) then
+						return true
+					-- check down
+					else if (pathIsFree(a.getX(), a.getY(), a.getX(), a.getY()-1) and a.getY()-1 > 0) then
+						return true
+					-- check down and left (diagonal)
+					else if (pathIsFree(a.getX(), a.getY(), a.getX()-1, a.getY()-1) and a.getX()-1 > 0 and a.getY()-1 > 0) then
+						return true
+					-- check up and left (diagonal)
+					else if (pathIsFree(a.getX(), a.getY(), a.getX()-1, a.getY()+1) and a.getX()-1 > 0 and a.getY()+1 < 10) then
+						return true
+					-- check down and right (diagonal)
+					else if (pathIsFree(a.getX(), a.getY(), a.getX()+1, a.getY()-1) and a.getX()+1 < 10 and a.getY()-1 > 0) then
+						return true;
+				
+				return false;
+						
+			);
+		
+		-- set arrow : puts a arrow on the board
+		public setArrow : nat * nat * nat * nat ==> bool
+			setArrow(amazon_x, amazon_y, x, y) == (
+				dcl arrow:Arrow := new Arrow(x, y);
+				positions := positions ++ {mk_Piece`Position(x, y) |-> arrow};
+				return true;
+		)
+			pre mk_Piece`Position(amazon_x, amazon_y) in set dom positions
+				and mk_Piece`Position(x, y) not in set dom positions
+				and moveIsValid(abs(amazon_x-x), abs(amazon_y-y))
+				and pathIsFree(amazon_x, amazon_y, x, y);
 			
 		-- move : moves a amazon on the board
 		public move : nat * nat * nat * nat ==> bool
@@ -72,5 +136,6 @@ class Board
 			moveIsValid(deltaX, deltaY) == (
 					(deltaX = 0 and deltaY > 0) or (deltaX > 0 and deltaY = 0) or (deltaX = deltaY and deltaX > 0)
 			);
+			
 	traces
 end Board
