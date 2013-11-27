@@ -1,10 +1,12 @@
 class Board
 	types
+		public Turn = <White> | <Black>;
 	values
 	-- TODO Define values here
 	instance variables
 		private positions : map Piece`Position to Piece;
 		private arrows : seq of Arrow := []; 
+		private turn : Turn := <White>;		
 		inv card {a | a in set (rng positions) & isofclass(Amazon, a)} <= 8;
 	operations
 		public Board: () ==> Board
@@ -35,6 +37,13 @@ class Board
 		-- for test use only
 		public setPositions: map Piece`Position to Piece ==> ()
 			setPositions (new_positions) == positions := new_positions; 
+			
+		public switchTurn: Turn ==> ()
+			switchTurn(player) == (
+				if (player = <White>) then
+					turn := <Black>
+				else turn := <White>;
+			);
 		
 		-- game over : says whenever game is over 	
 		public gameOver: () ==> bool
