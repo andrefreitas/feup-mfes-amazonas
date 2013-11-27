@@ -18,6 +18,7 @@ class Board
 				dcl b3: Amazon := new Amazon(6, 9, <Black>);
 				dcl b4: Amazon := new Amazon(9, 6, <Black>);
 				positions := {mk_Piece`Position(0,3) |-> w1,
+											mk_Piece`Position(0,3) |-> w1,
 											mk_Piece`Position(3,0) |-> w2,
 											mk_Piece`Position(9,3) |-> w3,
 											mk_Piece`Position(6,0) |-> w4,
@@ -30,6 +31,10 @@ class Board
 			
 		public getPositions: () ==> map Piece`Position to Piece
 			getPositions() == (return positions); 
+		
+		-- for test use only
+		public setPositions: map Piece`Position to Piece ==> ()
+			setPositions (new_positions) == positions := new_positions; 
 		
 		-- game over : says whenever game is over 	
 		public gameOver: () ==> bool
@@ -55,28 +60,28 @@ class Board
 			canMove(amazons) == (
 				for all a in set amazons do 
 					-- check right
-					if (pathIsFree(a.getX(), a.getY(), a.getX()+1, a.getY()) and a.getX()+1 < 10) then
+					if (a.getX()+1 < 10 and mk_Piece`Position(a.getX()+1, a.getY()) not in set dom positions) then
 						return true
 					-- check up
-					else if (pathIsFree(a.getX(), a.getY(), a.getX(), a.getY()+1) and a.getY()+1 < 10) then
+					else if (a.getY()+1 < 10 and mk_Piece`Position(a.getX(), a.getY()+1) not in set dom positions) then
 						return true
 					-- check up and right (diagonal)
-					else if (pathIsFree(a.getX(), a.getY(), a.getX()+1, a.getY()+1) and a.getX()+1 < 10 and a.getY()+1 < 10) then
+					else if (a.getX()+1 < 10 and a.getY()+1 < 10 and mk_Piece`Position(a.getX()+1, a.getY()+1) not in set dom positions) then
 						return true
 					-- check left
-					else if (pathIsFree(a.getX(), a.getY(), a.getX()-1, a.getY()) and a.getX()-1 > 0) then
+					else if (a.getX()-1 > 0 and mk_Piece`Position(a.getX()-1, a.getY()) not in set dom positions) then
 						return true
 					-- check down
-					else if (pathIsFree(a.getX(), a.getY(), a.getX(), a.getY()-1) and a.getY()-1 > 0) then
+					else if (a.getY()-1 > 0 and mk_Piece`Position(a.getX(), a.getY()-1) not in set dom positions) then
 						return true
 					-- check down and left (diagonal)
-					else if (pathIsFree(a.getX(), a.getY(), a.getX()-1, a.getY()-1) and a.getX()-1 > 0 and a.getY()-1 > 0) then
+					else if (a.getX()-1 > 0 and a.getY()-1 > 0 and mk_Piece`Position(a.getX()-1, a.getY()-1) not in set dom positions) then
 						return true
 					-- check up and left (diagonal)
-					else if (pathIsFree(a.getX(), a.getY(), a.getX()-1, a.getY()+1) and a.getX()-1 > 0 and a.getY()+1 < 10) then
+					else if (a.getX()-1 > 0 and a.getY()+1 < 10 and mk_Piece`Position(a.getX()-1, a.getY()+1) not in set dom positions) then
 						return true
 					-- check down and right (diagonal)
-					else if (pathIsFree(a.getX(), a.getY(), a.getX()+1, a.getY()-1) and a.getX()+1 < 10 and a.getY()-1 > 0) then
+					else if (a.getX()+1 < 10 and a.getY()-1 > 0 and mk_Piece`Position(a.getX()+1, a.getY()-1) not in set dom positions) then
 						return true;
 				
 				return false;
