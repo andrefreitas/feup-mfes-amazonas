@@ -1,41 +1,27 @@
-class TestAmazon
-types
--- TODO Define types here
-values
--- TODO Define values here
-instance variables
-	a1 : Amazon := new Amazon(2,3, <White>);
-  a2 : Amazon := new Amazon(5,8, <Black>);
-operations
-	public AssertTrue : bool ==> ()
+class TestAmazon 
+	operations
+		public AssertTrue : bool ==> ()
 		AssertTrue(a) == return 
             pre a;
-            
-	public TestAmazonMethods : () ==> ()
+
+		public TestAmazonMethods : () ==> ()
 	 	TestAmazonMethods() == 
-    ( 
+    		( 
          	dcl a1 : Amazon := new Amazon(2,3, <White>);
          	dcl a2 : Amazon := new Amazon(5,8, <Black>);
-         	AssertTrue(a1.getX() = 2);
-         	AssertTrue(a1.getY() = 3);
-        	a1.setX(5);
-        	AssertTrue(a1.getX() = 5);
-        	a1.setY(9);
-        	AssertTrue(a1.getY() = 9);
-        	AssertTrue(a2.getX() = 5);
-         	AssertTrue(a2.getY() = 8);
-        	a1.setX(4);
-        	AssertTrue(a2.getX() = 4);
-        	a1.setY(9);
-        	AssertTrue(a2.getY() = 9);
-        	AssertTrue(a1.getColor() = <White>);
-        	AssertTrue(a2.getColor() = <Black>);
-    );
-functions
--- TODO Define functiones here
-traces
--- TODO Define Combinatorial Test Traces here
-	TestGetX: a1.getX();
-	TestGetColor: a1.getColor();
-	TestGetColor2: a2.getColor();
+         	AssertTrue(a1.GetX() = 2);
+         	AssertTrue(a1.GetY() = 3);
+        	a1.SetX(5);
+        	AssertTrue(a1.GetX() = 5);
+        	a1.SetY(9);
+        	AssertTrue(a1.GetY() = 9);
+        	AssertTrue(a2.GetX() = 5);
+         	AssertTrue(a2.GetY() = 8);
+        	a2.SetX(4);
+        	AssertTrue(a2.GetX() = 4);
+		a2.SetY(9);
+		AssertTrue(a2.GetY() = 9);
+		AssertTrue(a1.GetColor() = <White>);
+		AssertTrue(a2.GetColor() = <Black>);
+    		);
 end TestAmazon

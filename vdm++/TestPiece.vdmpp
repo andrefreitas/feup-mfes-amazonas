@@ -1,26 +1,19 @@
-class testPiece
-instance variables
-	p1: Piece := new Piece(2,3);
-operations
-	public AssertTrue : bool ==> ()
+class TestPiece 
+	operations
+		public AssertTrue : bool ==> ()
 		AssertTrue(a) == return 
             pre a;
-	
-	 public TestPieceMethods : () ==> ()
-	 	TestPieceMethods() == 
-    ( 
-         	dcl p : Piece := new Piece(2,3);
-         	AssertTrue(p.getX() = 2);
-         	AssertTrue(p.getY() = 3);
-        	p.setX(5);
-        	AssertTrue(p.getX() = 5);
-        	p.setY(9);
-        	AssertTrue(p.getY() = 9); 
-    );
-    
-traces
-	TestGetX : p1.getX();
-	TestGetY : p1.getY();
-	TestSetX : p1.setX(5); p1.getX();
-	TestSetY : p1.setY(8); p1.getY();
-end testPiece
+
+		public TestPieceMethods : () ==> ()
+		TestPieceMethods() == 
+            ( 
+                 	dcl p : Piece := new Piece(2,3);
+                 	AssertTrue(p.GetX() = 2);
+									AssertTrue(p.GetY() = 3);
+                 	p.SetX(5);
+                 	AssertTrue(p.GetX() = 5);
+                	p.SetY(9);
+                	AssertTrue(p.GetY() = 9);
+            );
+
+end TestPiece

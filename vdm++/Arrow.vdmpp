@@ -1,5 +1,5 @@
 class Arrow is subclass of Piece
 operations
 	public Arrow : nat * nat ==> Arrow
-		Arrow(x,y) == (Piece(x,y));
+		Arrow(x,y) == (Piece(x,y););
 end Arrow

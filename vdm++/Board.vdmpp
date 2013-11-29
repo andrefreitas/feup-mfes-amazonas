@@ -1,13 +1,10 @@
 class Board
 	types
 		public Turn = <White> | <Black>;
-	values
-	-- TODO Define values here
 	instance variables
 		private positions : map Piece`Position to Piece;
 		private arrows : seq of Arrow := []; 
 		private turn : Turn := <White>;		
-		inv card {a | a in set (rng positions) & isofclass(Amazon, a)} <= 8;
 	operations
 		public Board: () ==> Board
 			Board() == (
@@ -38,11 +35,12 @@ class Board
 		public setPositions: map Piece`Position to Piece ==> ()
 			setPositions (new_positions) == positions := new_positions; 
 			
-		public switchTurn: Turn ==> ()
+		public switchTurn: Turn ==> Turn
 			switchTurn(player) == (
 				if (player = <White>) then
 					turn := <Black>
 				else turn := <White>;
+				return turn;
 			);
 		
 		-- game over : says whenever game is over 	
@@ -55,7 +53,7 @@ class Board
 				amazons := {a | a in set (rng positions) & isofclass(Amazon, a)};
 				
 				for all a in set amazons do
-					if (a.getColor() = <White>) then
+					if (a.GetColor() = <White>) then
 						white_amazons := white_amazons union {a}
 					else black_amazons := black_amazons union {a};
 				
@@ -69,28 +67,28 @@ class Board
 			canMove(amazons) == (
 				for all a in set amazons do 
 					-- check right
-					if (a.getX()+1 < 10 and mk_Piece`Position(a.getX()+1, a.getY()) not in set dom positions) then
+					if (a.GetX()+1 < 10 and mk_Piece`Position(a.GetX()+1, a.GetY()) not in set dom positions) then
 						return true
 					-- check up
-					else if (a.getY()+1 < 10 and mk_Piece`Position(a.getX(), a.getY()+1) not in set dom positions) then
+					else if (a.GetY()+1 < 10 and mk_Piece`Position(a.GetX(), a.GetY()+1) not in set dom positions) then
 						return true
 					-- check up and right (diagonal)
-					else if (a.getX()+1 < 10 and a.getY()+1 < 10 and mk_Piece`Position(a.getX()+1, a.getY()+1) not in set dom positions) then
+					else if (a.GetX()+1 < 10 and a.GetY()+1 < 10 and mk_Piece`Position(a.GetX()+1, a.GetY()+1) not in set dom positions) then
 						return true
 					-- check left
-					else if (a.getX()-1 > 0 and mk_Piece`Position(a.getX()-1, a.getY()) not in set dom positions) then
+					else if (a.GetX()-1 > 0 and mk_Piece`Position(a.GetX()-1, a.GetY()) not in set dom positions) then
 						return true
 					-- check down
-					else if (a.getY()-1 > 0 and mk_Piece`Position(a.getX(), a.getY()-1) not in set dom positions) then
+					else if (a.GetY()-1 > 0 and mk_Piece`Position(a.GetX(), a.GetY()-1) not in set dom positions) then
 						return true
 					-- check down and left (diagonal)
-					else if (a.getX()-1 > 0 and a.getY()-1 > 0 and mk_Piece`Position(a.getX()-1, a.getY()-1) not in set dom positions) then
+					else if (a.GetX()-1 > 0 and a.GetY()-1 > 0 and mk_Piece`Position(a.GetX()-1, a.GetY()-1) not in set dom positions) then
 						return true
 					-- check up and left (diagonal)
-					else if (a.getX()-1 > 0 and a.getY()+1 < 10 and mk_Piece`Position(a.getX()-1, a.getY()+1) not in set dom positions) then
+					else if (a.GetX()-1 > 0 and a.GetY()+1 < 10 and mk_Piece`Position(a.GetX()-1, a.GetY()+1) not in set dom positions) then
 						return true
 					-- check down and right (diagonal)
-					else if (a.getX()+1 < 10 and a.getY()-1 > 0 and mk_Piece`Position(a.getX()+1, a.getY()-1) not in set dom positions) then
+					else if (a.GetX()+1 < 10 and a.GetY()-1 > 0 and mk_Piece`Position(a.GetX()+1, a.GetY()-1) not in set dom positions) then
 						return true;
 				
 				return false;
@@ -113,8 +111,8 @@ class Board
 		public move : nat * nat * nat * nat ==> bool
 			move(x, y, new_x, new_y) == (	
 				dcl amazon:Amazon := positions(mk_Piece`Position(x,y));
-				amazon.setX(new_x);
-				amazon.setY(new_y);
+				amazon.SetX(new_x);
+				amazon.SetY(new_y);
 				positions := {mk_Piece`Position(x, y)} <-: positions;
 				positions := positions ++ {mk_Piece`Position(new_x, new_y) |-> amazon};
 				return true;

@@ -38,6 +38,8 @@ operations
  		AssertTrue(b.pathIsFree(0, 3, 3, 3));
  		AssertTrue(b.pathIsFree(0, 3, 1, 4));
 		AssertFalse(b.pathIsFree(0, 3, 0, 7));
+		AssertTrue(b.pathIsFree(0, 3, 5, 8));
+		AssertFalse(b.pathIsFree(0, 3, 5, 9));
  	);
  	
 	public TestBoardMove : () ==> () 
@@ -56,6 +58,7 @@ operations
  		TestBoardGameOver() == (
  			dcl b: Board := new Board();
  			dcl positions: map Piece`Position to Piece;
+ 			dcl p : map Piece`Position to Piece;
  			AssertFalse(b.gameOver());
  			positions := {mk_Piece`Position(0,4) |-> new Arrow(0,4),
 										mk_Piece`Position(1,4) |-> new Arrow(1,4),
@@ -66,6 +69,9 @@ operations
 										mk_Piece`Position(0,7) |-> new Amazon(0, 7, <Black>)
 										};
 			b.setPositions(positions);
+			
+			p := b.getPositions(); 
+			AssertTrue(p = positions);
 			AssertTrue(b.gameOver());
 			positions := {mk_Piece`Position(1,0) |-> new Arrow(1,0),
 										mk_Piece`Position(1,1) |-> new Arrow(1,1),
@@ -74,6 +80,7 @@ operations
 										mk_Piece`Position(0,7) |-> new Amazon(0, 7, <White>)
 										};
 			b.setPositions(positions);
+			AssertTrue(b.getPositions() = positions);
 			AssertTrue(b.gameOver());
 			positions := {mk_Piece`Position(8,8) |-> new Arrow(8,8),
 										mk_Piece`Position(8,9) |-> new Arrow(8,9),
@@ -82,6 +89,7 @@ operations
 										mk_Piece`Position(3,7) |-> new Amazon(3, 7, <White>)
 										};
 			b.setPositions(positions);
+			AssertTrue(b.getPositions() = positions);
 			AssertTrue(b.gameOver());
 			positions := {mk_Piece`Position(1,9) |-> new Arrow(1,9),
 										mk_Piece`Position(0,8) |-> new Arrow(0,8),
@@ -89,6 +97,7 @@ operations
 										mk_Piece`Position(3,7) |-> new Amazon(3, 7, <White>)
 										};
 			b.setPositions(positions);
+			AssertTrue(b.getPositions() = positions);
 			AssertFalse(b.gameOver());
 			positions := {mk_Piece`Position(1,9) |-> new Arrow(1,9),
 										mk_Piece`Position(0,8) |-> new Arrow(0,8),
@@ -97,6 +106,7 @@ operations
 										mk_Piece`Position(3,7) |-> new Amazon(3, 7, <White>)
 										};
 			b.setPositions(positions);
+			AssertTrue(b.getPositions() = positions);
 			AssertTrue(b.gameOver());
 			positions := {mk_Piece`Position(9,1) |-> new Arrow(9,1),
 										mk_Piece`Position(8,1) |-> new Arrow(8,1),
@@ -105,9 +115,18 @@ operations
 										mk_Piece`Position(4,7) |-> new Amazon(4, 7, <White>)
 										};
 			b.setPositions(positions);
+			AssertTrue(b.getPositions() = positions);
 			AssertTrue(b.gameOver());
 			
  		);
+ 		
+ 	public TestBoardSwitchTurn : () ==> ()
+ 		TestBoardSwitchTurn() == (
+ 			dcl b : Board := new Board();
+ 			AssertTrue(b.switchTurn(<White>) = <Black>);
+ 			AssertTrue(b.switchTurn(<Black>) = <White>);
+ 		);
+ 		
  		
 functions
 -- TODO Define functiones here
@@ -119,5 +138,6 @@ traces
 	TestMove : b1.move(0, 3, 5, 8); b1.getPositions();
 	TestSetArrow : b1.setArrow(0, 3, 2,3); b1.getPositions();
 	TestGameOver : b1.gameOver(); b1.setPositions(positions1); b1.getPositions(); b1.gameOver(); 
+	TestSwitchTurn : b1.switchTurn(<White>); b1.switchTurn(<Black>);
 	
 end TestBoard
