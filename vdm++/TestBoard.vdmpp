@@ -6,11 +6,8 @@ values
 instance variables
 -- TODO Define instance variables here
 	b1 : Board := new Board();
-	positions1 : map Piece`Position to Piece := {mk_Piece`Position(9,1) |-> new Arrow(9,1),
-										mk_Piece`Position(8,1) |-> new Arrow(8,1),
-										mk_Piece`Position(8,0) |-> new Arrow(8,0),
-										mk_Piece`Position(9,0) |-> new Amazon(9, 0, <Black>),
-										mk_Piece`Position(4,7) |-> new Amazon(4, 7, <White>)
+	positions1 : map Piece`Position to Piece := {mk_Piece`Position(3,4) |-> new Amazon(3,4, <Black>),
+										mk_Piece`Position(1,2) |-> new Amazon(1,2, <White>)
 										};
 operations
 	public AssertTrue : bool ==> ()
@@ -117,6 +114,15 @@ operations
 			b.setPositions(positions);
 			AssertTrue(b.getPositions() = positions);
 			AssertTrue(b.gameOver());
+			
+			positions := {mk_Piece`Position(3,4) |-> new Amazon(3,4, <Black>),
+										mk_Piece`Position(1,2) |-> new Amazon(1,2, <White>)
+										};
+										
+			b.setPositions(positions);
+			AssertTrue(b.getPositions() = positions);
+			AssertFalse(b.gameOver());
+										
 			
  		);
  		
