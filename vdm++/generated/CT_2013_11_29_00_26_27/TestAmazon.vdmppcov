@@ -1,0 +1,27 @@
+class TestAmazon 
+	operations
+		public AssertTrue : bool ==> ()
+		AssertTrue(a) == return 
+            pre a;
+
+		public TestAmazonMethods : () ==> ()
+	 	TestAmazonMethods() == 
+    		( 
+         	dcl a1 : Amazon := new Amazon(2,3, <White>);
+         	dcl a2 : Amazon := new Amazon(5,8, <Black>);
+         	AssertTrue(a1.GetX() = 2);
+         	AssertTrue(a1.GetY() = 3);
+        	a1.SetX(5);
+        	AssertTrue(a1.GetX() = 5);
+        	a1.SetY(9);
+        	AssertTrue(a1.GetY() = 9);
+        	AssertTrue(a2.GetX() = 5);
+         	AssertTrue(a2.GetY() = 8);
+        	a2.SetX(4);
+        	AssertTrue(a2.GetX() = 4);
+		a2.SetY(9);
+		AssertTrue(a2.GetY() = 9);
+		AssertTrue(a1.GetColor() = <White>);
+		AssertTrue(a2.GetColor() = <Black>);
+    		);
+end TestAmazon

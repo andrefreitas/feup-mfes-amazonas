@@ -1,0 +1,11 @@
+class Amazon is subclass of Piece
+	types
+		public Color = <Black> | <White>;
+	instance variables
+		private color: Color;
+	operations
+		public Amazon: nat * nat * Color ==> Amazon
+			Amazon(x, y, c) == (color := c; Piece(x,y););
+		public GetColor : () ==> Color
+			GetColor() == (return color;);
+end Amazon

@@ -1,0 +1,152 @@
+class Board
+	types
+		public Turn = <White> | <Black>;
+	instance variables
+		private positions : map Piece`Position to Piece;
+		private arrows : seq of Arrow := []; 
+		private turn : Turn := <White>;		
+	operations
+		public Board: () ==> Board
+			Board() == (
+				dcl w1: Amazon := new Amazon(0, 3, <White>);
+				dcl w2: Amazon := new Amazon(3, 0, <White>);
+				dcl w3: Amazon := new Amazon(9, 3, <White>);
+				dcl w4: Amazon := new Amazon(6, 0, <White>);
+				dcl b1: Amazon := new Amazon(0, 6, <Black>);
+				dcl b2: Amazon := new Amazon(3, 9, <Black>);
+				dcl b3: Amazon := new Amazon(6, 9, <Black>);
+				dcl b4: Amazon := new Amazon(9, 6, <Black>);
+				positions := {mk_Piece`Position(0,3) |-> w1,
+											mk_Piece`Position(0,3) |-> w1,
+											mk_Piece`Position(3,0) |-> w2,
+											mk_Piece`Position(9,3) |-> w3,
+											mk_Piece`Position(6,0) |-> w4,
+											mk_Piece`Position(0,6) |-> b1,
+											mk_Piece`Position(3,9) |-> b2,
+											mk_Piece`Position(6,9) |-> b3,
+											mk_Piece`Position(9,6) |-> b4
+											};
+			);
+			
+		public getPositions: () ==> map Piece`Position to Piece
+			getPositions() == (return positions); 
+		
+		-- for test use only
+		public setPositions: map Piece`Position to Piece ==> ()
+			setPositions (new_positions) == positions := new_positions; 
+			
+		public switchTurn: Turn ==> ()
+			switchTurn(player) == (
+				if (player = <White>) then
+					turn := <Black>
+				else turn := <White>;
+			);
+		
+		-- game over : says whenever game is over 	
+		public gameOver: () ==> bool
+			gameOver() == (
+				-- gets all amazon pieces
+				dcl amazons : set of Amazon;
+				dcl white_amazons : set of Amazon := {};
+				dcl black_amazons : set of Amazon := {};
+				amazons := {a | a in set (rng positions) & isofclass(Amazon, a)};
+				
+				for all a in set amazons do
+					if (a.GetColor() = <White>) then
+						white_amazons := white_amazons union {a}
+					else black_amazons := black_amazons union {a};
+				
+				if (canMove(white_amazons) = false or canMove(black_amazons) = false) then
+					return true
+				else return false;
+			);
+			
+		-- can Move : in a set of amazons checks if a player can move or not
+		public canMove : set of Amazon ==> bool
+			canMove(amazons) == (
+				for all a in set amazons do 
+					-- check right
+					if (a.GetX()+1 < 10 and mk_Piece`Position(a.GetX()+1, a.GetY()) not in set dom positions) then
+						return true
+					-- check up
+					else if (a.GetY()+1 < 10 and mk_Piece`Position(a.GetX(), a.GetY()+1) not in set dom positions) then
+						return true
+					-- check up and right (diagonal)
+					else if (a.GetX()+1 < 10 and a.GetY()+1 < 10 and mk_Piece`Position(a.GetX()+1, a.GetY()+1) not in set dom positions) then
+						return true
+					-- check left
+					else if (a.GetX()-1 > 0 and mk_Piece`Position(a.GetX()-1, a.GetY()) not in set dom positions) then
+						return true
+					-- check down
+					else if (a.GetY()-1 > 0 and mk_Piece`Position(a.GetX(), a.GetY()-1) not in set dom positions) then
+						return true
+					-- check down and left (diagonal)
+					else if (a.GetX()-1 > 0 and a.GetY()-1 > 0 and mk_Piece`Position(a.GetX()-1, a.GetY()-1) not in set dom positions) then
+						return true
+					-- check up and left (diagonal)
+					else if (a.GetX()-1 > 0 and a.GetY()+1 < 10 and mk_Piece`Position(a.GetX()-1, a.GetY()+1) not in set dom positions) then
+						return true
+					-- check down and right (diagonal)
+					else if (a.GetX()+1 < 10 and a.GetY()-1 > 0 and mk_Piece`Position(a.GetX()+1, a.GetY()-1) not in set dom positions) then
+						return true;
+				
+				return false;
+						
+			);
+		
+		-- set arrow : puts a arrow on the board
+		public setArrow : nat * nat * nat * nat ==> bool
+			setArrow(amazon_x, amazon_y, x, y) == (
+				dcl arrow:Arrow := new Arrow(x, y);
+				positions := positions ++ {mk_Piece`Position(x, y) |-> arrow};
+				return true;
+		)
+			pre mk_Piece`Position(amazon_x, amazon_y) in set dom positions
+				and mk_Piece`Position(x, y) not in set dom positions
+				and moveIsValid(abs(amazon_x-x), abs(amazon_y-y))
+				and pathIsFree(amazon_x, amazon_y, x, y);
+			
+		-- move : moves a amazon on the board
+		public move : nat * nat * nat * nat ==> bool
+			move(x, y, new_x, new_y) == (	
+				dcl amazon:Amazon := positions(mk_Piece`Position(x,y));
+				amazon.SetX(new_x);
+				amazon.SetY(new_y);
+				positions := {mk_Piece`Position(x, y)} <-: positions;
+				positions := positions ++ {mk_Piece`Position(new_x, new_y) |-> amazon};
+				return true;
+			)
+			pre mk_Piece`Position(x, y) in set dom positions
+				and mk_Piece`Position(new_x, new_y) not in set dom positions
+				and isofclass(Amazon ,positions(mk_Piece`Position(x,y)))
+				and moveIsValid(abs(x-new_x), abs(y-new_y)) 
+				and pathIsFree(x,y, new_x, new_y);
+					
+		-- patIsFree : check if the path is fre
+		public pathIsFree : nat * nat * nat * nat ==> bool
+			pathIsFree(x, y, new_x, new_y) == (	
+				dcl deltaX:nat := new_x - x;
+				dcl deltaY:nat := new_y - y;
+				dcl pathPieces: set of Piece`Position ;
+				if(deltaX = 0 and deltaY > 0) then (
+					pathPieces := {a | a in set (dom positions) & a.y in set ({y,...,new_y} \ {y,new_y})};
+				) else if(deltaY = 0 and deltaX > 0) then (
+					pathPieces := {a | a in set (dom positions) & a.x in set ({x,...,new_x} \ {x,new_x})};
+				) else if(deltaX = deltaY and deltaX > 0) then (
+					pathPieces := {a | a in set (dom positions) & a.x in set ({x,...,new_x} \ {x,new_x}) and 
+														 a.y in set ({y,...,new_y} \ {y,new_y}) and abs(a.x - x) = abs(a.y - y) };
+				)
+				else (
+					return false;
+				);
+				return card pathPieces = 0;
+			) 
+			
+	functions
+		public moveIsValid : nat * nat -> bool
+			moveIsValid(deltaX, deltaY) == (
+					(deltaX = 0 and deltaY > 0) or (deltaX > 0 and deltaY = 0) or (deltaX = deltaY and deltaX > 0)
+			);
+			
+	traces
+end Board

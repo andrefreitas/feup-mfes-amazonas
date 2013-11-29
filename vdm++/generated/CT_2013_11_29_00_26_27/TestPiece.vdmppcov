@@ -1,0 +1,19 @@
+class TestPiece 
+	operations
+		public AssertTrue : bool ==> ()
+		AssertTrue(a) == return 
+            pre a;
+
+		public TestPieceMethods : () ==> ()
+		TestPieceMethods() == 
+            ( 
+                 	dcl p : Piece := new Piece(2,3);
+                 	AssertTrue(p.GetX() = 2);
+									AssertTrue(p.GetY() = 3);
+                 	p.SetX(5);
+                 	AssertTrue(p.GetX() = 5);
+                	p.SetY(9);
+                	AssertTrue(p.GetY() = 9);
+            );
+
+end TestPiece

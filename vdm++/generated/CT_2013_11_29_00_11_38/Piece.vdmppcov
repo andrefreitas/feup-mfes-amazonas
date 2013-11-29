@@ -1,0 +1,18 @@
+class Piece 
+	types
+		public Position :: x : nat
+					y : nat
+	instance variables 
+		private position : Position;
+	operations 
+		public Piece : nat * nat ==> Piece
+			Piece(x,y) == (position := mk_Position(x,y););
+		public SetX: nat ==> () 
+			SetX(x) == (position.x := x;); 
+		public SetY : nat ==> ()
+			SetY(y) == (position.y := y;); 
+		public GetX : () ==> nat
+			GetX() == (return position.x;);
+		public GetY : () ==> nat
+			GetY() == (return position.y;);
+end Piece
