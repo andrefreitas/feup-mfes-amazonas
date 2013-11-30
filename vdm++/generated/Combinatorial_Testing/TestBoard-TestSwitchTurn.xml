@@ -1,6 +1,6 @@
 	<Traces>
 	<Class Name="TestBoard">
-		<Trace Name="TestSwitchTurn" TestCount="1" Filename="TestBoard.vdmpp" Line="147" Column="2" SUBSET="1.0" REDUCTION="NONE" SEED="999" >
+		<Trace Name="TestSwitchTurn" TestCount="1" Filename="TestBoard.vdmpp" Line="158" Column="2" SUBSET="1.0" REDUCTION="NONE" SEED="999" >
 			<Test No="1">
 				b1TestBoard`b1.switchTurn(&amp;lt;White&amp;gt;); b1TestBoard`b1.switchTurn(&amp;lt;Black&amp;gt;)
 			</Test>

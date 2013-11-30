@@ -1,6 +1,6 @@
 	<Traces>
 	<Class Name="TestBoard">
-		<Trace Name="TestBoardPositions" TestCount="1" Filename="TestBoard.vdmpp" Line="141" Column="2" SUBSET="1.0" REDUCTION="NONE" SEED="999" >
+		<Trace Name="TestBoardPositions" TestCount="1" Filename="TestBoard.vdmpp" Line="152" Column="2" SUBSET="1.0" REDUCTION="NONE" SEED="999" >
 			<Test No="1">
 				b1TestBoard`b1.getPositions()
 			</Test>

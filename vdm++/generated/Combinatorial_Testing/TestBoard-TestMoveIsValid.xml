@@ -1,6 +1,6 @@
 	<Traces>
 	<Class Name="TestBoard">
-		<Trace Name="TestMoveIsValid" TestCount="1" Filename="TestBoard.vdmpp" Line="142" Column="2" SUBSET="1.0" REDUCTION="NONE" SEED="999" >
+		<Trace Name="TestMoveIsValid" TestCount="1" Filename="TestBoard.vdmpp" Line="153" Column="2" SUBSET="1.0" REDUCTION="NONE" SEED="999" >
 			<Test No="1">
 				b1TestBoard`b1.moveIsValid(0, 0)
 			</Test>
