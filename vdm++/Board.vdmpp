@@ -52,12 +52,10 @@ class Board
 				dcl black_amazons : set of Amazon := {};
 				amazons := {a | a in set (rng positions) & isofclass(Amazon, a)};
 				
-				for all a in set amazons do
-					if (a.GetColor() = <White>) then
-						white_amazons := white_amazons union {a}
-					else black_amazons := black_amazons union {a};
+				white_amazons := {a | a in set amazons & a.GetColor() = <White>};
+				black_amazons := {a | a in set amazons & a.GetColor() = <Black>};
 				
-				if (canMove(white_amazons) = false or canMove(black_amazons) = false) then
+				if ( canMove(black_amazons) = false) then
 					return true
 				else return false;
 			);
@@ -65,33 +63,26 @@ class Board
 		-- can Move : in a set of amazons checks if a player can move or not
 		public canMove : set of Amazon ==> bool
 			canMove(amazons) == (
-				for all a in set amazons do 
-					-- check right
-					if (a.GetX()+1 < 10 and mk_Piece`Position(a.GetX()+1, a.GetY()) not in set dom positions) then
-						return true
-					-- check up
-					else if (a.GetY()+1 < 10 and mk_Piece`Position(a.GetX(), a.GetY()+1) not in set dom positions) then
-						return true
-					-- check up and right (diagonal)
-					else if (a.GetX()+1 < 10 and a.GetY()+1 < 10 and mk_Piece`Position(a.GetX()+1, a.GetY()+1) not in set dom positions) then
-						return true
-					-- check left
-					else if (a.GetX()-1 > 0 and mk_Piece`Position(a.GetX()-1, a.GetY()) not in set dom positions) then
-						return true
-					-- check down
-					else if (a.GetY()-1 > 0 and mk_Piece`Position(a.GetX(), a.GetY()-1) not in set dom positions) then
-						return true
-					-- check down and left (diagonal)
-					else if (a.GetX()-1 > 0 and a.GetY()-1 > 0 and mk_Piece`Position(a.GetX()-1, a.GetY()-1) not in set dom positions) then
-						return true
-					-- check up and left (diagonal)
-					else if (a.GetX()-1 > 0 and a.GetY()+1 < 10 and mk_Piece`Position(a.GetX()-1, a.GetY()+1) not in set dom positions) then
-						return true
-					-- check down and right (diagonal)
-					else if (a.GetX()+1 < 10 and a.GetY()-1 > 0 and mk_Piece`Position(a.GetX()+1, a.GetY()-1) not in set dom positions) then
-						return true;
+				dcl canMovePieces : set of Amazon := {a | a in set amazons & 
+				-- check right
+				((a.GetX()+1 < 10 and mk_Piece`Position(a.GetX()+1, a.GetY()) not in set dom positions)
+				-- check up
+				or (a.GetY()+1 < 10 and mk_Piece`Position(a.GetX(), a.GetY()+1) not in set dom positions)
+				-- check up and right (diagonal)
+				or (a.GetX()+1 < 10 and a.GetY()+1 < 10 and mk_Piece`Position(a.GetX()+1, a.GetY()+1) not in set dom positions)
+				-- check left
+				or (a.GetX()-1 > 0 and mk_Piece`Position(a.GetX()-1, a.GetY()) not in set dom positions)
+				-- check down
+				or (a.GetY()-1 > 0 and mk_Piece`Position(a.GetX(), a.GetY()-1) not in set dom positions)
+				-- check down and left (diagonal)
+				or (a.GetX()-1 > 0 and a.GetY()-1 > 0 and mk_Piece`Position(a.GetX()-1, a.GetY()-1) not in set dom positions)
+				-- check up and left (diagonal)
+				or (a.GetX()-1 > 0 and a.GetY()+1 < 10 and mk_Piece`Position(a.GetX()-1, a.GetY()+1) not in set dom positions)
+				-- check down and right (diagonal)
+				or (a.GetX()+1 < 10 and a.GetY()-1 > 0 and mk_Piece`Position(a.GetX()+1, a.GetY()-1) not in set dom positions)
+				)};
 				
-				return false;
+				if (card canMovePieces > 0) then return true else	return false;
 						
 			);
 		
@@ -134,8 +125,8 @@ class Board
 				) else if(deltaY = 0 and deltaX > 0) then (
 					pathPieces := {a | a in set (dom positions) & a.x in set ({x,...,new_x} \ {x,new_x})};
 				) else if(deltaX = deltaY and deltaX > 0) then (
-					pathPieces := {a | a in set (dom positions) & a.x in set ({x,...,new_x} \ {x,new_x}) and 
-														 a.y in set ({y,...,new_y} \ {y,new_y}) and abs(a.x - x) = abs(a.y - y) };
+					pathPieces := {a | a in set (dom positions) & (a.x in set ({x,...,new_x} \ {x,new_x}) and 
+														 a.y in set ({y,...,new_y} \ {y,new_y}) and abs(a.x - x) = abs(a.y - y)) };
 				)
 				else (
 					return false;
