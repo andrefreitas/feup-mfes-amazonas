@@ -129,6 +129,22 @@ public class Piece implements EvaluatePP {
 // ***** VDMTOOLS END Name=setSentinel
 
 
+// ***** VDMTOOLS START Name=inv_Position#1|Position KEEP=NO
+  static public Boolean inv_Position (final Position p) throws CGException {
+    Boolean varRes_2 = null;
+    Boolean var1_3 = null;
+    Boolean var1_4 = null;
+    if ((var1_4 = Boolean.valueOf((p.x).intValue() >= 0)).booleanValue()) 
+      var1_4 = Boolean.valueOf((p.x).intValue() < 10);
+    if ((var1_3 = var1_4).booleanValue()) 
+      var1_3 = Boolean.valueOf((p.y).intValue() >= 0);
+    if ((varRes_2 = var1_3).booleanValue()) 
+      varRes_2 = Boolean.valueOf((p.y).intValue() <= 10);
+    return varRes_2;
+  }
+// ***** VDMTOOLS END Name=inv_Position#1|Position
+
+
 // ***** VDMTOOLS START Name=vdm_init_Piece KEEP=NO
   private void vdm_init_Piece () {
     try {
@@ -152,7 +168,10 @@ public class Piece implements EvaluatePP {
 // ***** VDMTOOLS START Name=Piece#2|Number|Number KEEP=NO
   public Piece (final Number x, final Number y) throws CGException {
     vdm_init_Piece();
-    position = new Position(x, y);
+    Position rhs_6 = new Position(x, y);
+    if (!(((Object)rhs_6) instanceof Record)) 
+      UTIL.RunTime("Incompatible type");
+    position = (Position)UTIL.clone(rhs_6);
   }
 // ***** VDMTOOLS END Name=Piece#2|Number|Number
 
@@ -161,7 +180,10 @@ public class Piece implements EvaluatePP {
   public void SetX (final Number x) throws CGException {
     sentinel.entering(((PieceSentinel)sentinel).SetX);
     try {
-      position.x = x;
+      if (position instanceof Position) 
+        ((Position)position).x = x;
+      else 
+        UTIL.RunTime("An object or record was expected");
     }
     finally {
       sentinel.leaving(((PieceSentinel)sentinel).SetX);
@@ -174,7 +196,10 @@ public class Piece implements EvaluatePP {
   public void SetY (final Number y) throws CGException {
     sentinel.entering(((PieceSentinel)sentinel).SetY);
     try {
-      position.y = y;
+      if (position instanceof Position) 
+        ((Position)position).y = y;
+      else 
+        UTIL.RunTime("An object or record was expected");
     }
     finally {
       sentinel.leaving(((PieceSentinel)sentinel).SetY);
