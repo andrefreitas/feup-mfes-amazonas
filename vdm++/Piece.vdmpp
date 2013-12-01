@@ -2,6 +2,7 @@ class Piece
 	types
 		public Position :: x : nat
 					y : nat
+		inv p == p.x >= 0 and p.x < 10 and p.y >= 0 and p.y <= 10;
 	instance variables 
 		private position : Position;
 	operations 
