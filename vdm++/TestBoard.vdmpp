@@ -148,7 +148,7 @@ functions
 -- TODO Define functiones here
 traces
 -- TODO Define Combinatorial Test Traces here
-	TestAssertFalse : AssertFalse(true=true);
+	TestAssertFalse : AssertFalse(false=true);
 	TestBoardPositions : b1.getPositions();
 	TestMoveIsValid : b1.moveIsValid(0, 0);
 	TestPathIsFree : b1.pathIsFree(0, 3, 0, 7);
