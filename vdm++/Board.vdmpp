@@ -5,7 +5,7 @@ class Board
 		private positions : map Piece`Position to Piece;
 		private arrows : seq of Arrow := []; 
 		private turn : Turn := <White>;
-		inv card {a | a in set (rng positions) & isofclass(Amazon, a)} <= 8;		
+		inv (card {a | a in set (rng positions) & isofclass(Amazon, a)}) <= 8;
 	operations
 		public Board: () ==> Board
 			Board() == (
