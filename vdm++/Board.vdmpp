@@ -36,9 +36,9 @@ class Board
 		public setPositions: map Piece`Position to Piece ==> ()
 			setPositions (new_positions) == positions := new_positions; 
 			
-		public switchTurn: Turn ==> Turn
-			switchTurn(player) == (
-				if (player = <White>) then
+		public switchTurn: () ==> Turn
+			switchTurn() == (
+				if (turn = <White>) then
 					turn := <Black>
 				else turn := <White>;
 				return turn;
@@ -113,15 +113,35 @@ class Board
 				amazon.SetY(new_y);
 				positions := {mk_Piece`Position(x, y)} <-: positions;
 				positions := positions ++ {mk_Piece`Position(new_x, new_y) |-> amazon};
-				return turn;
+				return switchTurn();
 			)
 			pre mk_Piece`Position(x, y) in set dom positions
 				and mk_Piece`Position(new_x, new_y) not in set dom positions
 				and isofclass(Amazon ,positions(mk_Piece`Position(x,y)))
 				and moveIsValid(abs(x-new_x), abs(y-new_y)) 
-				and pathIsFree(x,y, new_x, new_y);
-			--post (card (amazons inter a.GetColor() = <White>) = 4)
-				--and (card (amazons inter a.GetColor() = <Black>) = 4;
+				and pathIsFree(x,y, new_x, new_y)
+			post countBlackAmazons() = 4
+				and countWhiteAmazons() = 4;
+		
+		public countBlackAmazons : () ==> nat
+			countBlackAmazons() == (
+				dcl amazons : set of Amazon;
+				dcl black_amazons : set of Amazon := {};
+				amazons := {a | a in set (rng positions) & isofclass(Amazon, a)};
+				
+				black_amazons := {a | a in set amazons & a.GetColor() = <Black>};
+				return card black_amazons;
+			);
+			
+		public countWhiteAmazons : () ==> nat
+			countWhiteAmazons() == (
+				dcl amazons : set of Amazon;
+				dcl white_amazons : set of Amazon := {};
+				amazons := {a | a in set (rng positions) & isofclass(Amazon, a)};
+				
+				white_amazons := {a | a in set amazons & a.GetColor() = <White>};
+				return card white_amazons;
+			);
 					
 		-- patIsFree : check if the path is fre
 		public pathIsFree : nat * nat * nat * nat ==> bool

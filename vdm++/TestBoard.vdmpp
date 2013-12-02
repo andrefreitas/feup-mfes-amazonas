@@ -152,8 +152,8 @@ operations
  	public TestBoardSwitchTurn : () ==> ()
  		TestBoardSwitchTurn() == (
  			dcl b : Board := new Board();
- 			AssertTrue(b.switchTurn(<White>) = <Black>);
- 			AssertTrue(b.switchTurn(<Black>) = <White>);
+ 			AssertTrue(b.switchTurn() = <Black>);
+ 			AssertTrue(b.switchTurn() = <White>);
  		);
  		
  		
@@ -168,6 +168,6 @@ traces
 	TestMove : b1.move(0, 3, 5, 8); b1.getPositions();
 	TestSetArrow : b1.setArrow(0, 3, 2,3); b1.getPositions();
 	TestGameOver : b1.gameOver(); b1.setPositions(positions1); b1.getPositions(); b1.gameOver(); 
-	TestSwitchTurn : b1.switchTurn(<White>); b1.switchTurn(<Black>);
+	TestSwitchTurn : b1.switchTurn(); b1.switchTurn();
 	
 end TestBoard
