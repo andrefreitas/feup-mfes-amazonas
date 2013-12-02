@@ -12,7 +12,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -26,6 +25,9 @@ public class BoardPanel extends javax.swing.JPanel implements MouseListener{
     private static BufferedImage boardImage = null;
     public static BufferedImage whitePiece = null;
     public static BufferedImage blackPiece = null;
+    public static BufferedImage arrowPiece = null;
+    public static BufferedImage aura = null;
+    
     
     
     /**
@@ -47,7 +49,9 @@ public class BoardPanel extends javax.swing.JPanel implements MouseListener{
         try {
             boardImage = ImageIO.read(getClass().getResource("/images/boardBG.png"));
             whitePiece = ImageIO.read(getClass().getResource("/images/piece_white.png"));
-            blackPiece = ImageIO.read(getClass().getResource("/images/piece_black.png"));            
+            blackPiece = ImageIO.read(getClass().getResource("/images/piece_black.png"));
+            arrowPiece = ImageIO.read(getClass().getResource("/images/arrow.png"));
+            aura = ImageIO.read(getClass().getResource("/images/aura.png"));   
         } catch (IOException ex) {
             Logger.getLogger(BoardPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -61,16 +65,27 @@ public class BoardPanel extends javax.swing.JPanel implements MouseListener{
     }
     
     private void drawBoard(Graphics g){
-        g.drawImage(boardImage,0,0,this);
+        g.drawImage(boardImage,0,0,null);
         Game.drawPieces(g);
     }
-    /**
-     * 
-     * @param x
-     * @param y
-     * @return 
-     */
-    private int[] getPositionAtMouse(int x,int y){
+    
+    public static void drawBlackPiece(Graphics g, int panel_x, int panel_y){
+        g.drawImage(blackPiece, panel_x, panel_y, null);
+    }
+    
+    public static void drawWhitePiece(Graphics g, int panel_x, int panel_y){
+        g.drawImage(whitePiece, panel_x, panel_y, null);
+    }
+    
+    public static void drawArrowPiece(Graphics g, int panel_x, int panel_y){
+        g.drawImage(arrowPiece, panel_x, panel_y, null);
+    }
+    
+    public static void drawAura(Graphics g, int panel_x, int panel_y){
+        g.drawImage(aura, panel_x, panel_y, null);
+    }
+    
+    public static int[] getPositionAtMouse(int x,int y){
         int boardX = (x-20)/40;
         int boardY = 9 -(y/40);
         int[] pos;
@@ -79,15 +94,6 @@ public class BoardPanel extends javax.swing.JPanel implements MouseListener{
         pos[1] = boardY;
         return pos;
     }
-    /*
-    public void drawPeiceAt(int board_x, int board_y, int color){
-        if(board_x >= 0 && board_x <=9 && board_y >= 0 && board_y <=9 ){
-            int panelX = (40*board_x)+20;
-            int panelY = (40*(9 - board_y));
-            boolean drawImage = g.drawImage(whitePiece,panelX, panelY, this);
-            System.out.println(drawImage);
-        }
-    }*/
     
       @Override
     public void mouseClicked(MouseEvent e) {
