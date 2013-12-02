@@ -81,7 +81,7 @@ public class Startup extends javax.swing.JFrame implements ActionListener {
     }// </editor-fold>//GEN-END:initComponents
 
     private void playActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playActionPerformed
-        Game.gameBoardWindow = new Board(exit);
+        Game.gameBoardWindow = new BoardFrame(exit);
         Game.gameBoardWindow.setLocationRelativeTo(this);
         Game.gameBoardWindow.setVisible(true);
         this.setVisible(false);
