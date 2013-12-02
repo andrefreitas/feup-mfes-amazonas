@@ -1,5 +1,6 @@
 package gui;
 
+import Model.*;
 import java.awt.Graphics;
 
 /**
@@ -9,7 +10,7 @@ public class Game {
 
     public static BoardFrame gameBoardWindow;
     public static Startup gameStartupWindow;
-    
+    public static Board board;
     public static void main(String[] args) {
         gameStartupWindow = new Startup(null);
     }
