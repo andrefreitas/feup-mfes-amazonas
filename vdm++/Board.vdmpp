@@ -121,7 +121,15 @@ class Board
 				and moveIsValid(abs(x-new_x), abs(y-new_y)) 
 				and pathIsFree(x,y, new_x, new_y)
 			post countBlackAmazons() = 4
-				and countWhiteAmazons() = 4;
+				and countWhiteAmazons() = 4
+				and countAmazons() = 8;
+		
+		public countAmazons : () ==> nat
+			countAmazons() == (
+				dcl amazons : set of Amazon;
+				amazons := {a | a in set (rng positions) & isofclass(Amazon, a)};
+				return card amazons;
+			);
 		
 		public countBlackAmazons : () ==> nat
 			countBlackAmazons() == (
