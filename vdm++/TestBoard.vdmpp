@@ -54,11 +54,12 @@ operations
 		AssertFalse(b.pathIsFree(0, 3, 2, 3));
  	);
  	
-	/*public TestBoardMove : () ==> () 
+	public TestBoardMove : () ==> () 
  		TestBoardMove() == (
  		dcl b: Board := new Board();
- 		AssertTrue(b.move(0,3,5,8));
- 	);*/
+ 		AssertTrue(b.move(0,6,5,8) = <White>);
+ 		AssertTrue(b.move(0,3,5,8) = <Black>);
+ 	);
  	
  	public TestBoardSetArrow : () ==> () 
  		TestBoardSetArrow() == (
@@ -165,7 +166,7 @@ traces
 	TestBoardPositions : b1.getPositions();
 	TestMoveIsValid : b1.moveIsValid(0, 0);
 	TestPathIsFree : b1.pathIsFree(0, 3, 0, 7);
-	TestMove : b1.move(0, 3, 5, 8); b1.getPositions();
+	TestMove : b1.setPositions(positions1); b1.move(0, 6, 0, 7); b1.getPositions();
 	TestSetArrow : b1.setArrow(0, 3, 2,3); b1.getPositions();
 	TestGameOver : b1.gameOver(); b1.setPositions(positions1); b1.getPositions(); b1.gameOver(); 
 	TestSwitchTurn : b1.switchTurn(); b1.switchTurn();

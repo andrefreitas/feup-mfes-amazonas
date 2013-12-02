@@ -120,6 +120,9 @@ class Board
 				and isofclass(Amazon ,positions(mk_Piece`Position(x,y)))
 				and moveIsValid(abs(x-new_x), abs(y-new_y)) 
 				and pathIsFree(x,y, new_x, new_y)
+				and countBlackAmazons() = 4
+				and countWhiteAmazons() = 4
+				and countAmazons() = 8
 			post countBlackAmazons() = 4
 				and countWhiteAmazons() = 4
 				and countAmazons() = 8;
@@ -176,6 +179,4 @@ class Board
 			moveIsValid(deltaX, deltaY) == (
 					(deltaX = 0 and deltaY > 0) or (deltaX > 0 and deltaY = 0) or (deltaX = deltaY and deltaX > 0)
 			);
-			
-	traces
 end Board

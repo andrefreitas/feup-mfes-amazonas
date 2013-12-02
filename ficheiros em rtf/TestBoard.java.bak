@@ -173,12 +173,28 @@ public class TestBoard implements EvaluatePP {
     sentinel.entering(((TestBoardSentinel)sentinel).TestBoardPathFree);
     try {
       Board b = new Board();
+      Map positions = new HashMap();
       AssertTrue(b.pathIsFree(new Integer(0), new Integer(3), new Integer(0), new Integer(5)));
       AssertTrue(b.pathIsFree(new Integer(0), new Integer(3), new Integer(3), new Integer(3)));
       AssertTrue(b.pathIsFree(new Integer(0), new Integer(3), new Integer(1), new Integer(4)));
       AssertFalse(b.pathIsFree(new Integer(0), new Integer(3), new Integer(0), new Integer(7)));
       AssertTrue(b.pathIsFree(new Integer(2), new Integer(3), new Integer(3), new Integer(4)));
       AssertFalse(b.pathIsFree(new Integer(0), new Integer(3), new Integer(5), new Integer(9)));
+      Map rhs_37 = new HashMap();
+      rhs_37.put(new Piece.Position(new Integer(0), new Integer(4)), new Arrow(new Integer(0), new Integer(4)));
+      rhs_37.put(new Piece.Position(new Integer(1), new Integer(4)), new Arrow(new Integer(1), new Integer(4)));
+      rhs_37.put(new Piece.Position(new Integer(0), new Integer(3)), new Amazon(new Integer(0), new Integer(3), new quotes.White()));
+      rhs_37.put(new Piece.Position(new Integer(0), new Integer(7)), new Amazon(new Integer(0), new Integer(7), new quotes.Black()));
+      positions = (Map)UTIL.clone(rhs_37);
+      b.setPositions(positions);
+      AssertFalse(b.pathIsFree(new Integer(0), new Integer(3), new Integer(2), new Integer(5)));
+      Map rhs_72 = new HashMap();
+      rhs_72.put(new Piece.Position(new Integer(1), new Integer(3)), new Arrow(new Integer(1), new Integer(3)));
+      rhs_72.put(new Piece.Position(new Integer(0), new Integer(3)), new Amazon(new Integer(0), new Integer(3), new quotes.White()));
+      rhs_72.put(new Piece.Position(new Integer(0), new Integer(7)), new Amazon(new Integer(0), new Integer(7), new quotes.Black()));
+      positions = (Map)UTIL.clone(rhs_72);
+      b.setPositions(positions);
+      AssertFalse(b.pathIsFree(new Integer(0), new Integer(3), new Integer(2), new Integer(3)));
     }
     finally {
       sentinel.leaving(((TestBoardSentinel)sentinel).TestBoardPathFree);
