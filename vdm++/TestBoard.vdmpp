@@ -54,11 +54,11 @@ operations
 		AssertFalse(b.pathIsFree(0, 3, 2, 3));
  	);
  	
-	public TestBoardMove : () ==> () 
+	/*public TestBoardMove : () ==> () 
  		TestBoardMove() == (
  		dcl b: Board := new Board();
  		AssertTrue(b.move(0,3,5,8));
- 	);
+ 	);*/
  	
  	public TestBoardSetArrow : () ==> () 
  		TestBoardSetArrow() == (

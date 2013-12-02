@@ -56,7 +56,8 @@ class Board
 				white_amazons := {a | a in set amazons & a.GetColor() = <White>};
 				black_amazons := {a | a in set amazons & a.GetColor() = <Black>};
 				
-				if ( canMove(black_amazons) = false) then
+				
+				if (canMove(white_amazons) = false or canMove(black_amazons) = false) then
 					return true
 				else return false;
 			);
@@ -100,20 +101,27 @@ class Board
 				and pathIsFree(amazon_x, amazon_y, x, y);
 			
 		-- move : moves a amazon on the board
-		public move : nat * nat * nat * nat ==> bool
+		public move : nat * nat * nat * nat ==> Turn
 			move(x, y, new_x, new_y) == (	
 				dcl amazon:Amazon := positions(mk_Piece`Position(x,y));
+				
+				if (amazon.GetColor() <> turn) then (
+						return turn;
+				);
+				
 				amazon.SetX(new_x);
 				amazon.SetY(new_y);
 				positions := {mk_Piece`Position(x, y)} <-: positions;
 				positions := positions ++ {mk_Piece`Position(new_x, new_y) |-> amazon};
-				return true;
+				return turn;
 			)
 			pre mk_Piece`Position(x, y) in set dom positions
 				and mk_Piece`Position(new_x, new_y) not in set dom positions
 				and isofclass(Amazon ,positions(mk_Piece`Position(x,y)))
 				and moveIsValid(abs(x-new_x), abs(y-new_y)) 
 				and pathIsFree(x,y, new_x, new_y);
+			--post (card (amazons inter a.GetColor() = <White>) = 4)
+				--and (card (amazons inter a.GetColor() = <Black>) = 4;
 					
 		-- patIsFree : check if the path is fre
 		public pathIsFree : nat * nat * nat * nat ==> bool
