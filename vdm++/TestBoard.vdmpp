@@ -6,10 +6,16 @@ values
 instance variables
 -- TODO Define instance variables here
 	b1 : Board := new Board();
-	positions1 : map Piece`Position to Piece := {mk_Piece`Position(0,8) |-> new Arrow(0,8),
-										mk_Piece`Position(1,8) |-> new Arrow(1,8),
+	positions1 : map Piece`Position to Piece := {mk_Piece`Position(1,1) |-> new Arrow(1,1),
+										mk_Piece`Position(2,1) |-> new Arrow(2,1),
+										mk_Piece`Position(0,0) |-> new Amazon(0, 0, <White>),
+										mk_Piece`Position(0,3) |-> new Amazon(0, 3, <Black>),
 										mk_Piece`Position(0,9) |-> new Amazon(0, 9, <Black>),
-										mk_Piece`Position(3,7) |-> new Amazon(3, 7, <White>)
+										mk_Piece`Position(2,0) |-> new Amazon(2, 0, <Black>),
+										mk_Piece`Position(3,7) |-> new Amazon(3, 7, <Black>),
+										mk_Piece`Position(4,7) |-> new Amazon(4, 7, <White>),
+										mk_Piece`Position(7,7) |-> new Amazon(7, 7, <White>),
+										mk_Piece`Position(9,9) |-> new Amazon(9, 9, <White>)
 										};
 operations
 	public AssertTrue : bool ==> ()
@@ -57,8 +63,22 @@ operations
 	public TestBoardMove : () ==> () 
  		TestBoardMove() == (
  		dcl b: Board := new Board();
- 		AssertTrue(b.move(0,6,5,8) = <White>);
- 		AssertTrue(b.move(0,3,5,8) = <Black>);
+ 		dcl positions : map Piece`Position to Piece := {mk_Piece`Position(1,1) |-> new Arrow(1,1),
+										mk_Piece`Position(2,1) |-> new Arrow(2,1),
+										mk_Piece`Position(0,0) |-> new Amazon(0, 0, <White>),
+										mk_Piece`Position(0,3) |-> new Amazon(0, 3, <Black>),
+										mk_Piece`Position(0,9) |-> new Amazon(0, 9, <Black>),
+										mk_Piece`Position(2,0) |-> new Amazon(2, 0, <Black>),
+										mk_Piece`Position(3,7) |-> new Amazon(3, 7, <Black>),
+										mk_Piece`Position(4,7) |-> new Amazon(4, 7, <White>),
+										mk_Piece`Position(7,7) |-> new Amazon(7, 7, <White>),
+										mk_Piece`Position(9,9) |-> new Amazon(9, 9, <White>)
+										};
+ 		AssertTrue(b.move(0,3,5,8));
+ 		AssertTrue(b.move(3,0,2,0));
+ 		AssertFalse(b.move(0,6,0,7));
+ 		b.setPositions(positions);
+ 		AssertTrue(b.move(0,0,0,2));	
  	);
  	
  	public TestBoardSetArrow : () ==> () 
@@ -164,9 +184,9 @@ traces
 -- TODO Define Combinatorial Test Traces here
 	TestAssertFalse : AssertFalse(false=true);
 	TestBoardPositions : b1.getPositions();
-	TestMoveIsValid : b1.moveIsValid(0, 0);
+	TestMoveIsValid : b1.moveIsValid(0, 1);
 	TestPathIsFree : b1.pathIsFree(0, 3, 0, 7);
-	TestMove : b1.setPositions(positions1); b1.move(0, 6, 0, 7); b1.getPositions();
+	TestMove : b1.setPositions(positions1); b1.getPositions(); b1.move(0, 0, 0, 2); b1.getPositions();
 	TestSetArrow : b1.setArrow(0, 3, 2,3); b1.getPositions();
 	TestGameOver : b1.gameOver(); b1.setPositions(positions1); b1.getPositions(); b1.gameOver(); 
 	TestSwitchTurn : b1.switchTurn(); b1.switchTurn();

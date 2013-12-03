@@ -24,32 +24,32 @@ public class Game {
     public static void main(String[] args) {
         gameStartupWindow = new Startup(null);
         try {
-            board = new Board();
+        board = new Board();
         } catch (CGException ex) {
             Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    }
     }
 
     public static void drawPieces(Graphics g) {
         try {
             //Aqui é aonde vao ser desenhadas as peças
-            Map m = board.getPositions();
-            Piece p;
-            for (int x = 0; x <= 9; x++) {
-                for (int y = 0; y <= 9; y++) {
-                    p = (Piece) m.get(new Piece.Position(x, y));
-                    if (p != null && x >= 0 && x <= 9 && y >= 0 && y <= 9) {
-                        int panelX = (40 * x) + 20;
-                        int panelY = (40 * (9 - y));
-                        drawPiece(p, g, panelX, panelY);
-                        if (p.equals(selectedPiece)) {
-                            BoardPanel.drawAura(g, panelX, panelY);
-                        }
+        Map m = board.getPositions();
+        Piece p;
+        for (int x = 0; x <= 9; x++) {
+            for (int y = 0; y <= 9; y++) {
+                p = (Piece) m.get(new Piece.Position(x, y));
+                if (p != null && x >= 0 && x <= 9 && y >= 0 && y <= 9) {
+                    int panelX = (40 * x) + 20;
+                    int panelY = (40 * (9 - y));
+                    drawPiece(p, g, panelX, panelY);
+                    if (p.equals(selectedPiece)) {
+                        BoardPanel.drawAura(g, panelX, panelY);
                     }
-
                 }
 
             }
+
+        }
         } catch (CGException ex) {
             Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -76,10 +76,10 @@ public class Game {
     
     public static void startGame() {
         try {
-            board = new Board();
+        board = new Board();
         } catch (CGException ex) {
             Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    }
     }
 
     public static void gameOver() {
@@ -88,13 +88,13 @@ public class Game {
 
     public static void mouseClickedAt(int board_x, int board_y) {
         try {
-            Map m = board.getPositions();
-            Piece p = (Piece) m.get(new Piece.Position(board_x, board_y));
-            selectionStateMachine(p, board_x, board_y);
-            gameBoardWindow.repaint();
+        Map m = board.getPositions();
+        Piece p = (Piece) m.get(new Piece.Position(board_x, board_y));
+        selectionStateMachine(p, board_x, board_y);
+        gameBoardWindow.repaint();
         } catch (CGException ex) {
             Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    }
     }
 
     private static void selectionStateMachine(Piece p, int board_x, int board_y) throws CGException {
@@ -103,23 +103,23 @@ public class Game {
                 Object ret;
                 if (arrowShot) {
                     try {
-                        ret = board.move(selectedPiece.GetX(), selectedPiece.GetY(), board_x, board_y);
-                        System.out.println("Moved... next turn: " + ret);
-                        arrowShot = false;
+                    ret = board.move(selectedPiece.GetX(), selectedPiece.GetY(), board_x, board_y);
+                    System.out.println("Moved... next turn: " + ret);
+                    arrowShot = false;
                         
                     } catch (VDMRunTimeException ex) {
                         System.out.println(ex.getMessage());
                     }
                 } else {
                     try {
-                        boolean shot = board.setArrow(selectedPiece.GetX(), selectedPiece.GetY(), board_x, board_y);
-                        if (shot) {
-                            System.out.println("Shot Arrow...");
-                            arrowShot = true;
-                        }
+                    boolean shot = board.setArrow(selectedPiece.GetX(), selectedPiece.GetY(), board_x, board_y);
+                    if (shot) {
+                        System.out.println("Shot Arrow...");
+                        arrowShot = true;
+                    }
                     } catch (VDMRunTimeException ex) {
                         System.out.println(ex.getMessage());
-                    }
+                }
                 }
             } else {                
                 selectPiece(p);

@@ -5,6 +5,7 @@ class Board
 		private positions : map Piece`Position to Piece;
 		private arrows : seq of Arrow := []; 
 		private turn : Turn := <White>;
+		private setarrow : bool := false;
 		inv (card {a | a in set (rng positions) & isofclass(Amazon, a)}) <= 8;
 	operations
 		public Board: () ==> Board
@@ -93,6 +94,8 @@ class Board
 			setArrow(amazon_x, amazon_y, x, y) == (
 				dcl arrow:Arrow := new Arrow(x, y);
 				positions := positions ++ {mk_Piece`Position(x, y) |-> arrow};
+				setarrow := false;
+				turn := switchTurn();
 				return true;
 		)
 			pre mk_Piece`Position(amazon_x, amazon_y) in set dom positions
@@ -101,19 +104,20 @@ class Board
 				and pathIsFree(amazon_x, amazon_y, x, y);
 			
 		-- move : moves a amazon on the board
-		public move : nat * nat * nat * nat ==> Turn
+		public move : nat * nat * nat * nat ==> bool
 			move(x, y, new_x, new_y) == (	
 				dcl amazon:Amazon := positions(mk_Piece`Position(x,y));
 				
 				if (amazon.GetColor() <> turn) then (
-						return turn;
+						return false;
 				);
 				
 				amazon.SetX(new_x);
 				amazon.SetY(new_y);
 				positions := {mk_Piece`Position(x, y)} <-: positions;
 				positions := positions ++ {mk_Piece`Position(new_x, new_y) |-> amazon};
-				return switchTurn();
+				setarrow := true;
+				return true;
 			)
 			pre mk_Piece`Position(x, y) in set dom positions
 				and mk_Piece`Position(new_x, new_y) not in set dom positions
@@ -154,16 +158,16 @@ class Board
 				return card white_amazons;
 			);
 					
-		-- patIsFree : check if the path is fre
+		-- patIsFree : check if the path is free
 		public pathIsFree : nat * nat * nat * nat ==> bool
 			pathIsFree(x, y, new_x, new_y) == (	
-				dcl deltaX:nat := new_x - x;
-				dcl deltaY:nat := new_y - y;
+				dcl deltaX:nat := abs(new_x - x);
+				dcl deltaY:nat := abs(new_y - y);
 				dcl pathPieces: set of Piece`Position ;
 				if(deltaX = 0 and deltaY > 0) then (
-					pathPieces := {a | a in set (dom positions) & a.y in set ({y,...,new_y} \ {y,new_y})};
+					pathPieces := {a | a in set (dom positions) & (a.y in set ({y,...,new_y} \ {y,new_y}) and a.x = x)};
 				) else if(deltaY = 0 and deltaX > 0) then (
-					pathPieces := {a | a in set (dom positions) & a.x in set ({x,...,new_x} \ {x,new_x})};
+					pathPieces := {a | a in set (dom positions) & (a.x in set ({x,...,new_x} \ {x,new_x}) and a.y = y)};
 				) else if(deltaX = deltaY and deltaX > 0) then (
 					pathPieces := {a | a in set (dom positions) & (a.x in set ({x,...,new_x} \ {x,new_x}) and 
 														 a.y in set ({y,...,new_y} \ {y,new_y}) and abs(a.x - x) = abs(a.y - y)) };
