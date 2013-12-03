@@ -97,9 +97,12 @@ public class BoardPanel extends javax.swing.JPanel implements MouseListener{
     
       @Override
     public void mouseClicked(MouseEvent e) {
-        System.out.println("mouse Clicked! on pannel position: ("+e.getX()+", "+e.getY()+")");
         int[] pos = getPositionAtMouse(e.getX(), e.getY());
-        System.out.println("Board Pos: ("+pos[0]+", "+pos[1]+")");
+        if(Game.debug){
+            System.out.println("mouse Clicked! on pannel position: ("+e.getX()+", "+e.getY()+")");            
+            System.out.println("Board Pos: ("+pos[0]+", "+pos[1]+")");
+        }
+        Game.mouseClickedAt(pos[0],pos[1]);        
     }
 
     @Override

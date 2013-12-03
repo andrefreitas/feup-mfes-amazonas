@@ -7,9 +7,6 @@
 package gui;
 
 import java.awt.Component;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -23,6 +20,7 @@ public class BoardFrame extends javax.swing.JFrame {
      */
     public BoardFrame(Component parent) {
         initComponents();
+        this.pack();
         this.setLocationRelativeTo(parent);
         this.setVisible(true);
     } 
@@ -40,12 +38,13 @@ public class BoardFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Amazonas");
-        setMaximumSize(new java.awt.Dimension(420, 442));
-        setMinimumSize(new java.awt.Dimension(420, 442));
-        setPreferredSize(new java.awt.Dimension(420, 442));
+        setBounds(new java.awt.Rectangle(0, 0, 0, 0));
+        setMaximumSize(new java.awt.Dimension(435, 460));
+        setMinimumSize(new java.awt.Dimension(425, 445));
+        setPreferredSize(null);
+        setResizable(false);
         getContentPane().setLayout(null);
 
-        boardPanel.setBounds(new java.awt.Rectangle(0, 0, 420, 420));
         boardPanel.setMaximumSize(new java.awt.Dimension(420, 420));
         boardPanel.setMinimumSize(new java.awt.Dimension(420, 420));
         boardPanel.setPreferredSize(new java.awt.Dimension(420, 420));
