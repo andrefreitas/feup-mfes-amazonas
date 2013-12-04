@@ -92,7 +92,11 @@ class Board
 		-- set arrow : puts a arrow on the board
 		public setArrow : nat * nat * nat * nat ==> bool
 			setArrow(amazon_x, amazon_y, x, y) == (
+				dcl amazon:Amazon := positions(mk_Piece`Position(amazon_x,amazon_y));
 				dcl arrow:Arrow := new Arrow(x, y);
+				if (amazon.GetColor() <> turn) then (
+						return false;
+				);
 				positions := positions ++ {mk_Piece`Position(x, y) |-> arrow};
 				setarrow := false;
 				turn := switchTurn();

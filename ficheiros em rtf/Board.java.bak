@@ -669,33 +669,36 @@ public class Board implements EvaluatePP {
       if ((cond_11 = Boolean.valueOf(deltaX.intValue() == 0)).booleanValue()) 
         cond_11 = Boolean.valueOf(deltaY.intValue() > 0);
       if (cond_11.booleanValue()) {
-        Set res_s_106 = new HashSet();
+        Set res_s_111 = new HashSet();
         {
-          Set e1_set_110 = new HashSet(positions.keySet());
+          Set e1_set_115 = new HashSet(positions.keySet());
           Piece.Position a = null;
-          Set tmpSet_127 = new HashSet(e1_set_110);
-          for (Iterator enm_126 = tmpSet_127.iterator(); enm_126.hasNext(); ) {
-            Piece.Position elem_125 = (Piece.Position)enm_126.next();
+          Set tmpSet_137 = new HashSet(e1_set_115);
+          for (Iterator enm_136 = tmpSet_137.iterator(); enm_136.hasNext(); ) {
+            Piece.Position elem_135 = (Piece.Position)enm_136.next();
             /* a */
-            a = elem_125;
-            Set var2_114 = new HashSet();
-            Set var1_115 = new HashSet();
-            var1_115 = new HashSet();
-            int lbi_119 = y.intValue();
-            int ubi_120 = new_y.intValue();
-            for (int count_118 = lbi_119; count_118 <= ubi_120; count_118++) 
-              var1_115.add(new Integer(count_118));
-            Set var2_121 = new HashSet();
-            var2_121.add(y);
-            var2_121.add(new_y);
-            var2_114 = new HashSet(var1_115);
-            var2_114.removeAll(var2_121);
-            if (UTIL.Contains(var2_114, (a.y))) {
-              res_s_106.add(a);
+            a = elem_135;
+            Boolean pred_116 = null;
+            Set var2_120 = new HashSet();
+            Set var1_121 = new HashSet();
+            var1_121 = new HashSet();
+            int lbi_125 = y.intValue();
+            int ubi_126 = new_y.intValue();
+            for (int count_124 = lbi_125; count_124 <= ubi_126; count_124++) 
+              var1_121.add(new Integer(count_124));
+            Set var2_127 = new HashSet();
+            var2_127.add(y);
+            var2_127.add(new_y);
+            var2_120 = new HashSet(var1_121);
+            var2_120.removeAll(var2_127);
+            if ((pred_116 = Boolean.valueOf(UTIL.Contains(var2_120, (a.y)))).booleanValue()) 
+              pred_116 = Boolean.valueOf((a.x).intValue() == x.intValue());
+            if (pred_116.booleanValue()) {
+              res_s_111.add(a);
             }
           }
         }
-        pathPieces = (Set)UTIL.clone(res_s_106);
+        pathPieces = (Set)UTIL.clone(res_s_111);
         if (!this.inv_Board().booleanValue()) 
           UTIL.RunTime("Instance invariant failure in Board");
       }
@@ -708,24 +711,27 @@ public class Board implements EvaluatePP {
           {
             Set e1_set_87 = new HashSet(positions.keySet());
             Piece.Position a = null;
-            Set tmpSet_104 = new HashSet(e1_set_87);
-            for (Iterator enm_103 = tmpSet_104.iterator(); enm_103.hasNext(); ) {
-              Piece.Position elem_102 = (Piece.Position)enm_103.next();
+            Set tmpSet_109 = new HashSet(e1_set_87);
+            for (Iterator enm_108 = tmpSet_109.iterator(); enm_108.hasNext(); ) {
+              Piece.Position elem_107 = (Piece.Position)enm_108.next();
               /* a */
-              a = elem_102;
-              Set var2_91 = new HashSet();
-              Set var1_92 = new HashSet();
-              var1_92 = new HashSet();
-              int lbi_96 = x.intValue();
-              int ubi_97 = new_x.intValue();
-              for (int count_95 = lbi_96; count_95 <= ubi_97; count_95++) 
-                var1_92.add(new Integer(count_95));
-              Set var2_98 = new HashSet();
-              var2_98.add(x);
-              var2_98.add(new_x);
-              var2_91 = new HashSet(var1_92);
-              var2_91.removeAll(var2_98);
-              if (UTIL.Contains(var2_91, (a.x))) {
+              a = elem_107;
+              Boolean pred_88 = null;
+              Set var2_92 = new HashSet();
+              Set var1_93 = new HashSet();
+              var1_93 = new HashSet();
+              int lbi_97 = x.intValue();
+              int ubi_98 = new_x.intValue();
+              for (int count_96 = lbi_97; count_96 <= ubi_98; count_96++) 
+                var1_93.add(new Integer(count_96));
+              Set var2_99 = new HashSet();
+              var2_99.add(x);
+              var2_99.add(new_x);
+              var2_92 = new HashSet(var1_93);
+              var2_92.removeAll(var2_99);
+              if ((pred_88 = Boolean.valueOf(UTIL.Contains(var2_92, (a.x)))).booleanValue()) 
+                pred_88 = Boolean.valueOf((a.y).intValue() == y.intValue());
+              if (pred_88.booleanValue()) {
                 res_s_83.add(a);
               }
             }
