@@ -40,6 +40,7 @@ operations
  		TestBoardPathFree() == (
  		dcl b: Board := new Board();
  		dcl positions: map Piece`Position to Piece;
+ 		AssertFalse(b.pathIsFree(0, 3, 2, 6));
  		AssertTrue(b.pathIsFree(0, 3, 0, 5));
  		AssertTrue(b.pathIsFree(0, 3, 3, 3));
  		AssertTrue(b.pathIsFree(0, 3, 1, 4));
@@ -84,6 +85,7 @@ operations
  	public TestBoardSetArrow : () ==> () 
  		TestBoardSetArrow() == (
  		dcl b: Board := new Board();
+ 		AssertFalse(b.setArrow(0,6,0,7));
  		AssertTrue(b.setArrow(0,3,2,3));
  	);
  	
@@ -185,9 +187,9 @@ traces
 	TestAssertFalse : AssertFalse(false=true);
 	TestBoardPositions : b1.getPositions();
 	TestMoveIsValid : b1.moveIsValid(0, 1);
-	TestPathIsFree : b1.pathIsFree(0, 3, 0, 7);
+	TestPathIsFree : b1.pathIsFree(0, 3, 2, 6);
 	TestMove : b1.setPositions(positions1); b1.getPositions(); b1.move(0, 0, 0, 2); b1.getPositions();
-	TestSetArrow : b1.setArrow(0, 3, 2,3); b1.getPositions();
+	TestSetArrow : b1.setArrow(0, 6, 0, 7); b1.getPositions();
 	TestGameOver : b1.gameOver(); b1.setPositions(positions1); b1.getPositions(); b1.gameOver(); 
 	TestSwitchTurn : b1.switchTurn(); b1.switchTurn();
 	
