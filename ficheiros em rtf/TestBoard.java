@@ -51,9 +51,7 @@ public class TestBoard implements EvaluatePP {
 
     public final int TestBoardMoveValid = 6;
 
-    public final int TestBoardSwitchTurn = 7;
-
-    public final int nr_functions = 8;
+    public final int nr_functions = 7;
 
 
     public TestBoardSentinel () throws CGException {}
@@ -267,82 +265,83 @@ public class TestBoard implements EvaluatePP {
       Board b = new Board();
       Map positions = new HashMap();
       Map p = new HashMap();
+      AssertTrue(Boolean.valueOf(UTIL.equals(b.getTurn(), new quotes.White())));
       AssertFalse(b.gameOver());
-      Map rhs_3 = new HashMap();
-      rhs_3.put(new Piece.Position(new Integer(0), new Integer(4)), new Arrow(new Integer(0), new Integer(4)));
-      rhs_3.put(new Piece.Position(new Integer(1), new Integer(4)), new Arrow(new Integer(1), new Integer(4)));
-      rhs_3.put(new Piece.Position(new Integer(1), new Integer(3)), new Arrow(new Integer(1), new Integer(3)));
-      rhs_3.put(new Piece.Position(new Integer(0), new Integer(2)), new Arrow(new Integer(0), new Integer(2)));
-      rhs_3.put(new Piece.Position(new Integer(1), new Integer(2)), new Arrow(new Integer(1), new Integer(2)));
-      rhs_3.put(new Piece.Position(new Integer(0), new Integer(3)), new Amazon(new Integer(0), new Integer(3), new quotes.White()));
-      rhs_3.put(new Piece.Position(new Integer(0), new Integer(7)), new Amazon(new Integer(0), new Integer(7), new quotes.Black()));
-      positions = (Map)UTIL.clone(rhs_3);
+      Map rhs_7 = new HashMap();
+      rhs_7.put(new Piece.Position(new Integer(0), new Integer(4)), new Arrow(new Integer(0), new Integer(4)));
+      rhs_7.put(new Piece.Position(new Integer(1), new Integer(4)), new Arrow(new Integer(1), new Integer(4)));
+      rhs_7.put(new Piece.Position(new Integer(1), new Integer(3)), new Arrow(new Integer(1), new Integer(3)));
+      rhs_7.put(new Piece.Position(new Integer(0), new Integer(2)), new Arrow(new Integer(0), new Integer(2)));
+      rhs_7.put(new Piece.Position(new Integer(1), new Integer(2)), new Arrow(new Integer(1), new Integer(2)));
+      rhs_7.put(new Piece.Position(new Integer(0), new Integer(3)), new Amazon(new Integer(0), new Integer(3), new quotes.White()));
+      rhs_7.put(new Piece.Position(new Integer(0), new Integer(7)), new Amazon(new Integer(0), new Integer(7), new quotes.Black()));
+      positions = (Map)UTIL.clone(rhs_7);
       b.setPositions(positions);
       p = (Map)UTIL.clone(b.getPositions());
       AssertTrue(Boolean.valueOf(UTIL.equals(p, positions)));
       AssertTrue(b.gameOver());
-      Map rhs_57 = new HashMap();
-      rhs_57.put(new Piece.Position(new Integer(1), new Integer(0)), new Arrow(new Integer(1), new Integer(0)));
-      rhs_57.put(new Piece.Position(new Integer(1), new Integer(1)), new Arrow(new Integer(1), new Integer(1)));
-      rhs_57.put(new Piece.Position(new Integer(0), new Integer(1)), new Arrow(new Integer(0), new Integer(1)));
-      rhs_57.put(new Piece.Position(new Integer(0), new Integer(0)), new Amazon(new Integer(0), new Integer(0), new quotes.Black()));
-      rhs_57.put(new Piece.Position(new Integer(0), new Integer(7)), new Amazon(new Integer(0), new Integer(7), new quotes.White()));
-      positions = (Map)UTIL.clone(rhs_57);
+      Map rhs_61 = new HashMap();
+      rhs_61.put(new Piece.Position(new Integer(1), new Integer(0)), new Arrow(new Integer(1), new Integer(0)));
+      rhs_61.put(new Piece.Position(new Integer(1), new Integer(1)), new Arrow(new Integer(1), new Integer(1)));
+      rhs_61.put(new Piece.Position(new Integer(0), new Integer(1)), new Arrow(new Integer(0), new Integer(1)));
+      rhs_61.put(new Piece.Position(new Integer(0), new Integer(0)), new Amazon(new Integer(0), new Integer(0), new quotes.Black()));
+      rhs_61.put(new Piece.Position(new Integer(0), new Integer(7)), new Amazon(new Integer(0), new Integer(7), new quotes.White()));
+      positions = (Map)UTIL.clone(rhs_61);
       b.setPositions(positions);
       AssertTrue(Boolean.valueOf(UTIL.equals(b.getPositions(), positions)));
       AssertTrue(b.gameOver());
-      Map rhs_98 = new HashMap();
-      rhs_98.put(new Piece.Position(new Integer(8), new Integer(8)), new Arrow(new Integer(8), new Integer(8)));
-      rhs_98.put(new Piece.Position(new Integer(8), new Integer(9)), new Arrow(new Integer(8), new Integer(9)));
-      rhs_98.put(new Piece.Position(new Integer(9), new Integer(8)), new Arrow(new Integer(9), new Integer(8)));
-      rhs_98.put(new Piece.Position(new Integer(9), new Integer(9)), new Amazon(new Integer(9), new Integer(9), new quotes.Black()));
-      rhs_98.put(new Piece.Position(new Integer(3), new Integer(7)), new Amazon(new Integer(3), new Integer(7), new quotes.White()));
-      positions = (Map)UTIL.clone(rhs_98);
+      Map rhs_102 = new HashMap();
+      rhs_102.put(new Piece.Position(new Integer(8), new Integer(8)), new Arrow(new Integer(8), new Integer(8)));
+      rhs_102.put(new Piece.Position(new Integer(8), new Integer(9)), new Arrow(new Integer(8), new Integer(9)));
+      rhs_102.put(new Piece.Position(new Integer(9), new Integer(8)), new Arrow(new Integer(9), new Integer(8)));
+      rhs_102.put(new Piece.Position(new Integer(9), new Integer(9)), new Amazon(new Integer(9), new Integer(9), new quotes.Black()));
+      rhs_102.put(new Piece.Position(new Integer(3), new Integer(7)), new Amazon(new Integer(3), new Integer(7), new quotes.White()));
+      positions = (Map)UTIL.clone(rhs_102);
       b.setPositions(positions);
       AssertTrue(Boolean.valueOf(UTIL.equals(b.getPositions(), positions)));
       AssertTrue(b.gameOver());
-      Map rhs_139 = new HashMap();
-      rhs_139.put(new Piece.Position(new Integer(1), new Integer(9)), new Arrow(new Integer(1), new Integer(9)));
-      rhs_139.put(new Piece.Position(new Integer(0), new Integer(8)), new Arrow(new Integer(0), new Integer(8)));
-      rhs_139.put(new Piece.Position(new Integer(0), new Integer(9)), new Amazon(new Integer(0), new Integer(9), new quotes.Black()));
-      rhs_139.put(new Piece.Position(new Integer(3), new Integer(7)), new Amazon(new Integer(3), new Integer(7), new quotes.White()));
-      positions = (Map)UTIL.clone(rhs_139);
+      Map rhs_143 = new HashMap();
+      rhs_143.put(new Piece.Position(new Integer(1), new Integer(9)), new Arrow(new Integer(1), new Integer(9)));
+      rhs_143.put(new Piece.Position(new Integer(0), new Integer(8)), new Arrow(new Integer(0), new Integer(8)));
+      rhs_143.put(new Piece.Position(new Integer(0), new Integer(9)), new Amazon(new Integer(0), new Integer(9), new quotes.Black()));
+      rhs_143.put(new Piece.Position(new Integer(3), new Integer(7)), new Amazon(new Integer(3), new Integer(7), new quotes.White()));
+      positions = (Map)UTIL.clone(rhs_143);
       b.setPositions(positions);
       AssertTrue(Boolean.valueOf(UTIL.equals(b.getPositions(), positions)));
       AssertFalse(b.gameOver());
-      Map rhs_174 = new HashMap();
-      rhs_174.put(new Piece.Position(new Integer(1), new Integer(9)), new Arrow(new Integer(1), new Integer(9)));
-      rhs_174.put(new Piece.Position(new Integer(0), new Integer(8)), new Arrow(new Integer(0), new Integer(8)));
-      rhs_174.put(new Piece.Position(new Integer(1), new Integer(8)), new Arrow(new Integer(1), new Integer(8)));
-      rhs_174.put(new Piece.Position(new Integer(0), new Integer(9)), new Amazon(new Integer(0), new Integer(9), new quotes.Black()));
-      rhs_174.put(new Piece.Position(new Integer(3), new Integer(7)), new Amazon(new Integer(3), new Integer(7), new quotes.White()));
-      positions = (Map)UTIL.clone(rhs_174);
+      Map rhs_178 = new HashMap();
+      rhs_178.put(new Piece.Position(new Integer(1), new Integer(9)), new Arrow(new Integer(1), new Integer(9)));
+      rhs_178.put(new Piece.Position(new Integer(0), new Integer(8)), new Arrow(new Integer(0), new Integer(8)));
+      rhs_178.put(new Piece.Position(new Integer(1), new Integer(8)), new Arrow(new Integer(1), new Integer(8)));
+      rhs_178.put(new Piece.Position(new Integer(0), new Integer(9)), new Amazon(new Integer(0), new Integer(9), new quotes.Black()));
+      rhs_178.put(new Piece.Position(new Integer(3), new Integer(7)), new Amazon(new Integer(3), new Integer(7), new quotes.White()));
+      positions = (Map)UTIL.clone(rhs_178);
       b.setPositions(positions);
       AssertTrue(Boolean.valueOf(UTIL.equals(b.getPositions(), positions)));
       AssertTrue(b.gameOver());
-      Map rhs_215 = new HashMap();
-      rhs_215.put(new Piece.Position(new Integer(9), new Integer(1)), new Arrow(new Integer(9), new Integer(1)));
-      rhs_215.put(new Piece.Position(new Integer(8), new Integer(1)), new Arrow(new Integer(8), new Integer(1)));
-      rhs_215.put(new Piece.Position(new Integer(8), new Integer(0)), new Arrow(new Integer(8), new Integer(0)));
-      rhs_215.put(new Piece.Position(new Integer(9), new Integer(0)), new Amazon(new Integer(9), new Integer(0), new quotes.Black()));
-      rhs_215.put(new Piece.Position(new Integer(4), new Integer(7)), new Amazon(new Integer(4), new Integer(7), new quotes.White()));
-      positions = (Map)UTIL.clone(rhs_215);
+      Map rhs_219 = new HashMap();
+      rhs_219.put(new Piece.Position(new Integer(9), new Integer(1)), new Arrow(new Integer(9), new Integer(1)));
+      rhs_219.put(new Piece.Position(new Integer(8), new Integer(1)), new Arrow(new Integer(8), new Integer(1)));
+      rhs_219.put(new Piece.Position(new Integer(8), new Integer(0)), new Arrow(new Integer(8), new Integer(0)));
+      rhs_219.put(new Piece.Position(new Integer(9), new Integer(0)), new Amazon(new Integer(9), new Integer(0), new quotes.Black()));
+      rhs_219.put(new Piece.Position(new Integer(4), new Integer(7)), new Amazon(new Integer(4), new Integer(7), new quotes.White()));
+      positions = (Map)UTIL.clone(rhs_219);
       b.setPositions(positions);
       AssertTrue(Boolean.valueOf(UTIL.equals(b.getPositions(), positions)));
       AssertTrue(b.gameOver());
-      Map rhs_256 = new HashMap();
-      rhs_256.put(new Piece.Position(new Integer(3), new Integer(4)), new Amazon(new Integer(3), new Integer(4), new quotes.Black()));
-      rhs_256.put(new Piece.Position(new Integer(1), new Integer(2)), new Amazon(new Integer(1), new Integer(2), new quotes.White()));
-      positions = (Map)UTIL.clone(rhs_256);
+      Map rhs_260 = new HashMap();
+      rhs_260.put(new Piece.Position(new Integer(3), new Integer(4)), new Amazon(new Integer(3), new Integer(4), new quotes.Black()));
+      rhs_260.put(new Piece.Position(new Integer(1), new Integer(2)), new Amazon(new Integer(1), new Integer(2), new quotes.White()));
+      positions = (Map)UTIL.clone(rhs_260);
       b.setPositions(positions);
       AssertTrue(Boolean.valueOf(UTIL.equals(b.getPositions(), positions)));
       AssertFalse(b.gameOver());
-      Map rhs_279 = new HashMap();
-      rhs_279.put(new Piece.Position(new Integer(0), new Integer(8)), new Arrow(new Integer(0), new Integer(8)));
-      rhs_279.put(new Piece.Position(new Integer(1), new Integer(8)), new Arrow(new Integer(1), new Integer(8)));
-      rhs_279.put(new Piece.Position(new Integer(0), new Integer(9)), new Amazon(new Integer(0), new Integer(9), new quotes.Black()));
-      rhs_279.put(new Piece.Position(new Integer(3), new Integer(7)), new Amazon(new Integer(3), new Integer(7), new quotes.White()));
-      positions = (Map)UTIL.clone(rhs_279);
+      Map rhs_283 = new HashMap();
+      rhs_283.put(new Piece.Position(new Integer(0), new Integer(8)), new Arrow(new Integer(0), new Integer(8)));
+      rhs_283.put(new Piece.Position(new Integer(1), new Integer(8)), new Arrow(new Integer(1), new Integer(8)));
+      rhs_283.put(new Piece.Position(new Integer(0), new Integer(9)), new Amazon(new Integer(0), new Integer(9), new quotes.Black()));
+      rhs_283.put(new Piece.Position(new Integer(3), new Integer(7)), new Amazon(new Integer(3), new Integer(7), new quotes.White()));
+      positions = (Map)UTIL.clone(rhs_283);
       b.setPositions(positions);
       AssertTrue(Boolean.valueOf(UTIL.equals(b.getPositions(), positions)));
       AssertFalse(b.gameOver());
@@ -352,22 +351,6 @@ public class TestBoard implements EvaluatePP {
     }
   }
 // ***** VDMTOOLS END Name=TestBoardGameOver
-
-
-// ***** VDMTOOLS START Name=TestBoardSwitchTurn KEEP=NO
-  public void TestBoardSwitchTurn () throws CGException {
-    sentinel.entering(((TestBoardSentinel)sentinel).TestBoardSwitchTurn);
-    try {
-      Board b = new Board();
-      AssertTrue(Boolean.valueOf(UTIL.equals(b.switchTurn(), new quotes.Black())));
-      AssertTrue(Boolean.valueOf(UTIL.equals(b.switchTurn(), new quotes.White())));
-      AssertTrue(Boolean.valueOf(UTIL.equals(b.getTurn(), new quotes.White())));
-    }
-    finally {
-      sentinel.leaving(((TestBoardSentinel)sentinel).TestBoardSwitchTurn);
-    }
-  }
-// ***** VDMTOOLS END Name=TestBoardSwitchTurn
 
 }
 ;

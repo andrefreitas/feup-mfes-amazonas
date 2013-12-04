@@ -107,6 +107,7 @@ operations
  			dcl b: Board := new Board();
  			dcl positions: map Piece`Position to Piece;
  			dcl p : map Piece`Position to Piece;
+ 			AssertTrue(b.getTurn() = <White>);
  			AssertFalse(b.gameOver());
  			positions := {mk_Piece`Position(0,4) |-> new Arrow(0,4),
 										mk_Piece`Position(1,4) |-> new Arrow(1,4),
@@ -185,15 +186,6 @@ operations
 			
  		);
  		
- 	public TestBoardSwitchTurn : () ==> ()
- 		TestBoardSwitchTurn() == (
- 			dcl b : Board := new Board();
- 			AssertTrue(b.switchTurn() = <Black>);
- 			AssertTrue(b.switchTurn() = <White>);
- 			AssertTrue(b.getTurn() = <White>);
- 		);
- 
- 		
  		
 functions
 -- TODO Define functiones here
@@ -203,9 +195,8 @@ traces
 	TestBoardPositions : b1.getPositions();
 	TestMoveIsValid : b1.moveIsValid(0, 1);
 	TestPathIsFree : b1.pathIsFree(0, 3, 2, 6);
-	TestMove : b1.setPositions(positions1); b1.getPositions(); b1.move(0, 0, 0, 2); b1.getPositions();
+	TestMove : AssertTrue(b1.move(0,3,5,8)); AssertTrue(b1.move(3,0,2,0)); AssertFalse(b1.move(0,6,0,7)); b1.setPositions(positions1); b1.getPositions(); b1.move(0, 0, 0, 2); b1.getPositions();
 	TestSetArrow : b1.setPositions(positions1); b1.getPositions(); b1.move(0, 0, 0, 2); b1.setArrow(0, 3, 0, 4); b1.getPositions();
-	TestGameOver : b1.gameOver(); b1.setPositions(positions1); b1.getPositions(); b1.gameOver(); 
-	TestSwitchTurn : b1.switchTurn(); b1.switchTurn();
-	
+	TestGameOver : b1.gameOver(); b1.setPositions(positions1); b1.getPositions(); b1.gameOver();
+
 end TestBoard

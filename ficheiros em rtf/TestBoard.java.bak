@@ -29,14 +29,6 @@ import jp.vdmtools.VDM.CGException;
 
 public class TestBoard implements EvaluatePP {
 
-// ***** VDMTOOLS START Name=b1 KEEP=NO
-  private volatile Board b1 = null;
-// ***** VDMTOOLS END Name=b1
-
-// ***** VDMTOOLS START Name=positions1 KEEP=NO
-  private volatile Map positions1 = new HashMap();
-// ***** VDMTOOLS END Name=positions1
-
 // ***** VDMTOOLS START Name=sentinel KEEP=NO
   volatile Sentinel sentinel;
 // ***** VDMTOOLS END Name=sentinel
@@ -98,17 +90,6 @@ public class TestBoard implements EvaluatePP {
   private void vdm_init_TestBoard () {
     try {
       setSentinel();
-      b1 = new Board();
-      positions1.put(new Piece.Position(new Integer(1), new Integer(1)), new Arrow(new Integer(1), new Integer(1)));
-      positions1.put(new Piece.Position(new Integer(2), new Integer(1)), new Arrow(new Integer(2), new Integer(1)));
-      positions1.put(new Piece.Position(new Integer(0), new Integer(0)), new Amazon(new Integer(0), new Integer(0), new quotes.White()));
-      positions1.put(new Piece.Position(new Integer(0), new Integer(3)), new Amazon(new Integer(0), new Integer(3), new quotes.Black()));
-      positions1.put(new Piece.Position(new Integer(0), new Integer(9)), new Amazon(new Integer(0), new Integer(9), new quotes.Black()));
-      positions1.put(new Piece.Position(new Integer(2), new Integer(0)), new Amazon(new Integer(2), new Integer(0), new quotes.Black()));
-      positions1.put(new Piece.Position(new Integer(3), new Integer(7)), new Amazon(new Integer(3), new Integer(7), new quotes.Black()));
-      positions1.put(new Piece.Position(new Integer(4), new Integer(7)), new Amazon(new Integer(4), new Integer(7), new quotes.White()));
-      positions1.put(new Piece.Position(new Integer(7), new Integer(7)), new Amazon(new Integer(7), new Integer(7), new quotes.White()));
-      positions1.put(new Piece.Position(new Integer(9), new Integer(9)), new Amazon(new Integer(9), new Integer(9), new quotes.White()));
     }
     catch (Exception e) {
       e.printStackTrace(System.out);
@@ -256,8 +237,21 @@ public class TestBoard implements EvaluatePP {
     sentinel.entering(((TestBoardSentinel)sentinel).TestBoardSetArrow);
     try {
       Board b = new Board();
-      AssertFalse(b.setArrow(new Integer(0), new Integer(6), new Integer(0), new Integer(7)));
-      AssertTrue(b.setArrow(new Integer(0), new Integer(3), new Integer(2), new Integer(3)));
+      Map positions = new HashMap();
+      positions.put(new Piece.Position(new Integer(1), new Integer(1)), new Arrow(new Integer(1), new Integer(1)));
+      positions.put(new Piece.Position(new Integer(2), new Integer(1)), new Arrow(new Integer(2), new Integer(1)));
+      positions.put(new Piece.Position(new Integer(0), new Integer(0)), new Amazon(new Integer(0), new Integer(0), new quotes.White()));
+      positions.put(new Piece.Position(new Integer(0), new Integer(3)), new Amazon(new Integer(0), new Integer(3), new quotes.Black()));
+      positions.put(new Piece.Position(new Integer(0), new Integer(9)), new Amazon(new Integer(0), new Integer(9), new quotes.Black()));
+      positions.put(new Piece.Position(new Integer(2), new Integer(0)), new Amazon(new Integer(2), new Integer(0), new quotes.Black()));
+      positions.put(new Piece.Position(new Integer(3), new Integer(7)), new Amazon(new Integer(3), new Integer(7), new quotes.Black()));
+      positions.put(new Piece.Position(new Integer(4), new Integer(7)), new Amazon(new Integer(4), new Integer(7), new quotes.White()));
+      positions.put(new Piece.Position(new Integer(7), new Integer(7)), new Amazon(new Integer(7), new Integer(7), new quotes.White()));
+      positions.put(new Piece.Position(new Integer(9), new Integer(9)), new Amazon(new Integer(9), new Integer(9), new quotes.White()));
+      b.setPositions(positions);
+      AssertTrue(b.move(new Integer(0), new Integer(0), new Integer(0), new Integer(2)));
+      AssertTrue(b.setArrow(new Integer(0), new Integer(2), new Integer(1), new Integer(2)));
+      AssertFalse(b.setArrow(new Integer(0), new Integer(3), new Integer(0), new Integer(4)));
     }
     finally {
       sentinel.leaving(((TestBoardSentinel)sentinel).TestBoardSetArrow);

@@ -66,29 +66,31 @@ public class Board implements EvaluatePP {
 
     public final int Board = 1;
 
-    public final int canMove = 2;
+    public final int winner = 2;
 
-    public final int getTurn = 3;
+    public final int canMove = 3;
 
-    public final int gameOver = 4;
+    public final int getTurn = 4;
 
-    public final int setArrow = 5;
+    public final int gameOver = 5;
 
-    public final int pathIsFree = 6;
+    public final int setArrow = 6;
 
-    public final int switchTurn = 7;
+    public final int pathIsFree = 7;
 
-    public final int countAmazons = 8;
+    public final int switchTurn = 8;
 
-    public final int getPositions = 9;
+    public final int countAmazons = 9;
 
-    public final int setPositions = 10;
+    public final int getPositions = 10;
 
-    public final int countBlackAmazons = 11;
+    public final int setPositions = 11;
 
-    public final int countWhiteAmazons = 12;
+    public final int countBlackAmazons = 12;
 
-    public final int nr_functions = 13;
+    public final int countWhiteAmazons = 13;
+
+    public final int nr_functions = 14;
 
 
     public BoardSentinel () throws CGException {}
@@ -235,7 +237,7 @@ public class Board implements EvaluatePP {
 
 
 // ***** VDMTOOLS START Name=switchTurn KEEP=NO
-  public Object switchTurn () throws CGException {
+  private Object switchTurn () throws CGException {
     sentinel.entering(((BoardSentinel)sentinel).switchTurn);
     try {
       if (UTIL.equals(turn, new quotes.White())) {
@@ -255,6 +257,99 @@ public class Board implements EvaluatePP {
     }
   }
 // ***** VDMTOOLS END Name=switchTurn
+
+
+// ***** VDMTOOLS START Name=winner KEEP=NO
+  public Object winner () throws CGException {
+    sentinel.entering(((BoardSentinel)sentinel).winner);
+    try {
+      Object win = null;
+      Set amazons = new HashSet();
+      Set white_amazons = new HashSet();
+      Set black_amazons = new HashSet();
+      Set res_s_2 = new HashSet();
+      {
+        Set e1_set_6 = new HashSet(positions.values());
+        Piece a = null;
+        Set tmpSet_12 = new HashSet(e1_set_6);
+        for (Iterator enm_11 = tmpSet_12.iterator(); enm_11.hasNext(); ) {
+          Piece elem_10 = (Piece)enm_11.next();
+          /* a */
+          a = elem_10;
+          if (a instanceof Amazon) {
+            res_s_2.add(a);
+          }
+        }
+      }
+      Set rhs_13 = res_s_2;
+      if (!(((Object)rhs_13) instanceof Set)) 
+        UTIL.RunTime("Incompatible type");
+      amazons = (Set)UTIL.clone(rhs_13);
+      if (!this.inv_Board().booleanValue()) 
+        UTIL.RunTime("Instance invariant failure in Board");
+      Set res_s_15 = new HashSet();
+      {
+        Amazon a = null;
+        Set tmpSet_24 = new HashSet(amazons);
+        for (Iterator enm_23 = tmpSet_24.iterator(); enm_23.hasNext(); ) {
+          Amazon elem_22 = (Amazon)enm_23.next();
+          /* a */
+          a = elem_22;
+          if (UTIL.equals(a.GetColor(), new quotes.White())) {
+            res_s_15.add(a);
+          }
+        }
+      }
+      white_amazons = (Set)UTIL.clone(res_s_15);
+      if (!this.inv_Board().booleanValue()) 
+        UTIL.RunTime("Instance invariant failure in Board");
+      Set res_s_26 = new HashSet();
+      {
+        Amazon a = null;
+        Set tmpSet_35 = new HashSet(amazons);
+        for (Iterator enm_34 = tmpSet_35.iterator(); enm_34.hasNext(); ) {
+          Amazon elem_33 = (Amazon)enm_34.next();
+          /* a */
+          a = elem_33;
+          if (UTIL.equals(a.GetColor(), new quotes.Black())) {
+            res_s_26.add(a);
+          }
+        }
+      }
+      black_amazons = (Set)UTIL.clone(res_s_26);
+      if (!this.inv_Board().booleanValue()) 
+        UTIL.RunTime("Instance invariant failure in Board");
+      if (UTIL.equals(gameOver(), Boolean.TRUE)) {
+        Boolean cond_39 = null;
+        if ((cond_39 = Boolean.valueOf(UTIL.equals(canMove(white_amazons), Boolean.FALSE))).booleanValue()) 
+          cond_39 = Boolean.valueOf(UTIL.equals(canMove(black_amazons), Boolean.FALSE));
+        if (cond_39.booleanValue()) {
+          win = new quotes.Draw();
+          if (!this.inv_Board().booleanValue()) 
+            UTIL.RunTime("Instance invariant failure in Board");
+        }
+        else if (UTIL.equals(canMove(white_amazons), Boolean.FALSE)) {
+          win = new quotes.Black();
+          if (!this.inv_Board().booleanValue()) 
+            UTIL.RunTime("Instance invariant failure in Board");
+        }
+        else {
+          win = new quotes.White();
+          if (!this.inv_Board().booleanValue()) 
+            UTIL.RunTime("Instance invariant failure in Board");
+        }
+        return win;
+      }
+      win = new quotes.None();
+      if (!this.inv_Board().booleanValue()) 
+        UTIL.RunTime("Instance invariant failure in Board");
+      return win;
+    }
+    finally {
+      sentinel.leaving(((BoardSentinel)sentinel).winner);
+    }
+  }
+// ***** VDMTOOLS END Name=winner
 
 
 // ***** VDMTOOLS START Name=gameOver KEEP=NO
@@ -332,7 +427,7 @@ public class Board implements EvaluatePP {
 
 
 // ***** VDMTOOLS START Name=canMove#1|Set KEEP=NO
-  public Boolean canMove (final Set amazons) throws CGException {
+  private Boolean canMove (final Set amazons) throws CGException {
     sentinel.entering(((BoardSentinel)sentinel).canMove);
     try {
       Set canMovePieces = new HashSet();
@@ -470,12 +565,24 @@ public class Board implements EvaluatePP {
     Boolean varRes_5 = null;
     Boolean var1_6 = null;
     Boolean var1_7 = null;
-    if ((var1_7 = Boolean.valueOf(positions.containsKey(new Piece.Position(amazon_x, amazon_y)))).booleanValue()) 
-      var1_7 = Boolean.valueOf(!UTIL.Contains(new HashSet(positions.keySet()), new Piece.Position(x, y)));
+    Boolean var1_8 = null;
+    Boolean var1_9 = null;
+    Boolean var1_10 = null;
+    Boolean var1_11 = null;
+    if ((var1_11 = Boolean.valueOf(positions.containsKey(new Piece.Position(amazon_x, amazon_y)))).booleanValue()) 
+      var1_11 = Boolean.valueOf(!UTIL.Contains(new HashSet(positions.keySet()), new Piece.Position(x, y)));
+    if ((var1_10 = var1_11).booleanValue()) 
+      var1_10 = moveIsValid(new Integer(Math.abs((amazon_x.intValue() - x.intValue()))), new Integer(Math.abs((amazon_y.intValue() - y.intValue()))));
+    if ((var1_9 = var1_10).booleanValue()) 
+      var1_9 = pathIsFree(amazon_x, amazon_y, x, y);
+    if ((var1_8 = var1_9).booleanValue()) 
+      var1_8 = Boolean.valueOf(x.intValue() >= 0);
+    if ((var1_7 = var1_8).booleanValue()) 
+      var1_7 = Boolean.valueOf(x.intValue() < 10);
     if ((var1_6 = var1_7).booleanValue()) 
-      var1_6 = moveIsValid(new Integer(Math.abs((amazon_x.intValue() - x.intValue()))), new Integer(Math.abs((amazon_y.intValue() - y.intValue()))));
+      var1_6 = Boolean.valueOf(y.intValue() >= 0);
     if ((varRes_5 = var1_6).booleanValue()) 
-      varRes_5 = pathIsFree(amazon_x, amazon_y, x, y);
+      varRes_5 = Boolean.valueOf(y.intValue() < 10);
     return varRes_5;
   }
 // ***** VDMTOOLS END Name=pre_setArrow#4|Number|Number|Number|Number
@@ -541,20 +648,32 @@ public class Board implements EvaluatePP {
     Boolean var1_9 = null;
     Boolean var1_10 = null;
     Boolean var1_11 = null;
-    if ((var1_11 = Boolean.valueOf(positions.containsKey(new Piece.Position(x, y)))).booleanValue()) 
-      var1_11 = Boolean.valueOf(!UTIL.Contains(new HashSet(positions.keySet()), new Piece.Position(new_x, new_y)));
+    Boolean var1_12 = null;
+    Boolean var1_13 = null;
+    Boolean var1_14 = null;
+    Boolean var1_15 = null;
+    if ((var1_15 = Boolean.valueOf(positions.containsKey(new Piece.Position(x, y)))).booleanValue()) 
+      var1_15 = Boolean.valueOf(!UTIL.Contains(new HashSet(positions.keySet()), new Piece.Position(new_x, new_y)));
+    if ((var1_14 = var1_15).booleanValue()) 
+      var1_14 = Boolean.valueOf((Piece)positions.get(new Piece.Position(x, y)) instanceof Amazon);
+    if ((var1_13 = var1_14).booleanValue()) 
+      var1_13 = moveIsValid(new Integer(Math.abs((x.intValue() - new_x.intValue()))), new Integer(Math.abs((y.intValue() - new_y.intValue()))));
+    if ((var1_12 = var1_13).booleanValue()) 
+      var1_12 = pathIsFree(x, y, new_x, new_y);
+    if ((var1_11 = var1_12).booleanValue()) 
+      var1_11 = Boolean.valueOf(countBlackAmazons().intValue() == 4);
     if ((var1_10 = var1_11).booleanValue()) 
-      var1_10 = Boolean.valueOf((Piece)positions.get(new Piece.Position(x, y)) instanceof Amazon);
+      var1_10 = Boolean.valueOf(countWhiteAmazons().intValue() == 4);
     if ((var1_9 = var1_10).booleanValue()) 
-      var1_9 = moveIsValid(new Integer(Math.abs((x.intValue() - new_x.intValue()))), new Integer(Math.abs((y.intValue() - new_y.intValue()))));
+      var1_9 = Boolean.valueOf(countAmazons().intValue() == 8);
     if ((var1_8 = var1_9).booleanValue()) 
-      var1_8 = pathIsFree(x, y, new_x, new_y);
+      var1_8 = Boolean.valueOf(new_x.intValue() >= 0);
     if ((var1_7 = var1_8).booleanValue()) 
-      var1_7 = Boolean.valueOf(countBlackAmazons().intValue() == 4);
+      var1_7 = Boolean.valueOf(new_x.intValue() < 10);
     if ((var1_6 = var1_7).booleanValue()) 
-      var1_6 = Boolean.valueOf(countWhiteAmazons().intValue() == 4);
+      var1_6 = Boolean.valueOf(new_y.intValue() >= 0);
     if ((varRes_5 = var1_6).booleanValue()) 
-      varRes_5 = Boolean.valueOf(countAmazons().intValue() == 8);
+      varRes_5 = Boolean.valueOf(new_y.intValue() < 10);
     return varRes_5;
   }
 // ***** VDMTOOLS END Name=pre_move#4|Number|Number|Number|Number
@@ -707,130 +826,357 @@ public class Board implements EvaluatePP {
       if ((cond_11 = Boolean.valueOf(deltaX.intValue() == 0)).booleanValue()) 
         cond_11 = Boolean.valueOf(deltaY.intValue() > 0);
       if (cond_11.booleanValue()) {
-        Set res_s_111 = new HashSet();
-        {
-          Set e1_set_115 = new HashSet(positions.keySet());
-          Piece.Position a = null;
-          Set tmpSet_137 = new HashSet(e1_set_115);
-          for (Iterator enm_136 = tmpSet_137.iterator(); enm_136.hasNext(); ) {
-            Piece.Position elem_135 = (Piece.Position)enm_136.next();
-            /* a */
-            a = elem_135;
-            Boolean pred_116 = null;
-            Set var2_120 = new HashSet();
-            Set var1_121 = new HashSet();
-            var1_121 = new HashSet();
-            int lbi_125 = y.intValue();
-            int ubi_126 = new_y.intValue();
-            for (int count_124 = lbi_125; count_124 <= ubi_126; count_124++) 
-              var1_121.add(new Integer(count_124));
-            Set var2_127 = new HashSet();
-            var2_127.add(y);
-            var2_127.add(new_y);
-            var2_120 = new HashSet(var1_121);
-            var2_120.removeAll(var2_127);
-            if ((pred_116 = Boolean.valueOf(UTIL.Contains(var2_120, (a.y)))).booleanValue()) 
-              pred_116 = Boolean.valueOf((a.x).intValue() == x.intValue());
-            if (pred_116.booleanValue()) {
-              res_s_111.add(a);
+        if (new_y.intValue() > y.intValue()) {
+          Set res_s_333 = new HashSet();
+          {
+            Set e1_set_337 = new HashSet(positions.keySet());
+            Piece.Position a = null;
+            Set tmpSet_359 = new HashSet(e1_set_337);
+            for (Iterator enm_358 = tmpSet_359.iterator(); enm_358.hasNext(); ) {
+              Piece.Position elem_357 = (Piece.Position)enm_358.next();
+              /* a */
+              a = elem_357;
+              Boolean pred_338 = null;
+              Set var2_342 = new HashSet();
+              Set var1_343 = new HashSet();
+              var1_343 = new HashSet();
+              int lbi_347 = y.intValue();
+              int ubi_348 = new_y.intValue();
+              for (int count_346 = lbi_347; count_346 <= ubi_348; count_346++) 
+                var1_343.add(new Integer(count_346));
+              Set var2_349 = new HashSet();
+              var2_349.add(y);
+              var2_349.add(new_y);
+              var2_342 = new HashSet(var1_343);
+              var2_342.removeAll(var2_349);
+              if ((pred_338 = Boolean.valueOf(UTIL.Contains(var2_342, (a.y)))).booleanValue()) 
+                pred_338 = Boolean.valueOf((a.x).intValue() == x.intValue());
+              if (pred_338.booleanValue()) {
+                res_s_333.add(a);
+              }
             }
           }
+          pathPieces = (Set)UTIL.clone(res_s_333);
+          if (!this.inv_Board().booleanValue()) 
+            UTIL.RunTime("Instance invariant failure in Board");
         }
-        pathPieces = (Set)UTIL.clone(res_s_111);
-        if (!this.inv_Board().booleanValue()) 
-          UTIL.RunTime("Instance invariant failure in Board");
+        else {
+          Set res_s_305 = new HashSet();
+          {
+            Set e1_set_309 = new HashSet(positions.keySet());
+            Piece.Position a = null;
+            Set tmpSet_331 = new HashSet(e1_set_309);
+            for (Iterator enm_330 = tmpSet_331.iterator(); enm_330.hasNext(); ) {
+              Piece.Position elem_329 = (Piece.Position)enm_330.next();
+              /* a */
+              a = elem_329;
+              Boolean pred_310 = null;
+              Set var2_314 = new HashSet();
+              Set var1_315 = new HashSet();
+              var1_315 = new HashSet();
+              int lbi_319 = new_y.intValue();
+              int ubi_320 = y.intValue();
+              for (int count_318 = lbi_319; count_318 <= ubi_320; count_318++) 
+                var1_315.add(new Integer(count_318));
+              Set var2_321 = new HashSet();
+              var2_321.add(y);
+              var2_321.add(new_y);
+              var2_314 = new HashSet(var1_315);
+              var2_314.removeAll(var2_321);
+              if ((pred_310 = Boolean.valueOf(UTIL.Contains(var2_314, (a.y)))).booleanValue()) 
+                pred_310 = Boolean.valueOf((a.x).intValue() == x.intValue());
+              if (pred_310.booleanValue()) {
+                res_s_305.add(a);
+              }
+            }
+          }
+          pathPieces = (Set)UTIL.clone(res_s_305);
+          if (!this.inv_Board().booleanValue()) 
+            UTIL.RunTime("Instance invariant failure in Board");
+        }
       }
       else {
         Boolean cond_18 = null;
         if ((cond_18 = Boolean.valueOf(deltaY.intValue() == 0)).booleanValue()) 
           cond_18 = Boolean.valueOf(deltaX.intValue() > 0);
         if (cond_18.booleanValue()) {
-          Set res_s_83 = new HashSet();
-          {
-            Set e1_set_87 = new HashSet(positions.keySet());
-            Piece.Position a = null;
-            Set tmpSet_109 = new HashSet(e1_set_87);
-            for (Iterator enm_108 = tmpSet_109.iterator(); enm_108.hasNext(); ) {
-              Piece.Position elem_107 = (Piece.Position)enm_108.next();
-              /* a */
-              a = elem_107;
-              Boolean pred_88 = null;
-              Set var2_92 = new HashSet();
-              Set var1_93 = new HashSet();
-              var1_93 = new HashSet();
-              int lbi_97 = x.intValue();
-              int ubi_98 = new_x.intValue();
-              for (int count_96 = lbi_97; count_96 <= ubi_98; count_96++) 
-                var1_93.add(new Integer(count_96));
-              Set var2_99 = new HashSet();
-              var2_99.add(x);
-              var2_99.add(new_x);
-              var2_92 = new HashSet(var1_93);
-              var2_92.removeAll(var2_99);
-              if ((pred_88 = Boolean.valueOf(UTIL.Contains(var2_92, (a.x)))).booleanValue()) 
-                pred_88 = Boolean.valueOf((a.y).intValue() == y.intValue());
-              if (pred_88.booleanValue()) {
-                res_s_83.add(a);
+          if (new_x.intValue() > x.intValue()) {
+            Set res_s_274 = new HashSet();
+            {
+              Set e1_set_278 = new HashSet(positions.keySet());
+              Piece.Position a = null;
+              Set tmpSet_300 = new HashSet(e1_set_278);
+              for (Iterator enm_299 = tmpSet_300.iterator(); enm_299.hasNext(); ) {
+                Piece.Position elem_298 = (Piece.Position)enm_299.next();
+                /* a */
+                a = elem_298;
+                Boolean pred_279 = null;
+                Set var2_283 = new HashSet();
+                Set var1_284 = new HashSet();
+                var1_284 = new HashSet();
+                int lbi_288 = x.intValue();
+                int ubi_289 = new_x.intValue();
+                for (int count_287 = lbi_288; count_287 <= ubi_289; count_287++) 
+                  var1_284.add(new Integer(count_287));
+                Set var2_290 = new HashSet();
+                var2_290.add(x);
+                var2_290.add(new_x);
+                var2_283 = new HashSet(var1_284);
+                var2_283.removeAll(var2_290);
+                if ((pred_279 = Boolean.valueOf(UTIL.Contains(var2_283, (a.x)))).booleanValue()) 
+                  pred_279 = Boolean.valueOf((a.y).intValue() == y.intValue());
+                if (pred_279.booleanValue()) {
+                  res_s_274.add(a);
+                }
               }
             }
+            pathPieces = (Set)UTIL.clone(res_s_274);
+            if (!this.inv_Board().booleanValue()) 
+              UTIL.RunTime("Instance invariant failure in Board");
           }
-          pathPieces = (Set)UTIL.clone(res_s_83);
-          if (!this.inv_Board().booleanValue()) 
-            UTIL.RunTime("Instance invariant failure in Board");
+          else {
+            Set res_s_246 = new HashSet();
+            {
+              Set e1_set_250 = new HashSet(positions.keySet());
+              Piece.Position a = null;
+              Set tmpSet_272 = new HashSet(e1_set_250);
+              for (Iterator enm_271 = tmpSet_272.iterator(); enm_271.hasNext(); ) {
+                Piece.Position elem_270 = (Piece.Position)enm_271.next();
+                /* a */
+                a = elem_270;
+                Boolean pred_251 = null;
+                Set var2_255 = new HashSet();
+                Set var1_256 = new HashSet();
+                var1_256 = new HashSet();
+                int lbi_260 = new_x.intValue();
+                int ubi_261 = x.intValue();
+                for (int count_259 = lbi_260; count_259 <= ubi_261; count_259++) 
+                  var1_256.add(new Integer(count_259));
+                Set var2_262 = new HashSet();
+                var2_262.add(x);
+                var2_262.add(new_x);
+                var2_255 = new HashSet(var1_256);
+                var2_255.removeAll(var2_262);
+                if ((pred_251 = Boolean.valueOf(UTIL.Contains(var2_255, (a.x)))).booleanValue()) 
+                  pred_251 = Boolean.valueOf((a.y).intValue() == y.intValue());
+                if (pred_251.booleanValue()) {
+                  res_s_246.add(a);
+                }
+              }
+            }
+            pathPieces = (Set)UTIL.clone(res_s_246);
+            if (!this.inv_Board().booleanValue()) 
+              UTIL.RunTime("Instance invariant failure in Board");
+          }
         }
         else {
           Boolean cond_25 = null;
           if ((cond_25 = Boolean.valueOf(deltaX.intValue() == deltaY.intValue())).booleanValue()) 
             cond_25 = Boolean.valueOf(deltaX.intValue() > 0);
           if (cond_25.booleanValue()) {
-            Set res_s_34 = new HashSet();
-            {
-              Set e1_set_38 = new HashSet(positions.keySet());
-              Piece.Position a = null;
-              Set tmpSet_81 = new HashSet(e1_set_38);
-              for (Iterator enm_80 = tmpSet_81.iterator(); enm_80.hasNext(); ) {
-                Piece.Position elem_79 = (Piece.Position)enm_80.next();
-                /* a */
-                a = elem_79;
-                Boolean pred_39 = null;
-                Boolean var1_40 = null;
-                Set var2_44 = new HashSet();
-                Set var1_45 = new HashSet();
-                var1_45 = new HashSet();
-                int lbi_49 = x.intValue();
-                int ubi_50 = new_x.intValue();
-                for (int count_48 = lbi_49; count_48 <= ubi_50; count_48++) 
-                  var1_45.add(new Integer(count_48));
-                Set var2_51 = new HashSet();
-                var2_51.add(x);
-                var2_51.add(new_x);
-                var2_44 = new HashSet(var1_45);
-                var2_44.removeAll(var2_51);
-                if ((var1_40 = Boolean.valueOf(UTIL.Contains(var2_44, (a.x)))).booleanValue()) {
+            Boolean cond_33 = null;
+            if ((cond_33 = Boolean.valueOf(new_x.intValue() > x.intValue())).booleanValue()) 
+              cond_33 = Boolean.valueOf(new_y.intValue() > y.intValue());
+            if (cond_33.booleanValue()) {
+              Set res_s_194 = new HashSet();
+              {
+                Set e1_set_198 = new HashSet(positions.keySet());
+                Piece.Position a = null;
+                Set tmpSet_241 = new HashSet(e1_set_198);
+                for (Iterator enm_240 = tmpSet_241.iterator(); enm_240.hasNext(); ) {
+                  Piece.Position elem_239 = (Piece.Position)enm_240.next();
+                  /* a */
+                  a = elem_239;
+                  Boolean pred_199 = null;
+                  Boolean var1_200 = null;
+                  Set var2_204 = new HashSet();
+                  Set var1_205 = new HashSet();
+                  var1_205 = new HashSet();
+                  int lbi_209 = x.intValue();
+                  int ubi_210 = new_x.intValue();
+                  for (int count_208 = lbi_209; count_208 <= ubi_210; count_208++) 
+                    var1_205.add(new Integer(count_208));
+                  Set var2_211 = new HashSet();
+                  var2_211.add(x);
+                  var2_211.add(new_x);
+                  var2_204 = new HashSet(var1_205);
+                  var2_204.removeAll(var2_211);
+                  if ((var1_200 = Boolean.valueOf(UTIL.Contains(var2_204, (a.x)))).booleanValue()) {
+                    Set var2_217 = new HashSet();
+                    Set var1_218 = new HashSet();
+                    var1_218 = new HashSet();
+                    int lbi_222 = y.intValue();
+                    int ubi_223 = new_y.intValue();
+                    for (int count_221 = lbi_222; count_221 <= ubi_223; count_221++) 
+                      var1_218.add(new Integer(count_221));
+                    Set var2_224 = new HashSet();
+                    var2_224.add(y);
+                    var2_224.add(new_y);
+                    var2_217 = new HashSet(var1_218);
+                    var2_217.removeAll(var2_224);
+                    var1_200 = Boolean.valueOf(UTIL.Contains(var2_217, (a.y)));
+                  }
+                  if ((pred_199 = var1_200).booleanValue()) 
+                    pred_199 = Boolean.valueOf(Math.abs(((a.x).intValue() - x.intValue())) == Math.abs(((a.y).intValue() - y.intValue())));
+                  if (pred_199.booleanValue()) {
+                    res_s_194.add(a);
+                  }
+                }
+              }
+              pathPieces = (Set)UTIL.clone(res_s_194);
+              if (!this.inv_Board().booleanValue()) 
+                UTIL.RunTime("Instance invariant failure in Board");
+            }
+            else if (new_x.intValue() > x.intValue()) {
+              Set res_s_145 = new HashSet();
+              {
+                Set e1_set_149 = new HashSet(positions.keySet());
+                Piece.Position a = null;
+                Set tmpSet_192 = new HashSet(e1_set_149);
+                for (Iterator enm_191 = tmpSet_192.iterator(); enm_191.hasNext(); ) {
+                  Piece.Position elem_190 = (Piece.Position)enm_191.next();
+                  /* a */
+                  a = elem_190;
+                  Boolean pred_150 = null;
+                  Boolean var1_151 = null;
+                  Set var2_155 = new HashSet();
+                  Set var1_156 = new HashSet();
+                  var1_156 = new HashSet();
+                  int lbi_160 = x.intValue();
+                  int ubi_161 = new_x.intValue();
+                  for (int count_159 = lbi_160; count_159 <= ubi_161; count_159++) 
+                    var1_156.add(new Integer(count_159));
+                  Set var2_162 = new HashSet();
+                  var2_162.add(x);
+                  var2_162.add(new_x);
+                  var2_155 = new HashSet(var1_156);
+                  var2_155.removeAll(var2_162);
+                  if ((var1_151 = Boolean.valueOf(UTIL.Contains(var2_155, (a.x)))).booleanValue()) {
+                    Set var2_168 = new HashSet();
+                    Set var1_169 = new HashSet();
+                    var1_169 = new HashSet();
+                    int lbi_173 = new_y.intValue();
+                    int ubi_174 = y.intValue();
+                    for (int count_172 = lbi_173; count_172 <= ubi_174; count_172++) 
+                      var1_169.add(new Integer(count_172));
+                    Set var2_175 = new HashSet();
+                    var2_175.add(y);
+                    var2_175.add(new_y);
+                    var2_168 = new HashSet(var1_169);
+                    var2_168.removeAll(var2_175);
+                    var1_151 = Boolean.valueOf(UTIL.Contains(var2_168, (a.y)));
+                  }
+                  if ((pred_150 = var1_151).booleanValue()) 
+                    pred_150 = Boolean.valueOf(Math.abs(((a.x).intValue() - x.intValue())) == Math.abs(((a.y).intValue() - y.intValue())));
+                  if (pred_150.booleanValue()) {
+                    res_s_145.add(a);
+                  }
+                }
+              }
+              pathPieces = (Set)UTIL.clone(res_s_145);
+              if (!this.inv_Board().booleanValue()) 
+                UTIL.RunTime("Instance invariant failure in Board");
+            }
+            else if (new_y.intValue() > y.intValue()) {
+              Set res_s_96 = new HashSet();
+              {
+                Set e1_set_100 = new HashSet(positions.keySet());
+                Piece.Position a = null;
+                Set tmpSet_143 = new HashSet(e1_set_100);
+                for (Iterator enm_142 = tmpSet_143.iterator(); enm_142.hasNext(); ) {
+                  Piece.Position elem_141 = (Piece.Position)enm_142.next();
+                  /* a */
+                  a = elem_141;
+                  Boolean pred_101 = null;
+                  Boolean var1_102 = null;
+                  Set var2_106 = new HashSet();
+                  Set var1_107 = new HashSet();
+                  var1_107 = new HashSet();
+                  int lbi_111 = new_x.intValue();
+                  int ubi_112 = x.intValue();
+                  for (int count_110 = lbi_111; count_110 <= ubi_112; count_110++) 
+                    var1_107.add(new Integer(count_110));
+                  Set var2_113 = new HashSet();
+                  var2_113.add(x);
+                  var2_113.add(new_x);
+                  var2_106 = new HashSet(var1_107);
+                  var2_106.removeAll(var2_113);
+                  if ((var1_102 = Boolean.valueOf(UTIL.Contains(var2_106, (a.x)))).booleanValue()) {
+                    Set var2_119 = new HashSet();
+                    Set var1_120 = new HashSet();
+                    var1_120 = new HashSet();
+                    int lbi_124 = y.intValue();
+                    int ubi_125 = new_y.intValue();
+                    for (int count_123 = lbi_124; count_123 <= ubi_125; count_123++) 
+                      var1_120.add(new Integer(count_123));
+                    Set var2_126 = new HashSet();
+                    var2_126.add(y);
+                    var2_126.add(new_y);
+                    var2_119 = new HashSet(var1_120);
+                    var2_119.removeAll(var2_126);
+                    var1_102 = Boolean.valueOf(UTIL.Contains(var2_119, (a.y)));
+                  }
+                  if ((pred_101 = var1_102).booleanValue()) 
+                    pred_101 = Boolean.valueOf(Math.abs(((a.x).intValue() - x.intValue())) == Math.abs(((a.y).intValue() - y.intValue())));
+                  if (pred_101.booleanValue()) {
+                    res_s_96.add(a);
+                  }
+                }
+              }
+              pathPieces = (Set)UTIL.clone(res_s_96);
+              if (!this.inv_Board().booleanValue()) 
+                UTIL.RunTime("Instance invariant failure in Board");
+            }
+            else {
+              Set res_s_47 = new HashSet();
+              {
+                Set e1_set_51 = new HashSet(positions.keySet());
+                Piece.Position a = null;
+                Set tmpSet_94 = new HashSet(e1_set_51);
+                for (Iterator enm_93 = tmpSet_94.iterator(); enm_93.hasNext(); ) {
+                  Piece.Position elem_92 = (Piece.Position)enm_93.next();
+                  /* a */
+                  a = elem_92;
+                  Boolean pred_52 = null;
+                  Boolean var1_53 = null;
                   Set var2_57 = new HashSet();
                   Set var1_58 = new HashSet();
                   var1_58 = new HashSet();
-                  int lbi_62 = y.intValue();
-                  int ubi_63 = new_y.intValue();
+                  int lbi_62 = new_x.intValue();
+                  int ubi_63 = x.intValue();
                   for (int count_61 = lbi_62; count_61 <= ubi_63; count_61++) 
                     var1_58.add(new Integer(count_61));
                   Set var2_64 = new HashSet();
-                  var2_64.add(y);
-                  var2_64.add(new_y);
+                  var2_64.add(x);
+                  var2_64.add(new_x);
                   var2_57 = new HashSet(var1_58);
                   var2_57.removeAll(var2_64);
-                  var1_40 = Boolean.valueOf(UTIL.Contains(var2_57, (a.y)));
-                }
-                if ((pred_39 = var1_40).booleanValue()) 
-                  pred_39 = Boolean.valueOf(Math.abs(((a.x).intValue() - x.intValue())) == Math.abs(((a.y).intValue() - y.intValue())));
-                if (pred_39.booleanValue()) {
-                  res_s_34.add(a);
+                  if ((var1_53 = Boolean.valueOf(UTIL.Contains(var2_57, (a.x)))).booleanValue()) {
+                    Set var2_70 = new HashSet();
+                    Set var1_71 = new HashSet();
+                    var1_71 = new HashSet();
+                    int lbi_75 = new_y.intValue();
+                    int ubi_76 = y.intValue();
+                    for (int count_74 = lbi_75; count_74 <= ubi_76; count_74++) 
+                      var1_71.add(new Integer(count_74));
+                    Set var2_77 = new HashSet();
+                    var2_77.add(y);
+                    var2_77.add(new_y);
+                    var2_70 = new HashSet(var1_71);
+                    var2_70.removeAll(var2_77);
+                    var1_53 = Boolean.valueOf(UTIL.Contains(var2_70, (a.y)));
+                  }
+                  if ((pred_52 = var1_53).booleanValue()) 
+                    pred_52 = Boolean.valueOf(Math.abs(((a.x).intValue() - x.intValue())) == Math.abs(((a.y).intValue() - y.intValue())));
+                  if (pred_52.booleanValue()) {
+                    res_s_47.add(a);
+                  }
                 }
               }
+              pathPieces = (Set)UTIL.clone(res_s_47);
+              if (!this.inv_Board().booleanValue()) 
+                UTIL.RunTime("Instance invariant failure in Board");
             }
-            pathPieces = (Set)UTIL.clone(res_s_34);
-            if (!this.inv_Board().booleanValue()) 
-              UTIL.RunTime("Instance invariant failure in Board");
           }
           else 
             return Boolean.FALSE;

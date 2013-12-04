@@ -1,6 +1,7 @@
 class Board
 	types
 		public Turn = <White> | <Black>;
+		public Winner = <White> | <Black> | <Draw> | <None>
 	instance variables
 		private positions : map Piece`Position to Piece;
 		private arrows : seq of Arrow := []; 
@@ -41,12 +42,38 @@ class Board
 		public setPositions: map Piece`Position to Piece ==> ()
 			setPositions (new_positions) == positions := new_positions; 
 			
-		public switchTurn: () ==> Turn
+		private switchTurn: () ==> Turn
 			switchTurn() == (
 				if (turn = <White>) then
 					turn := <Black>
 				else turn := <White>;
 				return turn;
+			);
+			
+		public winner : () ==> Turn
+			winner () == (
+				dcl win : Winner;
+				dcl amazons : set of Amazon;
+				dcl white_amazons : set of Amazon := {};
+				dcl black_amazons : set of Amazon := {};
+				amazons := {a | a in set (rng positions) & isofclass(Amazon, a)};
+				
+				white_amazons := {a | a in set amazons & a.GetColor() = <White>};
+				black_amazons := {a | a in set amazons & a.GetColor() = <Black>};
+				if (gameOver() = true) then (
+					if (canMove(white_amazons) = false and canMove(black_amazons) = false) then (
+						win := <Draw>;
+					)
+					else if (canMove(white_amazons) = false) then (
+						win := <Black>
+					)
+					else (
+						win := <White>
+					);
+					return win; 
+				);
+				win := <None>;
+				return win;
 			);
 		
 		-- game over : says whenever game is over 	
@@ -68,7 +95,7 @@ class Board
 			);
 			
 		-- can Move : in a set of amazons checks if a player can move or not
-		public canMove : set of Amazon ==> bool
+		private canMove : set of Amazon ==> bool
 			canMove(amazons) == (
 				dcl canMovePieces : set of Amazon := {a | a in set amazons & 
 				-- check right
@@ -109,7 +136,11 @@ class Board
 			pre mk_Piece`Position(amazon_x, amazon_y) in set dom positions
 				and mk_Piece`Position(x, y) not in set dom positions
 				and moveIsValid(abs(amazon_x-x), abs(amazon_y-y))
-				and pathIsFree(amazon_x, amazon_y, x, y);
+				and pathIsFree(amazon_x, amazon_y, x, y)
+				and x >= 0 
+				and x < 10
+				and y >= 0
+				and y < 10;
 			
 		-- move : moves a amazon on the board
 		public move : nat * nat * nat * nat ==> bool
@@ -136,6 +167,10 @@ class Board
 				and countBlackAmazons() = 4
 				and countWhiteAmazons() = 4
 				and countAmazons() = 8
+				and new_x >= 0 
+				and new_x < 10
+				and new_y >= 0
+				and new_y < 10
 			post countBlackAmazons() = 4
 				and countWhiteAmazons() = 4
 				and countAmazons() = 8;
@@ -174,12 +209,31 @@ class Board
 				dcl deltaY:nat := abs(new_y - y);
 				dcl pathPieces: set of Piece`Position ;
 				if(deltaX = 0 and deltaY > 0) then (
-					pathPieces := {a | a in set (dom positions) & (a.y in set ({y,...,new_y} \ {y,new_y}) and a.x = x)};
+					if (new_y > y) then (
+						pathPieces := {a | a in set (dom positions) & (a.y in set ({y,...,new_y} \ {y,new_y}) and a.x = x)};
+					) else (
+						pathPieces := {a | a in set (dom positions) & (a.y in set ({new_y,...,y} \ {y,new_y}) and a.x = x)};
+						);
 				) else if(deltaY = 0 and deltaX > 0) then (
-					pathPieces := {a | a in set (dom positions) & (a.x in set ({x,...,new_x} \ {x,new_x}) and a.y = y)};
+					if (new_x > x) then (
+						pathPieces := {a | a in set (dom positions) & (a.x in set ({x,...,new_x} \ {x,new_x}) and a.y = y)};
+					) else (
+						pathPieces := {a | a in set (dom positions) & (a.x in set ({new_x,...,x} \ {x,new_x}) and a.y = y)};
+					);
 				) else if(deltaX = deltaY and deltaX > 0) then (
-					pathPieces := {a | a in set (dom positions) & (a.x in set ({x,...,new_x} \ {x,new_x}) and 
+					if (new_x > x and new_y > y) then (
+						pathPieces := {a | a in set (dom positions) & (a.x in set ({x,...,new_x} \ {x,new_x}) and 
 														 a.y in set ({y,...,new_y} \ {y,new_y}) and abs(a.x - x) = abs(a.y - y)) };
+					) else if (new_x > x) then (
+						pathPieces := {a | a in set (dom positions) & (a.x in set ({x,...,new_x} \ {x,new_x}) and 
+														 a.y in set ({new_y,...,y} \ {y,new_y}) and abs(a.x - x) = abs(a.y - y)) };
+					) else if (new_y > y) then (
+						pathPieces := {a | a in set (dom positions) & (a.x in set ({new_x,...,x} \ {x,new_x}) and 
+														 a.y in set ({y,...,new_y} \ {y,new_y}) and abs(a.x - x) = abs(a.y - y)) };
+					) else (
+						pathPieces := {a | a in set (dom positions) & (a.x in set ({new_x,...,x} \ {x,new_x}) and 
+														 a.y in set ({new_y,...,y} \ {y,new_y}) and abs(a.x - x) = abs(a.y - y)) };
+					);
 				)
 				else (
 					return false;
