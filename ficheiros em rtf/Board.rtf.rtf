@@ -133,26 +133,26 @@
 \par    {\i \'77\'69\'6e\'6e\'65\'72} () == (
 \par     {\b dcl} {\i \'77\'69\'6e} : {\i \'57\'69\'6e\'6e\'65\'72};
 \par     {\b dcl} {\i \'61\'6d\'61\'7a\'6f\'6e\'73} : {\b set} {\b of} {\i \'41\'6d\'61\'7a\'6f\'6e};
-\par     {\b dcl} {\i \'77\'68\'69\'74\'65\'5f\'61\'6d\'61\'7a\'6f\'6e\'73} : {\b set} {\b of} {\i \'41\'6d\'61\'7a\'6f\'6e} := }{\*\cs19\rtlch\af5\ltrch\f5\cf6 \{\}}{\*\cs18\rtlch\af5\ltrch\f5 ;
-\par     {\b dcl} {\i \'62\'6c\'61\'63\'6b\'5f\'61\'6d\'61\'7a\'6f\'6e\'73} : {\b set} {\b of} {\i \'41\'6d\'61\'7a\'6f\'6e} := }{\*\cs19\rtlch\af5\ltrch\f5\cf6 \{\}}{\*\cs18\rtlch\af5\ltrch\f5 ;
-\par     }{\*\cs19\rtlch\af5\ltrch\f5\cf6 {\i \'61\'6d\'61\'7a\'6f\'6e\'73} := \{{\i \'61} | {\i \'61} {\b in set} ({\b rng} {\i \'70\'6f\'73\'69\'74\'69\'6f\'6e\'73}) & {\b isofclass}({\i \'41\'6d\'61\'7a\'6f\'6e}, {\i \'61})\}}{\*\cs18\rtlch\af5\ltrch\f5 ;
+\par     {\b dcl} {\i \'77\'68\'69\'74\'65\'5f\'61\'6d\'61\'7a\'6f\'6e\'73} : {\b set} {\b of} {\i \'41\'6d\'61\'7a\'6f\'6e} := \{\};
+\par     {\b dcl} {\i \'62\'6c\'61\'63\'6b\'5f\'61\'6d\'61\'7a\'6f\'6e\'73} : {\b set} {\b of} {\i \'41\'6d\'61\'7a\'6f\'6e} := \{\};
+\par     {\i \'61\'6d\'61\'7a\'6f\'6e\'73} := \{{\i \'61} | {\i \'61} {\b in set} ({\b rng} {\i \'70\'6f\'73\'69\'74\'69\'6f\'6e\'73}) & {\b isofclass}({\i \'41\'6d\'61\'7a\'6f\'6e}, {\i \'61})\};
 \par 
-\par     }{\*\cs19\rtlch\af5\ltrch\f5\cf6 {\i \'77\'68\'69\'74\'65\'5f\'61\'6d\'61\'7a\'6f\'6e\'73} := \{{\i \'61} | {\i \'61} {\b in set} {\i \'61\'6d\'61\'7a\'6f\'6e\'73} & {\i \'61}.{\i \'47\'65\'74\'43\'6f\'6c\'6f\'72}() = <\'3c\'57\'68\'69\'74\'65\'3e>\}}{\*\cs18\rtlch\af5\ltrch\f5 ;
-\par     }{\*\cs19\rtlch\af5\ltrch\f5\cf6 {\i \'62\'6c\'61\'63\'6b\'5f\'61\'6d\'61\'7a\'6f\'6e\'73} := \{{\i \'61} | {\i \'61} {\b in set} {\i \'61\'6d\'61\'7a\'6f\'6e\'73} & {\i \'61}.{\i \'47\'65\'74\'43\'6f\'6c\'6f\'72}() = <\'3c\'42\'6c\'61\'63\'6b\'3e>\}}{\*\cs18\rtlch\af5\ltrch\f5 ;
-\par     }{\*\cs19\rtlch\af5\ltrch\f5\cf6 {\b if} ({\i \'67\'61\'6d\'65\'4f\'76\'65\'72}() = {\b true}) {\b then} }{\*\cs18\rtlch\af5\ltrch\f5 (
-\par      }{\*\cs19\rtlch\af5\ltrch\f5\cf6 {\b if} ({\i \'63\'61\'6e\'4d\'6f\'76\'65}({\i \'77\'68\'69\'74\'65\'5f\'61\'6d\'61\'7a\'6f\'6e\'73}) = {\b false} {\b and} {\i \'63\'61\'6e\'4d\'6f\'76\'65}({\i \'62\'6c\'61\'63\'6b\'5f\'61\'6d\'61\'7a\'6f\'6e\'73}) = {\b false}) {\b then} (
+\par     {\i \'77\'68\'69\'74\'65\'5f\'61\'6d\'61\'7a\'6f\'6e\'73} := \{{\i \'61} | {\i \'61} {\b in set} {\i \'61\'6d\'61\'7a\'6f\'6e\'73} & {\i \'61}.{\i \'47\'65\'74\'43\'6f\'6c\'6f\'72}() = <\'3c\'57\'68\'69\'74\'65\'3e>\};
+\par     {\i \'62\'6c\'61\'63\'6b\'5f\'61\'6d\'61\'7a\'6f\'6e\'73} := \{{\i \'61} | {\i \'61} {\b in set} {\i \'61\'6d\'61\'7a\'6f\'6e\'73} & {\i \'61}.{\i \'47\'65\'74\'43\'6f\'6c\'6f\'72}() = <\'3c\'42\'6c\'61\'63\'6b\'3e>\};
+\par     {\b if} ({\i \'67\'61\'6d\'65\'4f\'76\'65\'72}() = {\b true}) {\b then} (
+\par      {\b if} ({\i \'63\'61\'6e\'4d\'6f\'76\'65}({\i \'77\'68\'69\'74\'65\'5f\'61\'6d\'61\'7a\'6f\'6e\'73}) = {\b false} {\b and} {\i \'63\'61\'6e\'4d\'6f\'76\'65}({\i \'62\'6c\'61\'63\'6b\'5f\'61\'6d\'61\'7a\'6f\'6e\'73}) = {\b false}) {\b then} (
 \par       {\i \'77\'69\'6e} := <\'3c\'44\'72\'61\'77\'3e>;
 \par      )
 \par      {\b else} {\b if} ({\i \'63\'61\'6e\'4d\'6f\'76\'65}({\i \'77\'68\'69\'74\'65\'5f\'61\'6d\'61\'7a\'6f\'6e\'73}) = {\b false}) {\b then} (
 \par       {\i \'77\'69\'6e} := <\'3c\'42\'6c\'61\'63\'6b\'3e>
 \par      )
-\par      {\b else} }{\*\cs18\rtlch\af5\ltrch\f5 (
-\par       }{\*\cs19\rtlch\af5\ltrch\f5\cf6 {\i \'77\'69\'6e} := <\'3c\'57\'68\'69\'74\'65\'3e>
-\par      }{\*\cs18\rtlch\af5\ltrch\f5 );
-\par      }{\*\cs19\rtlch\af5\ltrch\f5\cf6 {\b return} {\i \'77\'69\'6e}}{\*\cs18\rtlch\af5\ltrch\f5 ;
+\par      {\b else} (
+\par       {\i \'77\'69\'6e} := <\'3c\'57\'68\'69\'74\'65\'3e>
+\par      );
+\par      {\b return} {\i \'77\'69\'6e};
 \par     );
-\par     }{\*\cs19\rtlch\af5\ltrch\f5\cf6 {\i \'77\'69\'6e} := <\'3c\'4e\'6f\'6e\'65\'3e>}{\*\cs18\rtlch\af5\ltrch\f5 ;
-\par     }{\*\cs19\rtlch\af5\ltrch\f5\cf6 {\b return} {\i \'77\'69\'6e}}{\*\cs18\rtlch\af5\ltrch\f5 ;
+\par     {\i \'77\'69\'6e} := <\'3c\'4e\'6f\'6e\'65\'3e>;
+\par     {\b return} {\i \'77\'69\'6e};
 \par    );
 \par 
 \par   --\'20\'67\'61\'6d\'65\'20\'6f\'76\'65\'72\'20\'3a\'20\'73\'61\'79\'73\'20\'77\'68\'65\'6e\'65\'76\'65\'72\'20\'67\'61\'6d\'65\'20\'69\'73\'20\'6f\'76\'65\'72\'20\'9
@@ -291,27 +291,27 @@
 \par      {\b if} ({\i \'6e\'65\'77\'5f\'79} > {\i \'79}) {\b then} (
 \par       {\i \'70\'61\'74\'68\'50\'69\'65\'63\'65\'73} := \{{\i \'61} | {\i \'61} {\b in set} ({\b dom} {\i \'70\'6f\'73\'69\'74\'69\'6f\'6e\'73}) & ({\i \'61}.{\i \'79} {\b in set} (\{{\i \'79},...,{\i \'6e\'65\'77\'5f\'79}\} \\ \{{\i \'79},{\i \'6e\'65\'77\'5f\'79}\}) {\b and} {\i \'61}.{\i \'78} = {\i \'78})\};
 \par      ) {\b else} (
-\par       }{\*\cs19\rtlch\af5\ltrch\f5\cf6 {\i \'70\'61\'74\'68\'50\'69\'65\'63\'65\'73} := \{{\i \'61} | {\i \'61} {\b in set} ({\b dom} {\i \'70\'6f\'73\'69\'74\'69\'6f\'6e\'73}) & ({\i \'61}.{\i \'79} {\b in set} (\{{\i \'6e\'65\'77\'5f\'79},...,{\i \'79}\} \\ \{{\i \'79},{\i \'6e\'65\'77\'5f\'79}\}) {\b and} {\i \'61}.{\i \'78} = {\i \'78})\}}{\*\cs18\rtlch\af5\ltrch\f5 ;
+\par       {\i \'70\'61\'74\'68\'50\'69\'65\'63\'65\'73} := \{}{\*\cs19\rtlch\af5\ltrch\f5\cf6 {\i \'61} }{\*\cs18\rtlch\af5\ltrch\f5 | {\i \'61} {\b in set} ({\b dom} {\i \'70\'6f\'73\'69\'74\'69\'6f\'6e\'73}) & ({\i \'61}.{\i \'79} {\b in set} (\{{\i \'6e\'65\'77\'5f\'79},...,{\i \'79}\} \\ \{{\i \'79},{\i \'6e\'65\'77\'5f\'79}\}) {\b and} }{\*\cs19\rtlch\af5\ltrch\f5\cf6 {\i \'61}.{\i \'78} = {\i \'78}}{\*\cs18\rtlch\af5\ltrch\f5 )\};
 \par       );
 \par     ) {\b else} {\b if}({\i \'64\'65\'6c\'74\'61\'59} = \'30 {\b and} {\i \'64\'65\'6c\'74\'61\'58} > \'30) {\b then} (
 \par      {\b if} ({\i \'6e\'65\'77\'5f\'78} > {\i \'78}) {\b then} (
 \par       {\i \'70\'61\'74\'68\'50\'69\'65\'63\'65\'73} := \{{\i \'61} | {\i \'61} {\b in set} ({\b dom} {\i \'70\'6f\'73\'69\'74\'69\'6f\'6e\'73}) & ({\i \'61}.{\i \'78} {\b in set} (\{{\i \'78},...,{\i \'6e\'65\'77\'5f\'78}\} \\ \{{\i \'78},{\i \'6e\'65\'77\'5f\'78}\}) {\b and} {\i \'61}.{\i \'79} = {\i \'79})\};
 \par      ) {\b else} (
-\par       }{\*\cs19\rtlch\af5\ltrch\f5\cf6 {\i \'70\'61\'74\'68\'50\'69\'65\'63\'65\'73} := \{{\i \'61} | {\i \'61} {\b in set} ({\b dom} {\i \'70\'6f\'73\'69\'74\'69\'6f\'6e\'73}) & ({\i \'61}.{\i \'78} {\b in set} (\{{\i \'6e\'65\'77\'5f\'78},...,{\i \'78}\} \\ \{{\i \'78},{\i \'6e\'65\'77\'5f\'78}\}) {\b and} {\i \'61}.{\i \'79} = {\i \'79})\}}{\*\cs18\rtlch\af5\ltrch\f5 ;
+\par       {\i \'70\'61\'74\'68\'50\'69\'65\'63\'65\'73} := \{}{\*\cs19\rtlch\af5\ltrch\f5\cf6 {\i \'61} }{\*\cs18\rtlch\af5\ltrch\f5 | {\i \'61} {\b in set} ({\b dom} {\i \'70\'6f\'73\'69\'74\'69\'6f\'6e\'73}) & ({\i \'61}.{\i \'78} {\b in set} (\{{\i \'6e\'65\'77\'5f\'78},...,{\i \'78}\} \\ \{{\i \'78},{\i \'6e\'65\'77\'5f\'78}\}) {\b and} }{\*\cs19\rtlch\af5\ltrch\f5\cf6 {\i \'61}.{\i \'79} = {\i \'79}}{\*\cs18\rtlch\af5\ltrch\f5 )\};
 \par      );
 \par     ) {\b else} {\b if}({\i \'64\'65\'6c\'74\'61\'58} = {\i \'64\'65\'6c\'74\'61\'59} {\b and} {\i \'64\'65\'6c\'74\'61\'58} > \'30) {\b then} (
 \par      {\b if} ({\i \'6e\'65\'77\'5f\'78} > {\i \'78} {\b and} {\i \'6e\'65\'77\'5f\'79} > {\i \'79}) {\b then} (
 \par       {\i \'70\'61\'74\'68\'50\'69\'65\'63\'65\'73} := \{{\i \'61} | {\i \'61} {\b in set} ({\b dom} {\i \'70\'6f\'73\'69\'74\'69\'6f\'6e\'73}) & ({\i \'61}.{\i \'78} {\b in set} (\{{\i \'78},...,{\i \'6e\'65\'77\'5f\'78}\} \\ \{{\i \'78},{\i \'6e\'65\'77\'5f\'78}\}) {\b and}
 \par                {\i \'61}.{\i \'79} {\b in set} (\{{\i \'79},...,{\i \'6e\'65\'77\'5f\'79}\} \\ \{{\i \'79},{\i \'6e\'65\'77\'5f\'79}\}) {\b and} {\b abs}({\i \'61}.{\i \'78} - {\i \'78}) = {\b abs}({\i \'61}.{\i \'79} - {\i \'79})) \};
-\par      ) {\b else} }{\*\cs19\rtlch\af5\ltrch\f5\cf6 {\b if} ({\i \'6e\'65\'77\'5f\'78} > {\i \'78}) {\b then} (
-\par       {\i \'70\'61\'74\'68\'50\'69\'65\'63\'65\'73} := \{{\i \'61} | {\i \'61} {\b in set} ({\b dom} {\i \'70\'6f\'73\'69\'74\'69\'6f\'6e\'73}) & ({\i \'61}.{\i \'78} {\b in set} (\{{\i \'78},...,{\i \'6e\'65\'77\'5f\'78}\} \\ \{{\i \'78},{\i \'6e\'65\'77\'5f\'78}\}) {\b and}
-\par                {\i \'61}.{\i \'79} {\b in set} (\{{\i \'6e\'65\'77\'5f\'79},...,{\i \'79}\} \\ \{{\i \'79},{\i \'6e\'65\'77\'5f\'79}\}) {\b and} {\b abs}({\i \'61}.{\i \'78} - {\i \'78}) = {\b abs}({\i \'61}.{\i \'79} - {\i \'79})) \};
+\par      ) {\b else} {\b if} ({\i \'6e\'65\'77\'5f\'78} > {\i \'78}) {\b then} (
+\par       {\i \'70\'61\'74\'68\'50\'69\'65\'63\'65\'73} := \{}{\*\cs19\rtlch\af5\ltrch\f5\cf6 {\i \'61} }{\*\cs18\rtlch\af5\ltrch\f5 | {\i \'61} {\b in set} ({\b dom} {\i \'70\'6f\'73\'69\'74\'69\'6f\'6e\'73}) & ({\i \'61}.{\i \'78} {\b in set} (\{{\i \'78},...,{\i \'6e\'65\'77\'5f\'78}\} \\ \{{\i \'78},{\i \'6e\'65\'77\'5f\'78}\}) {\b and}
+\par                }{\*\cs19\rtlch\af5\ltrch\f5\cf6 {\i \'61}.{\i \'79} {\b in set} (\{{\i \'6e\'65\'77\'5f\'79},...,{\i \'79}\} \\ \{{\i \'79},{\i \'6e\'65\'77\'5f\'79}\}) }{\*\cs18\rtlch\af5\ltrch\f5 {\b and} }{\*\cs19\rtlch\af5\ltrch\f5\cf6 {\b abs}({\i \'61}.{\i \'78} - {\i \'78}) = {\b abs}({\i \'61}.{\i \'79} - {\i \'79})}{\*\cs18\rtlch\af5\ltrch\f5 ) \};
 \par      ) {\b else} {\b if} ({\i \'6e\'65\'77\'5f\'79} > {\i \'79}) {\b then} (
-\par       {\i \'70\'61\'74\'68\'50\'69\'65\'63\'65\'73} := \{{\i \'61} | {\i \'61} {\b in set} ({\b dom} {\i \'70\'6f\'73\'69\'74\'69\'6f\'6e\'73}) & ({\i \'61}.{\i \'78} {\b in set} (\{{\i \'6e\'65\'77\'5f\'78},...,{\i \'78}\} \\ \{{\i \'78},{\i \'6e\'65\'77\'5f\'78}\}) {\b and}
-\par                {\i \'61}.{\i \'79} {\b in set} (\{{\i \'79},...,{\i \'6e\'65\'77\'5f\'79}\} \\ \{{\i \'79},{\i \'6e\'65\'77\'5f\'79}\}) {\b and} {\b abs}({\i \'61}.{\i \'78} - {\i \'78}) = {\b abs}({\i \'61}.{\i \'79} - {\i \'79})) \};
-\par      ) {\b else} }{\*\cs18\rtlch\af5\ltrch\f5 (
-\par       }{\*\cs19\rtlch\af5\ltrch\f5\cf6 {\i \'70\'61\'74\'68\'50\'69\'65\'63\'65\'73} := \{{\i \'61} | {\i \'61} {\b in set} ({\b dom} {\i \'70\'6f\'73\'69\'74\'69\'6f\'6e\'73}) & ({\i \'61}.{\i \'78} {\b in set} (\{{\i \'6e\'65\'77\'5f\'78},...,{\i \'78}\} \\ \{{\i \'78},{\i \'6e\'65\'77\'5f\'78}\}) {\b and}
-\par                {\i \'61}.{\i \'79} {\b in set} (\{{\i \'6e\'65\'77\'5f\'79},...,{\i \'79}\} \\ \{{\i \'79},{\i \'6e\'65\'77\'5f\'79}\}) {\b and} {\b abs}({\i \'61}.{\i \'78} - {\i \'78}) = {\b abs}({\i \'61}.{\i \'79} - {\i \'79})) \}}{\*\cs18\rtlch\af5\ltrch\f5 ;
+\par       {\i \'70\'61\'74\'68\'50\'69\'65\'63\'65\'73} := \{}{\*\cs19\rtlch\af5\ltrch\f5\cf6 {\i \'61} }{\*\cs18\rtlch\af5\ltrch\f5 | {\i \'61} {\b in set} ({\b dom} {\i \'70\'6f\'73\'69\'74\'69\'6f\'6e\'73}) & ({\i \'61}.{\i \'78} {\b in set} (\{{\i \'6e\'65\'77\'5f\'78},...,{\i \'78}\} \\ \{{\i \'78},{\i \'6e\'65\'77\'5f\'78}\}) {\b and}
+\par                }{\*\cs19\rtlch\af5\ltrch\f5\cf6 {\i \'61}.{\i \'79} {\b in set} (\{{\i \'79},...,{\i \'6e\'65\'77\'5f\'79}\} \\ \{{\i \'79},{\i \'6e\'65\'77\'5f\'79}\}) }{\*\cs18\rtlch\af5\ltrch\f5 {\b and} }{\*\cs19\rtlch\af5\ltrch\f5\cf6 {\b abs}({\i \'61}.{\i \'78} - {\i \'78}) = {\b abs}({\i \'61}.{\i \'79} - {\i \'79})}{\*\cs18\rtlch\af5\ltrch\f5 ) \};
+\par      ) {\b else} (
+\par       {\i \'70\'61\'74\'68\'50\'69\'65\'63\'65\'73} := \{}{\*\cs19\rtlch\af5\ltrch\f5\cf6 {\i \'61} }{\*\cs18\rtlch\af5\ltrch\f5 | {\i \'61} {\b in set} ({\b dom} {\i \'70\'6f\'73\'69\'74\'69\'6f\'6e\'73}) & ({\i \'61}.{\i \'78} {\b in set} (\{{\i \'6e\'65\'77\'5f\'78},...,{\i \'78}\} \\ \{{\i \'78},{\i \'6e\'65\'77\'5f\'78}\}) {\b and}
+\par                }{\*\cs19\rtlch\af5\ltrch\f5\cf6 {\i \'61}.{\i \'79} {\b in set} (\{{\i \'6e\'65\'77\'5f\'79},...,{\i \'79}\} \\ \{{\i \'79},{\i \'6e\'65\'77\'5f\'79}\}) }{\*\cs18\rtlch\af5\ltrch\f5 {\b and} }{\*\cs19\rtlch\af5\ltrch\f5\cf6 {\b abs}({\i \'61}.{\i \'78} - {\i \'78}) = {\b abs}({\i \'61}.{\i \'79} - {\i \'79})}{\*\cs18\rtlch\af5\ltrch\f5 ) \};
 \par      );
 \par     )
 \par     {\b else} (
@@ -340,37 +340,37 @@
 \nowidctlpar\widctlpar\intbl\adjustright {\i\fs24\lang1030 \row }
 \trowd \trgaph108\trleft-108\trbrdrt\brdrs\brdrw30\brdrcf1 \trbrdrb\brdrs\brdrw30\brdrcf1 \clvertalt\clbrdrl
 \brdrs\brdrw10 \clbrdrr\brdrs\brdrw15\brdrcf1 \cltxlrtb \cellx4536\clvertalt\cltxlrtb \cellx5529\clvertalt\clbrdrr\brdrs\brdrw10 \cltxlrtb \cellx6663\pard
-\nowidctlpar\widctlpar\intbl\adjustright {\fs24 \'42\'6f\'61\'72\'64`\'6d\'6f\'76\'65 \cell  4 \cell 100%\cell}\pard
+\nowidctlpar\widctlpar\intbl\adjustright {\fs24 \'42\'6f\'61\'72\'64`\'6d\'6f\'76\'65 \cell  10 \cell 100%\cell}\pard
 \nowidctlpar\widctlpar\intbl\adjustright {\fs24\lang1030 \row }\pard
-\nowidctlpar\widctlpar\intbl\adjustright {\fs24 \'42\'6f\'61\'72\'64`\'42\'6f\'61\'72\'64 \cell  5 \cell 100%\cell}\pard
+\nowidctlpar\widctlpar\intbl\adjustright {\fs24 \'42\'6f\'61\'72\'64`\'42\'6f\'61\'72\'64 \cell  6 \cell 100%\cell}\pard
 \nowidctlpar\widctlpar\intbl\adjustright {\fs24\lang1030 \row }\pard
-\nowidctlpar\widctlpar\intbl\adjustright {\fs24 \'42\'6f\'61\'72\'64`\'77\'69\'6e\'6e\'65\'72 \cell  0 \cell 0%\cell}\pard
+\nowidctlpar\widctlpar\intbl\adjustright {\fs24 \'42\'6f\'61\'72\'64`\'77\'69\'6e\'6e\'65\'72 \cell  4 \cell 100%\cell}\pard
 \nowidctlpar\widctlpar\intbl\adjustright {\fs24\lang1030 \row }\pard
-\nowidctlpar\widctlpar\intbl\adjustright {\fs24 \'42\'6f\'61\'72\'64`\'63\'61\'6e\'4d\'6f\'76\'65 \cell  17 \cell 100%\cell}\pard
+\nowidctlpar\widctlpar\intbl\adjustright {\fs24 \'42\'6f\'61\'72\'64`\'63\'61\'6e\'4d\'6f\'76\'65 \cell  30 \cell 100%\cell}\pard
 \nowidctlpar\widctlpar\intbl\adjustright {\fs24\lang1030 \row }\pard
 \nowidctlpar\widctlpar\intbl\adjustright {\fs24 \'42\'6f\'61\'72\'64`\'67\'65\'74\'54\'75\'72\'6e \cell  1 \cell 100%\cell}\pard
 \nowidctlpar\widctlpar\intbl\adjustright {\fs24\lang1030 \row }\pard
-\nowidctlpar\widctlpar\intbl\adjustright {\fs24 \'42\'6f\'61\'72\'64`\'67\'61\'6d\'65\'4f\'76\'65\'72 \cell  9 \cell 100%\cell}\pard
+\nowidctlpar\widctlpar\intbl\adjustright {\fs24 \'42\'6f\'61\'72\'64`\'67\'61\'6d\'65\'4f\'76\'65\'72 \cell  13 \cell 100%\cell}\pard
 \nowidctlpar\widctlpar\intbl\adjustright {\fs24\lang1030 \row }\pard
-\nowidctlpar\widctlpar\intbl\adjustright {\fs24 \'42\'6f\'61\'72\'64`\'73\'65\'74\'41\'72\'72\'6f\'77 \cell  4 \cell 100%\cell}\pard
+\nowidctlpar\widctlpar\intbl\adjustright {\fs24 \'42\'6f\'61\'72\'64`\'73\'65\'74\'41\'72\'72\'6f\'77 \cell  10 \cell 100%\cell}\pard
 \nowidctlpar\widctlpar\intbl\adjustright {\fs24\lang1030 \row }\pard
-\nowidctlpar\widctlpar\intbl\adjustright {\fs24 \'42\'6f\'61\'72\'64`\'70\'61\'74\'68\'49\'73\'46\'72\'65\'65 \cell  16 \cell 45%\cell}\pard
+\nowidctlpar\widctlpar\intbl\adjustright {\fs24 \'42\'6f\'61\'72\'64`\'70\'61\'74\'68\'49\'73\'46\'72\'65\'65 \cell  28 \cell 75%\cell}\pard
 \nowidctlpar\widctlpar\intbl\adjustright {\fs24\lang1030 \row }\pard
-\nowidctlpar\widctlpar\intbl\adjustright {\fs24 \'42\'6f\'61\'72\'64`\'73\'77\'69\'74\'63\'68\'54\'75\'72\'6e \cell  3 \cell 100%\cell}\pard
+\nowidctlpar\widctlpar\intbl\adjustright {\fs24 \'42\'6f\'61\'72\'64`\'73\'77\'69\'74\'63\'68\'54\'75\'72\'6e \cell  9 \cell 100%\cell}\pard
 \nowidctlpar\widctlpar\intbl\adjustright {\fs24\lang1030 \row }\pard
-\nowidctlpar\widctlpar\intbl\adjustright {\fs24 \'42\'6f\'61\'72\'64`\'6d\'6f\'76\'65\'49\'73\'56\'61\'6c\'69\'64 \cell  13 \cell 100%\cell}\pard
+\nowidctlpar\widctlpar\intbl\adjustright {\fs24 \'42\'6f\'61\'72\'64`\'6d\'6f\'76\'65\'49\'73\'56\'61\'6c\'69\'64 \cell  25 \cell 100%\cell}\pard
 \nowidctlpar\widctlpar\intbl\adjustright {\fs24\lang1030 \row }\pard
-\nowidctlpar\widctlpar\intbl\adjustright {\fs24 \'42\'6f\'61\'72\'64`\'63\'6f\'75\'6e\'74\'41\'6d\'61\'7a\'6f\'6e\'73 \cell  8 \cell 100%\cell}\pard
+\nowidctlpar\widctlpar\intbl\adjustright {\fs24 \'42\'6f\'61\'72\'64`\'63\'6f\'75\'6e\'74\'41\'6d\'61\'7a\'6f\'6e\'73 \cell  20 \cell 100%\cell}\pard
 \nowidctlpar\widctlpar\intbl\adjustright {\fs24\lang1030 \row }\pard
 \nowidctlpar\widctlpar\intbl\adjustright {\fs24 \'42\'6f\'61\'72\'64`\'67\'65\'74\'50\'6f\'73\'69\'74\'69\'6f\'6e\'73 \cell  8 \cell 100%\cell}\pard
 \nowidctlpar\widctlpar\intbl\adjustright {\fs24\lang1030 \row }\pard
-\nowidctlpar\widctlpar\intbl\adjustright {\fs24 \'42\'6f\'61\'72\'64`\'73\'65\'74\'50\'6f\'73\'69\'74\'69\'6f\'6e\'73 \cell  12 \cell 100%\cell}\pard
+\nowidctlpar\widctlpar\intbl\adjustright {\fs24 \'42\'6f\'61\'72\'64`\'73\'65\'74\'50\'6f\'73\'69\'74\'69\'6f\'6e\'73 \cell  15 \cell 100%\cell}\pard
 \nowidctlpar\widctlpar\intbl\adjustright {\fs24\lang1030 \row }\pard
-\nowidctlpar\widctlpar\intbl\adjustright {\fs24 \'42\'6f\'61\'72\'64`\'63\'6f\'75\'6e\'74\'42\'6c\'61\'63\'6b\'41\'6d\'61\'7a\'6f\'6e\'73 \cell  8 \cell 100%\cell}\pard
+\nowidctlpar\widctlpar\intbl\adjustright {\fs24 \'42\'6f\'61\'72\'64`\'63\'6f\'75\'6e\'74\'42\'6c\'61\'63\'6b\'41\'6d\'61\'7a\'6f\'6e\'73 \cell  20 \cell 100%\cell}\pard
 \nowidctlpar\widctlpar\intbl\adjustright {\fs24\lang1030 \row }\pard
-\nowidctlpar\widctlpar\intbl\adjustright {\fs24 \'42\'6f\'61\'72\'64`\'63\'6f\'75\'6e\'74\'57\'68\'69\'74\'65\'41\'6d\'61\'7a\'6f\'6e\'73 \cell  8 \cell 100%\cell}\pard
+\nowidctlpar\widctlpar\intbl\adjustright {\fs24 \'42\'6f\'61\'72\'64`\'63\'6f\'75\'6e\'74\'57\'68\'69\'74\'65\'41\'6d\'61\'7a\'6f\'6e\'73 \cell  20 \cell 100%\cell}\pard
 \nowidctlpar\widctlpar\intbl\adjustright {\fs24\lang1030 \row }\pard
-\nowidctlpar\widctlpar\intbl\adjustright \fs20\cgrid {\b\i\fs24\lang1030 total\cell \cell 75% \cell }\pard 
+\nowidctlpar\widctlpar\intbl\adjustright \fs20\cgrid {\b\i\fs24\lang1030 total\cell \cell 92% \cell }\pard 
 \nowidctlpar\widctlpar\intbl\adjustright {\i\fs24\lang1030 \row } \pard
 \nowidctlpar\widctlpar\adjustright{
 \par }

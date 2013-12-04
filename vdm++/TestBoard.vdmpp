@@ -6,15 +6,17 @@ values
 instance variables
 -- TODO Define instance variables here
 	b1 : Board := new Board();
-	positions1 : map Piece`Position to Piece := {mk_Piece`Position(0,4) |-> new Arrow(0,4),
-										mk_Piece`Position(1,4) |-> new Arrow(1,4),
-										mk_Piece`Position(1,3) |-> new Arrow(1,3),
-										mk_Piece`Position(0,2) |-> new Arrow(0,2),
-										mk_Piece`Position(1,2) |-> new Arrow(1,2),
-										mk_Piece`Position(0,3) |-> new Amazon(0, 3, <White>),
-										mk_Piece`Position(0,7) |-> new Amazon(0, 7, <Black>)
+	positions1 : map Piece`Position to Piece := {mk_Piece`Position(1,1) |-> new Arrow(1,1),
+										mk_Piece`Position(2,1) |-> new Arrow(2,1),
+										mk_Piece`Position(0,0) |-> new Amazon(0, 0, <White>),
+										mk_Piece`Position(0,3) |-> new Amazon(0, 3, <Black>),
+										mk_Piece`Position(0,9) |-> new Amazon(0, 9, <Black>),
+										mk_Piece`Position(2,0) |-> new Amazon(2, 0, <Black>),
+										mk_Piece`Position(3,7) |-> new Amazon(3, 7, <Black>),
+										mk_Piece`Position(4,7) |-> new Amazon(4, 7, <White>),
+										mk_Piece`Position(7,7) |-> new Amazon(7, 7, <White>),
+										mk_Piece`Position(9,9) |-> new Amazon(9, 9, <White>)
 										};
-										
 										
 operations
 	public AssertTrue : bool ==> ()
@@ -75,11 +77,28 @@ operations
 										mk_Piece`Position(9,9) |-> new Amazon(9, 9, <White>)
 										};
 		b.setPositions(positions);
+		-- new_y > y
 		AssertTrue(b.move(0,0,0,2));
 		AssertTrue(b.setArrow(0,2,1,2));
+		-- new_y > y
 		AssertFalse(b.move(4,7,4,8));
  		AssertTrue(b.move(0,3,0,4));
  		AssertTrue(b.setArrow(0,4,0,5));
+ 		-- x > new_x
+ 		AssertTrue(b.move(9,9,8,9));
+ 		AssertTrue(b.setArrow(8,9,9,9));
+ 		-- y > new_y
+ 		AssertTrue(b.move(0,4,0,3));
+ 		AssertTrue(b.setArrow(0,3,0,4));
+ 		AssertTrue(b.move(7,7,8,8));
+ 		AssertTrue(b.setArrow(8,8,8,9));
+ 		AssertTrue(b.move(0,9,1,8));
+ 		AssertTrue(b.setArrow(1,8,1,9));
+ 		AssertTrue(b.move(8,8,7,9));
+ 		AssertTrue(b.setArrow(7,9,7,8));
+ 		AssertTrue(b.move(1,8,0,7));
+ 		AssertTrue(b.setArrow(0,7,0,8));
+ 		
  	);
  	
  	public TestBoardSetArrow : () ==> () 
@@ -101,6 +120,46 @@ operations
 		AssertTrue(b.setArrow(0,2,1,2));
 		AssertFalse(b.setArrow(0,3,0,4));
  	);
+ 	
+ 	public TestBoardWinner : () ==> ()
+ 		TestBoardWinner() == (
+ 			dcl b : Board := new Board();
+ 			dcl positions : map Piece`Position to Piece;
+ 			AssertTrue(b.winner() = <None>);
+ 			positions := {mk_Piece`Position(0,4) |-> new Arrow(0,4),
+										mk_Piece`Position(1,4) |-> new Arrow(1,4),
+										mk_Piece`Position(1,3) |-> new Arrow(1,3),
+										mk_Piece`Position(0,2) |-> new Arrow(0,2),
+										mk_Piece`Position(1,2) |-> new Arrow(1,2),
+										mk_Piece`Position(0,3) |-> new Amazon(0, 3, <White>),
+										mk_Piece`Position(0,7) |-> new Amazon(0, 7, <Black>)
+										};
+			b.setPositions(positions);
+			AssertTrue(b.winner() = <Black>);
+ 			positions := {mk_Piece`Position(0,4) |-> new Arrow(0,4),
+										mk_Piece`Position(1,4) |-> new Arrow(1,4),
+										mk_Piece`Position(1,3) |-> new Arrow(1,3),
+										mk_Piece`Position(0,2) |-> new Arrow(0,2),
+										mk_Piece`Position(1,2) |-> new Arrow(1,2),
+										mk_Piece`Position(0,3) |-> new Amazon(0, 3, <Black>),
+										mk_Piece`Position(0,7) |-> new Amazon(0, 7, <White>)
+										};
+			b.setPositions(positions);
+			AssertTrue(b.winner() = <White>);
+			positions := {mk_Piece`Position(0,4) |-> new Arrow(0,4),
+										mk_Piece`Position(1,4) |-> new Arrow(1,4),
+										mk_Piece`Position(1,3) |-> new Arrow(1,3),
+										mk_Piece`Position(0,2) |-> new Arrow(0,2),
+										mk_Piece`Position(1,2) |-> new Arrow(1,2),
+										mk_Piece`Position(1,0) |-> new Arrow(1,0),
+										mk_Piece`Position(1,1) |-> new Arrow(1,1),
+										mk_Piece`Position(0,1) |-> new Arrow(0,1),
+										mk_Piece`Position(0,3) |-> new Amazon(0, 3, <Black>),
+										mk_Piece`Position(0,0) |-> new Amazon(0, 0, <White>)
+										};
+			b.setPositions(positions);
+			AssertTrue(b.winner() = <Draw>);
+ 		);
  	
  	public TestBoardGameOver: () ==> ()
  		TestBoardGameOver() == (
@@ -184,6 +243,8 @@ operations
 			AssertFalse(b.gameOver());
  		);
  		
+ 
+ 		
  		
 functions
 -- TODO Define functiones here
@@ -193,9 +254,29 @@ traces
 	TestBoardPositions : b1.getPositions();
 	TestMoveIsValid : b1.moveIsValid(0, 1);
 	TestPathIsFree : b1.pathIsFree(0, 3, 2, 6);
-	TestMove : AssertTrue(b1.move(0,3,5,8)); AssertTrue(b1.move(3,0,2,0)); AssertFalse(b1.move(0,6,0,7)); b1.setPositions(positions1); b1.getPositions(); b1.move(0, 0, 0, 2); b1.getPositions();
+	TestMove : b1.setPositions(positions1);	
+		b1.getPositions();
+		b1.move(0,0,0,2); 
+		b1.setArrow(0,2,1,2);
+		b1.move(4,7,4,8); 
+		b1.getTurn();
+		b1.move(0,3,0,4);
+ 		b1.setArrow(0,4,0,5);
+ 		b1.move(9,9,8,9);
+ 		b1.setArrow(8,9,9,9);
+ 		b1.move(0,4,0,3);
+ 		b1.setArrow(0,3,0,4);
+ 		b1.move(7,7,8,8);
+ 		b1.getPositions();
+ 		b1.setArrow(8,8,8,7);
+ 		b1.move(0,9,1,8);
+ 		b1.setArrow(1,8,1,9);
+ 		b1.move(8,8,7,9);
+ 		b1.setArrow(7,9,7,8);
+ 		b1.move(1,8,0,7);
+ 		b1.setArrow(0,7,0,8);
 	TestSetArrow : b1.setPositions(positions1); b1.getPositions(); b1.move(0, 0, 0, 2); b1.setArrow(0, 2, 1, 2); b1.move(4,7,4,8); b1.move(0,3,0,4); b1.setArrow(0,4,0,5); b1.getPositions();
 	TestGameOver : b1.gameOver(); b1.setPositions(positions1); b1.getPositions(); b1.gameOver();
-	TestBoardWinner : b1.winner(); b1.setPositions(positions1); b1.winner();
+	TestWinner : b1.winner(); b1.setPositions(positions1); b1.winner();
 
 end TestBoard
