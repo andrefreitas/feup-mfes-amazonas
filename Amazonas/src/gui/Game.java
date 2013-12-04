@@ -82,8 +82,11 @@ public class Game {
     }
     }
 
-    public static void gameOver() {
-
+    public static void checkGameOver() throws CGException {
+           if(board.gameOver()){               
+               String winner = board.getTurn().toString();
+               //fazer cenas acontecer
+           }
     }
 
     public static void mouseClickedAt(int board_x, int board_y) {
@@ -100,7 +103,7 @@ public class Game {
     private static void selectionStateMachine(Piece p, int board_x, int board_y) throws CGException {
         if (selectedPiece != null) {
             if (p == null) { //Se tivermos uma peca selecionada e clicarmos um espaco livre
-                Object ret;
+                Boolean ret; //true se moveu, false se nao lanço seta
                 if (arrowShot) {
                     try {
                     ret = board.move(selectedPiece.GetX(), selectedPiece.GetY(), board_x, board_y);
