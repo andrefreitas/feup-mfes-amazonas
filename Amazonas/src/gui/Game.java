@@ -58,37 +58,45 @@ public class Game {
                     selectPiece(p);
                 }
             } else if (movedPiece == null) {
-                try {
-                    if (board.move(selectedPiece.GetX(), selectedPiece.GetY(), board_x, board_y)) {
-                        movedPiece = selectedPiece;
-                    }
-                } catch (VDMRunTimeException ex) {
-                    if (debug) {
-                        System.out.println("Movimento Invalido! - " + ex.getMessage());
-                    }
-                    movedPiece = null;
-                } finally {
-                    gameBoardWindow.repaint();
-                }
+                movePieceState(board_x, board_y);
             } else if (movedPiece != null) {
-                try {
-                    if (board.setArrow(movedPiece.GetX(), movedPiece.GetY(), board_x, board_y)) {
-                        movedPiece = null;
-                        changeTurn();
-                    }
-                } catch (VDMRunTimeException ex) {
-                    if (debug) {
-                        System.out.println("Disparo Invalido! - " + ex.getMessage());
-                    }
-                } finally {
-                    gameBoardWindow.repaint();
-                }
+                shootArrowState(board_x, board_y);
             }
         } else {
             selectPiece(p);
             gameBoardWindow.repaint();
         }
 
+    }
+
+    private static void movePieceState(int board_x, int board_y) throws CGException {
+        try {
+            if (board.move(selectedPiece.GetX(), selectedPiece.GetY(), board_x, board_y)) {
+                movedPiece = selectedPiece;
+            }
+        } catch (VDMRunTimeException ex) {
+            if (debug) {
+                System.out.println("Movimento Invalido! - " + ex.getMessage());
+            }
+            movedPiece = null;
+        } finally {
+            gameBoardWindow.repaint();
+        }
+    }
+
+    private static void shootArrowState(int board_x, int board_y) throws CGException {
+        try {
+            if (board.setArrow(movedPiece.GetX(), movedPiece.GetY(), board_x, board_y)) {
+                movedPiece = null;
+                changeTurn();
+            }
+        } catch (VDMRunTimeException ex) {
+            if (debug) {
+                System.out.println("Disparo Invalido! - " + ex.getMessage());
+            }
+        } finally {
+            gameBoardWindow.repaint();
+        }
     }
 
     private static void selectPiece(Piece p) throws CGException {
