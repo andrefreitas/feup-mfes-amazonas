@@ -6,6 +6,7 @@ class Board
 		private arrows : seq of Arrow := []; 
 		private turn : Turn := <White>;
 		private setarrow : bool := false;
+		private amazon_moved : Amazon := new Amazon(0,0, <White>); -- fake amazon
 		inv (card {a | a in set (rng positions) & isofclass(Amazon, a)}) <= 8;
 	operations
 		public Board: () ==> Board
@@ -97,7 +98,7 @@ class Board
 			setArrow(amazon_x, amazon_y, x, y) == (
 				dcl amazon:Amazon := positions(mk_Piece`Position(amazon_x,amazon_y));
 				dcl arrow:Arrow := new Arrow(x, y);
-				if (amazon.GetColor() <> turn or setarrow = false) then (
+				if (amazon.GetColor() <> turn or setarrow = false or amazon_moved.GetX() <> amazon_x or amazon_moved.GetY() <> amazon_y) then (
 						return false;
 				);
 				positions := positions ++ {mk_Piece`Position(x, y) |-> arrow};
@@ -124,6 +125,7 @@ class Board
 				positions := {mk_Piece`Position(x, y)} <-: positions;
 				positions := positions ++ {mk_Piece`Position(new_x, new_y) |-> amazon};
 				setarrow := true;
+				amazon_moved := amazon;
 				return true;
 			)
 			pre mk_Piece`Position(x, y) in set dom positions

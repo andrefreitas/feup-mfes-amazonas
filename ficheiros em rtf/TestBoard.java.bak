@@ -367,6 +367,7 @@ public class TestBoard implements EvaluatePP {
       Board b = new Board();
       AssertTrue(Boolean.valueOf(UTIL.equals(b.switchTurn(), new quotes.Black())));
       AssertTrue(Boolean.valueOf(UTIL.equals(b.switchTurn(), new quotes.White())));
+      AssertTrue(Boolean.valueOf(UTIL.equals(b.getTurn(), new quotes.White())));
     }
     finally {
       sentinel.leaving(((TestBoardSentinel)sentinel).TestBoardSwitchTurn);
