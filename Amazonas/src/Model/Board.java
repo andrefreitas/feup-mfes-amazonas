@@ -66,25 +66,27 @@ public class Board implements EvaluatePP {
 
     public final int canMove = 2;
 
-    public final int gameOver = 3;
+    public final int getTurn = 3;
 
-    public final int setArrow = 4;
+    public final int gameOver = 4;
 
-    public final int pathIsFree = 5;
+    public final int setArrow = 5;
 
-    public final int switchTurn = 6;
+    public final int pathIsFree = 6;
 
-    public final int countAmazons = 7;
+    public final int switchTurn = 7;
 
-    public final int getPositions = 8;
+    public final int countAmazons = 8;
 
-    public final int setPositions = 9;
+    public final int getPositions = 9;
 
-    public final int countBlackAmazons = 10;
+    public final int setPositions = 10;
 
-    public final int countWhiteAmazons = 11;
+    public final int countBlackAmazons = 11;
 
-    public final int nr_functions = 12;
+    public final int countWhiteAmazons = 12;
+
+    public final int nr_functions = 13;
 
 
     public BoardSentinel () throws CGException {}
@@ -186,6 +188,19 @@ public class Board implements EvaluatePP {
     }
   }
 // ***** VDMTOOLS END Name=Board
+
+
+// ***** VDMTOOLS START Name=getTurn KEEP=NO
+  public Object getTurn () throws CGException {
+    sentinel.entering(((BoardSentinel)sentinel).getTurn);
+    try {
+      return turn;
+    }
+    finally {
+      sentinel.leaving(((BoardSentinel)sentinel).getTurn);
+    }
+  }
+// ***** VDMTOOLS END Name=getTurn
 
 
 // ***** VDMTOOLS START Name=getPositions KEEP=NO

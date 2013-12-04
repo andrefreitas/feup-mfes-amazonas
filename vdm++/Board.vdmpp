@@ -30,6 +30,9 @@ class Board
 											};
 			);
 			
+		public getTurn : () ==> Turn
+			getTurn() == (return turn;);
+			
 		public getPositions: () ==> map Piece`Position to Piece
 			getPositions() == (return positions); 
 		
@@ -94,7 +97,7 @@ class Board
 			setArrow(amazon_x, amazon_y, x, y) == (
 				dcl amazon:Amazon := positions(mk_Piece`Position(amazon_x,amazon_y));
 				dcl arrow:Arrow := new Arrow(x, y);
-				if (amazon.GetColor() <> turn) then (
+				if (amazon.GetColor() <> turn or setarrow = false) then (
 						return false;
 				);
 				positions := positions ++ {mk_Piece`Position(x, y) |-> arrow};
@@ -112,7 +115,7 @@ class Board
 			move(x, y, new_x, new_y) == (	
 				dcl amazon:Amazon := positions(mk_Piece`Position(x,y));
 				
-				if (amazon.GetColor() <> turn) then (
+				if (amazon.GetColor() <> turn or setarrow = true) then (
 						return false;
 				);
 				

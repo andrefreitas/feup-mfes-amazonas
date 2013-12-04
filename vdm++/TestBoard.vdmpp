@@ -177,7 +177,9 @@ operations
  			dcl b : Board := new Board();
  			AssertTrue(b.switchTurn() = <Black>);
  			AssertTrue(b.switchTurn() = <White>);
+ 			AssertTrue(b.getTurn() = <White>);
  		);
+ 
  		
  		
 functions
