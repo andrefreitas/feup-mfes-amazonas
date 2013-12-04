@@ -84,7 +84,7 @@ public class Amazon extends Piece {
     super(x, y);
     vdm_init_Amazon();
     color = UTIL.clone(c);
-    
+
   }
 // ***** VDMTOOLS END Name=Amazon#3|Number|Number|Object
 

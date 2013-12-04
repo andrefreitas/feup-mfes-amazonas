@@ -6,17 +6,16 @@ values
 instance variables
 -- TODO Define instance variables here
 	b1 : Board := new Board();
-	positions1 : map Piece`Position to Piece := {mk_Piece`Position(1,1) |-> new Arrow(1,1),
-										mk_Piece`Position(2,1) |-> new Arrow(2,1),
-										mk_Piece`Position(0,0) |-> new Amazon(0, 0, <White>),
-										mk_Piece`Position(0,3) |-> new Amazon(0, 3, <Black>),
-										mk_Piece`Position(0,9) |-> new Amazon(0, 9, <Black>),
-										mk_Piece`Position(2,0) |-> new Amazon(2, 0, <Black>),
-										mk_Piece`Position(3,7) |-> new Amazon(3, 7, <Black>),
-										mk_Piece`Position(4,7) |-> new Amazon(4, 7, <White>),
-										mk_Piece`Position(7,7) |-> new Amazon(7, 7, <White>),
-										mk_Piece`Position(9,9) |-> new Amazon(9, 9, <White>)
+	positions1 : map Piece`Position to Piece := {mk_Piece`Position(0,4) |-> new Arrow(0,4),
+										mk_Piece`Position(1,4) |-> new Arrow(1,4),
+										mk_Piece`Position(1,3) |-> new Arrow(1,3),
+										mk_Piece`Position(0,2) |-> new Arrow(0,2),
+										mk_Piece`Position(1,2) |-> new Arrow(1,2),
+										mk_Piece`Position(0,3) |-> new Amazon(0, 3, <White>),
+										mk_Piece`Position(0,7) |-> new Amazon(0, 7, <Black>)
 										};
+										
+										
 operations
 	public AssertTrue : bool ==> ()
 		AssertTrue(a) == return 
@@ -75,11 +74,12 @@ operations
 										mk_Piece`Position(7,7) |-> new Amazon(7, 7, <White>),
 										mk_Piece`Position(9,9) |-> new Amazon(9, 9, <White>)
 										};
- 		AssertTrue(b.move(0,3,5,8));
- 		AssertTrue(b.move(3,0,2,0));
- 		AssertFalse(b.move(0,6,0,7));
- 		b.setPositions(positions);
- 		AssertTrue(b.move(0,0,0,2));	
+		b.setPositions(positions);
+		AssertTrue(b.move(0,0,0,2));
+		AssertTrue(b.setArrow(0,2,1,2));
+		AssertFalse(b.move(4,7,4,8));
+ 		AssertTrue(b.move(0,3,0,4));
+ 		AssertTrue(b.setArrow(0,4,0,5));
  	);
  	
  	public TestBoardSetArrow : () ==> () 
@@ -182,8 +182,6 @@ operations
 			b.setPositions(positions);
 			AssertTrue(b.getPositions() = positions);
 			AssertFalse(b.gameOver());
-										
-			
  		);
  		
  		
@@ -196,7 +194,8 @@ traces
 	TestMoveIsValid : b1.moveIsValid(0, 1);
 	TestPathIsFree : b1.pathIsFree(0, 3, 2, 6);
 	TestMove : AssertTrue(b1.move(0,3,5,8)); AssertTrue(b1.move(3,0,2,0)); AssertFalse(b1.move(0,6,0,7)); b1.setPositions(positions1); b1.getPositions(); b1.move(0, 0, 0, 2); b1.getPositions();
-	TestSetArrow : b1.setPositions(positions1); b1.getPositions(); b1.move(0, 0, 0, 2); b1.setArrow(0, 3, 0, 4); b1.getPositions();
+	TestSetArrow : b1.setPositions(positions1); b1.getPositions(); b1.move(0, 0, 0, 2); b1.setArrow(0, 2, 1, 2); b1.move(4,7,4,8); b1.move(0,3,0,4); b1.setArrow(0,4,0,5); b1.getPositions();
 	TestGameOver : b1.gameOver(); b1.setPositions(positions1); b1.getPositions(); b1.gameOver();
+	TestBoardWinner : b1.winner(); b1.setPositions(positions1); b1.winner();
 
 end TestBoard
