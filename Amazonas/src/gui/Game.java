@@ -17,45 +17,12 @@ public class Game {
     public static Startup gameStartupWindow;
     public static boolean debug = true;
     public static Board board;
-    public static Piece selectedPiece;
-    public static Piece lastMovedPiece;
-    public static boolean arrowShot = true;
+    public static Piece selectedPiece = null;
+    public static Piece movedPiece = null;
 
-    public static void main(String[] args) {
-        gameStartupWindow = new Startup(null);
-        try {
-        board = new Board();
-        } catch (CGException ex) {
-            Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
-    }
-    }
-
-    public static void drawPieces(Graphics g) {
-        try {
-            //Aqui é aonde vao ser desenhadas as peças
-        Map m = board.getPositions();
-        Piece p;
-        for (int x = 0; x <= 9; x++) {
-            for (int y = 0; y <= 9; y++) {
-                p = (Piece) m.get(new Piece.Position(x, y));
-                if (p != null && x >= 0 && x <= 9 && y >= 0 && y <= 9) {
-                    int panelX = (40 * x) + 20;
-                    int panelY = (40 * (9 - y));
-                    drawPiece(p, g, panelX, panelY);
-                    if (p.equals(selectedPiece)) {
-                        BoardPanel.drawAura(g, panelX, panelY);
-                    }
-                }
-
-            }
-
-        }
-        } catch (CGException ex) {
-            Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-    }
-
+    //----------------------------------------------
+    //----------------PRIVATE STUFF-----------------
+    //----------------------------------------------    
     private static void drawPiece(Piece p, Graphics g, int panelX, int panelY) throws CGException {
         //diferenciar tipo de peça
         if (p instanceof Amazon) {
@@ -73,68 +40,124 @@ public class Game {
             BoardPanel.drawArrowPiece(g, panelX, panelY);
         }
     }
-    
-    public static void startGame() {
-        try {
+
+    private static void startGame() throws CGException {
+        gameStartupWindow = new Startup(null);
         board = new Board();
-        } catch (CGException ex) {
-            Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
-    }
     }
 
-    public static void checkGameOver() throws CGException {
-           if(board.gameOver()){               
-               String winner = board.getTurn().toString();
-               //fazer cenas acontecer
-           }
-    }
-
-    public static void mouseClickedAt(int board_x, int board_y) {
-        try {
-        Map m = board.getPositions();
-        Piece p = (Piece) m.get(new Piece.Position(board_x, board_y));
-        selectionStateMachine(p, board_x, board_y);
-        gameBoardWindow.repaint();
-        } catch (CGException ex) {
-            Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
-    }
+    private static void gameOver() throws CGException {
+        String winner = board.getTurn().toString();
+        System.out.println("O jogador " + winner + " ganhou o jogo!");
     }
 
     private static void selectionStateMachine(Piece p, int board_x, int board_y) throws CGException {
         if (selectedPiece != null) {
-            if (p == null) { //Se tivermos uma peca selecionada e clicarmos um espaco livre
-                Boolean ret; //true se moveu, false se nao lanço seta
-                if (arrowShot) {
-                    try {
-                    ret = board.move(selectedPiece.GetX(), selectedPiece.GetY(), board_x, board_y);
-                    System.out.println("Moved... next turn: " + ret);
-                    arrowShot = false;
-                        
-                    } catch (VDMRunTimeException ex) {
-                        System.out.println(ex.getMessage());
-                    }
-                } else {
-                    try {
-                    boolean shot = board.setArrow(selectedPiece.GetX(), selectedPiece.GetY(), board_x, board_y);
-                    if (shot) {
-                        System.out.println("Shot Arrow...");
-                        arrowShot = true;
-                    }
-                    } catch (VDMRunTimeException ex) {
-                        System.out.println(ex.getMessage());
+            if (p != null) {
+                if (!p.equals(selectedPiece)) {
+                    selectPiece(p);
                 }
+            } else if (movedPiece == null) {
+                try {
+                    if (board.move(selectedPiece.GetX(), selectedPiece.GetY(), board_x, board_y)) {
+                        movedPiece = selectedPiece;
+                    }
+                } catch (VDMRunTimeException ex) {
+                    if (debug) {
+                        System.out.println("Movimento Invalido! - " + ex.getMessage());
+                    }
+                    movedPiece = null;
+                } finally {
+                    gameBoardWindow.repaint();
                 }
-            } else {                
-                selectPiece(p);
+            } else if (movedPiece != null) {
+                try {
+                    if (board.setArrow(movedPiece.GetX(), movedPiece.GetY(), board_x, board_y)) {
+                        movedPiece = null;
+                        changeTurn();
+                    }
+                } catch (VDMRunTimeException ex) {
+                    if (debug) {
+                        System.out.println("Disparo Invalido! - " + ex.getMessage());
+                    }
+                } finally {
+                    gameBoardWindow.repaint();
+                }
             }
-        } else if (p != null) {
+        } else {
             selectPiece(p);
+            gameBoardWindow.repaint();
         }
+
     }
 
-    private static void selectPiece(Piece p) {        
-        if (p instanceof Amazon) {
+    private static void selectPiece(Piece p) throws CGException {
+        if ((p instanceof Amazon) && checkPieceColorToTurn(p)) {
             selectedPiece = p;
         }
     }
+
+    private static boolean checkPieceColorToTurn(Piece p) throws CGException {
+        return ((Amazon) p).GetColor().toString().equals(board.getTurn().toString());
+    }
+
+    private static void changeTurn() throws CGException {
+        if (board.gameOver()) {
+            gameOver();
+        } else {
+            movedPiece = null;
+            selectedPiece = null;
+        }
+
+    }
+
+    //----------------------------------------------
+    //---------------PUBLIC STUFF-------------------
+    //----------------------------------------------
+    public static void main(String[] args) {
+
+        try {
+            startGame();
+        } catch (CGException ex) {
+            Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public static void drawPieces(Graphics g) {
+        try {
+            //Aqui é aonde vao ser desenhadas as peças
+            Map m = board.getPositions();
+            Piece p;
+            for (int x = 0; x <= 9; x++) {
+                for (int y = 0; y <= 9; y++) {
+                    p = (Piece) m.get(new Piece.Position(x, y));
+                    if (p != null && x >= 0 && x <= 9 && y >= 0 && y <= 9) {
+                        int panelX = (40 * x) + 20;
+                        int panelY = (40 * (9 - y));
+                        drawPiece(p, g, panelX, panelY);
+                        if (p.equals(selectedPiece)) {
+                            BoardPanel.drawAura(g, panelX, panelY);
+                        }
+                    }
+
+                }
+
+            }
+        } catch (CGException ex) {
+            Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    public static void mouseClickedAt(int board_x, int board_y) {
+        try {
+            Map m = board.getPositions();
+            Piece p = (Piece) m.get(new Piece.Position(board_x, board_y));
+            selectionStateMachine(p, board_x, board_y);
+            gameBoardWindow.repaint();
+        } catch (CGException ex) {
+            Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
 }
