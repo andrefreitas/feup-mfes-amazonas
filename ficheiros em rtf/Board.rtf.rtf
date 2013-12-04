@@ -176,13 +176,13 @@
 \par    {\i \'73\'65\'74\'41\'72\'72\'6f\'77}({\i \'61\'6d\'61\'7a\'6f\'6e\'5f\'78}, {\i \'61\'6d\'61\'7a\'6f\'6e\'5f\'79}, {\i \'78}, {\i \'79}) == (
 \par     {\b dcl} {\i \'61\'6d\'61\'7a\'6f\'6e}:{\i \'41\'6d\'61\'7a\'6f\'6e} := {\i \'70\'6f\'73\'69\'74\'69\'6f\'6e\'73}({\b mk_}}{\*\cs19\rtlch\af5\ltrch\f5\cf6 {\i \'50\'69\'65\'63\'65}`}{\*\cs18\rtlch\af5\ltrch\f5 {\i \'50\'6f\'73\'69\'74\'69\'6f\'6e}({\i \'61\'6d\'61\'7a\'6f\'6e\'5f\'78},{\i \'61\'6d\'61\'7a\'6f\'6e\'5f\'79}));
 \par     {\b dcl} {\i \'61\'72\'72\'6f\'77}:{\i \'41\'72\'72\'6f\'77} := {\b new} {\i \'41\'72\'72\'6f\'77}({\i \'78}, {\i \'79});
-\par     {\b if} ({\i \'61\'6d\'61\'7a\'6f\'6e}.{\i \'47\'65\'74\'43\'6f\'6c\'6f\'72}() <> {\i \'74\'75\'72\'6e} {\b or} {\i \'73\'65\'74\'61\'72\'72\'6f\'77} = {\b false} {\b or} }{\*\cs19\rtlch\af5\ltrch\f5\cf6 {\i \'61\'6d\'61\'7a\'6f\'6e\'5f\'6d\'6f\'76\'65\'64}.{\i \'47\'65\'74\'58}() <> {\i \'61\'6d\'61\'7a\'6f\'6e\'5f\'78} }{\*\cs18\rtlch\af5\ltrch\f5 {\b or} }{\*\cs19\rtlch\af5\ltrch\f5\cf6 {\i \'61\'6d\'61\'7a\'6f\'6e\'5f\'6d\'6f\'76\'65\'64}.{\i \'47\'65\'74\'59}() <> {\i \'61\'6d\'61\'7a\'6f\'6e\'5f\'79}}{\*\cs18\rtlch\af5\ltrch\f5 ) {\b then} (
+\par     {\b if} ({\i \'61\'6d\'61\'7a\'6f\'6e}.{\i \'47\'65\'74\'43\'6f\'6c\'6f\'72}() <> {\i \'74\'75\'72\'6e} {\b or} {\i \'73\'65\'74\'61\'72\'72\'6f\'77} = {\b false} {\b or} {\i \'61\'6d\'61\'7a\'6f\'6e\'5f\'6d\'6f\'76\'65\'64}.{\i \'47\'65\'74\'58}() <> {\i \'61\'6d\'61\'7a\'6f\'6e\'5f\'78} {\b or} {\i \'61\'6d\'61\'7a\'6f\'6e\'5f\'6d\'6f\'76\'65\'64}.{\i \'47\'65\'74\'59}() <> {\i \'61\'6d\'61\'7a\'6f\'6e\'5f\'79}) {\b then} (
 \par       {\b return} {\b false};
 \par     );
-\par     }{\*\cs19\rtlch\af5\ltrch\f5\cf6 {\i \'70\'6f\'73\'69\'74\'69\'6f\'6e\'73} := {\i \'70\'6f\'73\'69\'74\'69\'6f\'6e\'73} ++ \{{\b mk_}{\i \'50\'69\'65\'63\'65}`{\i \'50\'6f\'73\'69\'74\'69\'6f\'6e}({\i \'78}, {\i \'79}) |-> {\i \'61\'72\'72\'6f\'77}\}}{\*\cs18\rtlch\af5\ltrch\f5 ;
-\par     }{\*\cs19\rtlch\af5\ltrch\f5\cf6 {\i \'73\'65\'74\'61\'72\'72\'6f\'77} := {\b false}}{\*\cs18\rtlch\af5\ltrch\f5 ;
-\par     }{\*\cs19\rtlch\af5\ltrch\f5\cf6 {\i \'74\'75\'72\'6e} := {\i \'73\'77\'69\'74\'63\'68\'54\'75\'72\'6e}()}{\*\cs18\rtlch\af5\ltrch\f5 ;
-\par     }{\*\cs19\rtlch\af5\ltrch\f5\cf6 {\b return} {\b true}}{\*\cs18\rtlch\af5\ltrch\f5 ;
+\par     {\i \'70\'6f\'73\'69\'74\'69\'6f\'6e\'73} := {\i \'70\'6f\'73\'69\'74\'69\'6f\'6e\'73} ++ \{{\b mk_}{\i \'50\'69\'65\'63\'65}`{\i \'50\'6f\'73\'69\'74\'69\'6f\'6e}({\i \'78}, {\i \'79}) |-> {\i \'61\'72\'72\'6f\'77}\};
+\par     {\i \'73\'65\'74\'61\'72\'72\'6f\'77} := {\b false};
+\par     {\i \'74\'75\'72\'6e} := {\i \'73\'77\'69\'74\'63\'68\'54\'75\'72\'6e}();
+\par     {\b return} {\b true};
 \par   )
 \par    {\b pre} {\b mk_}}{\*\cs19\rtlch\af5\ltrch\f5\cf6 {\i \'50\'69\'65\'63\'65}`}{\*\cs18\rtlch\af5\ltrch\f5 {\i \'50\'6f\'73\'69\'74\'69\'6f\'6e}({\i \'61\'6d\'61\'7a\'6f\'6e\'5f\'78}, {\i \'61\'6d\'61\'7a\'6f\'6e\'5f\'79}) {\b in set} {\b dom} {\i \'70\'6f\'73\'69\'74\'69\'6f\'6e\'73}
 \par     {\b and} {\b mk_}}{\*\cs19\rtlch\af5\ltrch\f5\cf6 {\i \'50\'69\'65\'63\'65}`}{\*\cs18\rtlch\af5\ltrch\f5 {\i \'50\'6f\'73\'69\'74\'69\'6f\'6e}({\i \'78}, {\i \'79}) {\b \'6e\'6f\'74\'20\'69\'6e\'20\'73\'65\'74} {\b dom} {\i \'70\'6f\'73\'69\'74\'69\'6f\'6e\'73}
@@ -284,9 +284,9 @@
 \nowidctlpar\widctlpar\intbl\adjustright {\i\fs24\lang1030 \row }
 \trowd \trgaph108\trleft-108\trbrdrt\brdrs\brdrw30\brdrcf1 \trbrdrb\brdrs\brdrw30\brdrcf1 \clvertalt\clbrdrl
 \brdrs\brdrw10 \clbrdrr\brdrs\brdrw15\brdrcf1 \cltxlrtb \cellx4536\clvertalt\cltxlrtb \cellx5529\clvertalt\clbrdrr\brdrs\brdrw10 \cltxlrtb \cellx6663\pard
-\nowidctlpar\widctlpar\intbl\adjustright {\fs24 \'42\'6f\'61\'72\'64`\'6d\'6f\'76\'65 \cell  2 \cell 100%\cell}\pard
+\nowidctlpar\widctlpar\intbl\adjustright {\fs24 \'42\'6f\'61\'72\'64`\'6d\'6f\'76\'65 \cell  3 \cell 100%\cell}\pard
 \nowidctlpar\widctlpar\intbl\adjustright {\fs24\lang1030 \row }\pard
-\nowidctlpar\widctlpar\intbl\adjustright {\fs24 \'42\'6f\'61\'72\'64`\'42\'6f\'61\'72\'64 \cell  12 \cell 100%\cell}\pard
+\nowidctlpar\widctlpar\intbl\adjustright {\fs24 \'42\'6f\'61\'72\'64`\'42\'6f\'61\'72\'64 \cell  6 \cell 100%\cell}\pard
 \nowidctlpar\widctlpar\intbl\adjustright {\fs24\lang1030 \row }\pard
 \nowidctlpar\widctlpar\intbl\adjustright {\fs24 \'42\'6f\'61\'72\'64`\'63\'61\'6e\'4d\'6f\'76\'65 \cell  17 \cell 100%\cell}\pard
 \nowidctlpar\widctlpar\intbl\adjustright {\fs24\lang1030 \row }\pard
@@ -294,25 +294,25 @@
 \nowidctlpar\widctlpar\intbl\adjustright {\fs24\lang1030 \row }\pard
 \nowidctlpar\widctlpar\intbl\adjustright {\fs24 \'42\'6f\'61\'72\'64`\'67\'61\'6d\'65\'4f\'76\'65\'72 \cell  9 \cell 100%\cell}\pard
 \nowidctlpar\widctlpar\intbl\adjustright {\fs24\lang1030 \row }\pard
-\nowidctlpar\widctlpar\intbl\adjustright {\fs24 \'42\'6f\'61\'72\'64`\'73\'65\'74\'41\'72\'72\'6f\'77 \cell  2 \cell 69%\cell}\pard
+\nowidctlpar\widctlpar\intbl\adjustright {\fs24 \'42\'6f\'61\'72\'64`\'73\'65\'74\'41\'72\'72\'6f\'77 \cell  2 \cell 100%\cell}\pard
 \nowidctlpar\widctlpar\intbl\adjustright {\fs24\lang1030 \row }\pard
-\nowidctlpar\widctlpar\intbl\adjustright {\fs24 \'42\'6f\'61\'72\'64`\'70\'61\'74\'68\'49\'73\'46\'72\'65\'65 \cell  12 \cell 100%\cell}\pard
+\nowidctlpar\widctlpar\intbl\adjustright {\fs24 \'42\'6f\'61\'72\'64`\'70\'61\'74\'68\'49\'73\'46\'72\'65\'65 \cell  13 \cell 100%\cell}\pard
 \nowidctlpar\widctlpar\intbl\adjustright {\fs24\lang1030 \row }\pard
-\nowidctlpar\widctlpar\intbl\adjustright {\fs24 \'42\'6f\'61\'72\'64`\'73\'77\'69\'74\'63\'68\'54\'75\'72\'6e \cell  2 \cell 100%\cell}\pard
+\nowidctlpar\widctlpar\intbl\adjustright {\fs24 \'42\'6f\'61\'72\'64`\'73\'77\'69\'74\'63\'68\'54\'75\'72\'6e \cell  3 \cell 100%\cell}\pard
 \nowidctlpar\widctlpar\intbl\adjustright {\fs24\lang1030 \row }\pard
-\nowidctlpar\widctlpar\intbl\adjustright {\fs24 \'42\'6f\'61\'72\'64`\'6d\'6f\'76\'65\'49\'73\'56\'61\'6c\'69\'64 \cell  9 \cell 100%\cell}\pard
+\nowidctlpar\widctlpar\intbl\adjustright {\fs24 \'42\'6f\'61\'72\'64`\'6d\'6f\'76\'65\'49\'73\'56\'61\'6c\'69\'64 \cell  10 \cell 100%\cell}\pard
 \nowidctlpar\widctlpar\intbl\adjustright {\fs24\lang1030 \row }\pard
-\nowidctlpar\widctlpar\intbl\adjustright {\fs24 \'42\'6f\'61\'72\'64`\'63\'6f\'75\'6e\'74\'41\'6d\'61\'7a\'6f\'6e\'73 \cell  4 \cell 100%\cell}\pard
+\nowidctlpar\widctlpar\intbl\adjustright {\fs24 \'42\'6f\'61\'72\'64`\'63\'6f\'75\'6e\'74\'41\'6d\'61\'7a\'6f\'6e\'73 \cell  6 \cell 100%\cell}\pard
 \nowidctlpar\widctlpar\intbl\adjustright {\fs24\lang1030 \row }\pard
 \nowidctlpar\widctlpar\intbl\adjustright {\fs24 \'42\'6f\'61\'72\'64`\'67\'65\'74\'50\'6f\'73\'69\'74\'69\'6f\'6e\'73 \cell  8 \cell 100%\cell}\pard
 \nowidctlpar\widctlpar\intbl\adjustright {\fs24\lang1030 \row }\pard
-\nowidctlpar\widctlpar\intbl\adjustright {\fs24 \'42\'6f\'61\'72\'64`\'73\'65\'74\'50\'6f\'73\'69\'74\'69\'6f\'6e\'73 \cell  10 \cell 100%\cell}\pard
+\nowidctlpar\widctlpar\intbl\adjustright {\fs24 \'42\'6f\'61\'72\'64`\'73\'65\'74\'50\'6f\'73\'69\'74\'69\'6f\'6e\'73 \cell  11 \cell 100%\cell}\pard
 \nowidctlpar\widctlpar\intbl\adjustright {\fs24\lang1030 \row }\pard
-\nowidctlpar\widctlpar\intbl\adjustright {\fs24 \'42\'6f\'61\'72\'64`\'63\'6f\'75\'6e\'74\'42\'6c\'61\'63\'6b\'41\'6d\'61\'7a\'6f\'6e\'73 \cell  4 \cell 100%\cell}\pard
+\nowidctlpar\widctlpar\intbl\adjustright {\fs24 \'42\'6f\'61\'72\'64`\'63\'6f\'75\'6e\'74\'42\'6c\'61\'63\'6b\'41\'6d\'61\'7a\'6f\'6e\'73 \cell  6 \cell 100%\cell}\pard
 \nowidctlpar\widctlpar\intbl\adjustright {\fs24\lang1030 \row }\pard
-\nowidctlpar\widctlpar\intbl\adjustright {\fs24 \'42\'6f\'61\'72\'64`\'63\'6f\'75\'6e\'74\'57\'68\'69\'74\'65\'41\'6d\'61\'7a\'6f\'6e\'73 \cell  4 \cell 100%\cell}\pard
+\nowidctlpar\widctlpar\intbl\adjustright {\fs24 \'42\'6f\'61\'72\'64`\'63\'6f\'75\'6e\'74\'57\'68\'69\'74\'65\'41\'6d\'61\'7a\'6f\'6e\'73 \cell  6 \cell 100%\cell}\pard
 \nowidctlpar\widctlpar\intbl\adjustright {\fs24\lang1030 \row }\pard
-\nowidctlpar\widctlpar\intbl\adjustright \fs20\cgrid {\b\i\fs24\lang1030 total\cell \cell 96% \cell }\pard 
+\nowidctlpar\widctlpar\intbl\adjustright \fs20\cgrid {\b\i\fs24\lang1030 total\cell \cell 100% \cell }\pard 
 \nowidctlpar\widctlpar\intbl\adjustright {\i\fs24\lang1030 \row } \pard
 \nowidctlpar\widctlpar\adjustright{
 \par }
