@@ -34,6 +34,8 @@ public class BoardFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jDialog1 = new javax.swing.JDialog();
+        jDialog2 = new javax.swing.JDialog();
         boardPanel = new BoardPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -56,6 +58,8 @@ public class BoardFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel boardPanel;
+    private javax.swing.JDialog jDialog1;
+    private javax.swing.JDialog jDialog2;
     // End of variables declaration//GEN-END:variables
 
 }

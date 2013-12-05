@@ -15,6 +15,7 @@ public class Game {
 
     public static BoardFrame gameBoardWindow;
     public static Startup gameStartupWindow;
+   public static GameOverFrame gameOverWindow;
     public static boolean debug = true;
     public static Board board;
     public static Piece selectedPiece = null;
@@ -47,8 +48,18 @@ public class Game {
     }
 
     private static void gameOver() throws CGException {
-        String winner = board.getTurn().toString();
-        System.out.println("O jogador " + winner + " ganhou o jogo!");
+        String winner = board.winner().toString();
+        switch (winner) {
+            case "<Black>":
+                gameOverWindow = new GameOverFrame("Vencedor: Peças Pretas",gameBoardWindow);
+                break;
+            case "<White>":
+                gameOverWindow = new GameOverFrame("Vencedor: Peças Brancas",gameBoardWindow);
+                break;
+            default:
+                gameOverWindow = new GameOverFrame("Empate",gameBoardWindow);
+                break;
+        }
     }
 
     private static void selectionStateMachine(Piece p, int board_x, int board_y) throws CGException {
@@ -163,6 +174,16 @@ public class Game {
             Piece p = (Piece) m.get(new Piece.Position(board_x, board_y));
             selectionStateMachine(p, board_x, board_y);
             gameBoardWindow.repaint();
+        } catch (CGException ex) {
+            Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public static void restartGame(){
+        gameBoardWindow.setVisible(false);
+        gameOverWindow.setVisible(false);
+        try {
+            startGame();
         } catch (CGException ex) {
             Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
         }
