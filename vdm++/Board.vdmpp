@@ -200,7 +200,7 @@ class Board
 				
 				white_amazons := {a | a in set amazons & a.GetColor() = <White>};
 				return card white_amazons;
-			);
+			);		
 					
 		-- patIsFree : check if the path is free
 		public pathIsFree : nat * nat * nat * nat ==> bool
@@ -239,7 +239,7 @@ class Board
 					return false;
 				);
 				return card pathPieces = 0;
-			) 
+			);
 			
 	functions
 		public moveIsValid : nat * nat -> bool
