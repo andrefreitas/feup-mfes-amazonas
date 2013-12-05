@@ -4,7 +4,6 @@ class Board
 		public Winner = <White> | <Black> | <Draw> | <None>
 	instance variables
 		private positions : map Piece`Position to Piece;
-		private arrows : seq of Arrow := []; 
 		private turn : Turn := <White>;
 		private setarrow : bool := false;
 		private amazon_moved : Amazon := new Amazon(0,0, <White>); -- fake amazon
@@ -200,7 +199,7 @@ class Board
 				
 				white_amazons := {a | a in set amazons & a.GetColor() = <White>};
 				return card white_amazons;
-			);		
+			);	
 					
 		-- patIsFree : check if the path is free
 		public pathIsFree : nat * nat * nat * nat ==> bool

@@ -6,16 +6,9 @@ values
 instance variables
 -- TODO Define instance variables here
 	b1 : Board := new Board();
-	positions1 : map Piece`Position to Piece := {mk_Piece`Position(0,0) |-> new Arrow(0,0),
-										mk_Piece`Position(1,0) |-> new Arrow(1,0),
-										mk_Piece`Position(2,0) |-> new Arrow(2,0),
-										mk_Piece`Position(2,1) |-> new Arrow(2,1),
+	positions1 : map Piece`Position to Piece := {
 										mk_Piece`Position(2,2) |-> new Arrow(2,2),
-										mk_Piece`Position(1,2) |-> new Arrow(1,2),
-										mk_Piece`Position(0,2) |-> new Arrow(0,2),
-										mk_Piece`Position(0,1) |-> new Arrow(0,1),
-										mk_Piece`Position(1,1) |-> new Amazon(1, 1, <White>),
-										mk_Piece`Position(0,7) |-> new Amazon(0, 7, <Black>)
+										mk_Piece`Position(4,4) |-> new Amazon(4, 4, <White>)
 										};
 										
 operations
